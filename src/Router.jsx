@@ -1,17 +1,19 @@
-import {Routes, Route} from 'react-router';
+import React from "react";
+import { Routes, Route } from "react-router";
 import Login from "./pages/Login.jsx";
 import Feed from "./pages/Feed.jsx";
 import ActivityDetail from "./pages/ActivityDetail.jsx";
 import CreateActivity from "./pages/CreateActivity.jsx";
 import Profile from "./pages/Profile.jsx";
-//here we difine routes only
+import NotFound from "./pages/NotFound.jsx";
+import RedirectToLogin from "./pages/RedirectToLogin.jsx";
 
-
-export default function App() {
+const Router = () => {
   return (
-    <Routes> 
+    <Routes>
       {/* Auth */}
-      <Route path="/login" element={<Login />} /> 
+      <Route index path="/" element={<RedirectToLogin />} />
+      <Route path="/login" element={<Login />} />
 
       {/* Main App */}
       <Route path="/feed" element={<Feed />} />
@@ -19,6 +21,9 @@ export default function App() {
       <Route path="/create-activity" element={<CreateActivity />} />
       <Route path="/profile/:username" element={<Profile />} />
 
+      <Route path="*" element={<NotFound />} />
     </Routes>
   );
-}
+};
+
+export default Router;
