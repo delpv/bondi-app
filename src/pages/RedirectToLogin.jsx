@@ -6,7 +6,7 @@ function RedirectToLogin() {
 
   useEffect(() => {
     navigate("/login", { replace: true });
-  }, []);
+  }, [navigate]);
   return null;
 }
 export default RedirectToLogin;
