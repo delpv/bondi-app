@@ -6,6 +6,7 @@ const border = "#E9ECEF";
 
 export const Container = styled.nav`
   width: 100%;
+  height: 100%;
   max-width: none;
   background: white;
   border-radius: 12px;
@@ -50,20 +51,27 @@ export const Content = styled.div`
   display: flex;
   gap: 8px;
   flex-direction: column;
+  flex-grow: 1;
 `;
 
 export const Title = styled.h3`
   margin: 0;
   font-size: 2rem;
   color: ${ink};
-  letter-spacing: -0.02em;
-  line-height: 1.02;
+
+  text-wrap: nowrap;
+  text-overflow: ellipsis;
+  width: calc(100%);
+  overflow: hidden;
+  display: block;
 `;
+
 export const Description = styled.p`
   margin: 0;
   font-size: 1rem;
   color: ${subtle};
   line-height: 1.5;
+  flex-grow: 1;
 `;
 
 /* host row with avatar on left and participants on right */
@@ -108,11 +116,16 @@ export const LocationRow = styled.div`
   justify-content: space-between;
   gap: 12px;
   margin-top: 12px;
+  width: 100%;
+  max-width: 100%;
 `;
 
 export const LocationInfo = styled.div`
+  display: flex;
+  align-items: center;
   font-size: 0.95rem;
   color: ${subtle};
+  max-width: calc(100% - 24%);
 `;
 
 export const JoinButton = styled.button`
@@ -140,4 +153,12 @@ export const JoinButton = styled.button`
         : "0 12px 26px rgba(47, 133, 90, 0.22)"};
     background: ${(p) => (p.joined ? "#125031" : "#2a8e60")};
   }
+`;
+
+export const ElypsisText = styled.span`
+  text-wrap: nowrap;
+  text-overflow: ellipsis;
+  width: calc(100%);
+  overflow: hidden;
+  display: block;
 `;

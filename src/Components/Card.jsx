@@ -19,17 +19,18 @@ import {
 } from "./styled/Card.styled.jsx";
 import ParticipantsIcon from "../Assets/Icons/participants.svg?react";
 import LocationIcon from "../Assets/Icons/map-pin-green.svg?react";
+import { ElypsisText } from "./styled/Card.styled";
 
 export default function Card({
   image,
-  date = "Jul 12, 2026",
-  priceLabel = "Free",
-  title = "Morning Yoga",
-  description = "Start your day with a mindful movement and breathing exercises.",
-  host = { name: "Lena Carter", role: "Host", avatar: "/assets/avatar.jpg" },
-  participants = { count: 8, max: 16 },
-  location = "Amager Strandpark, Amager",
-  onJoin = () => {},
+  date,
+  priceLabel,
+  title,
+  description,
+  host,
+  participants,
+  location,
+  onJoin,
 }) {
   // new: manage joined state locally
   const [joined, setJoined] = useState(false);
@@ -95,7 +96,7 @@ export default function Card({
             ) : (
               <LocationIcon width={18} height={18} aria-hidden />
             )}
-            <span style={{ marginLeft: 6 }}>{location}</span>
+            <ElypsisText style={{ marginLeft: 6 }}>{location}</ElypsisText>
           </LocationInfo>
           <JoinButton
             joined={joined ? 1 : 0}
