@@ -6,5 +6,5 @@ export const MainContainer = styled.nav`
   display: flex;
   justify-content: center;
   padding: 15px 20px;
-  background linear gradient(180deg, #27d436ff 0%, #85391dff 100%);
+  background linear gradient(180deg, #e2e2e2ff 0%, #f1f1f1ff 100%);
 `;

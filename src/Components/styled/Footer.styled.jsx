@@ -8,6 +8,7 @@ export const FooterWrapper = styled.footer`
   width: 100%;
   background: #fff;
   border-top: 1px solid ${border};
+  margin-top: auto;
 `;
 export const FooterInner = styled.div`
   max-width: auto;

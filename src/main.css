@@ -5,7 +5,8 @@
 
   color-scheme: light dark;
   color: rgba(0, 0, 0, 0.87);
-  background-color: #FDFCF6;
+  background: linear-gradient(135deg, #E2B0A2 0%, #D5E0A2 100%);
+
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -14,8 +15,12 @@
 }
 
 #root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
   margin: 0 auto;
   padding: 0;
+  gap: 30px;
 }
 
 body {

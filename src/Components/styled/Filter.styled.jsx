@@ -6,12 +6,13 @@ const subtle = "#6B7280";
 const border = "rgba(0,0,0,0.06)";
 
 export const FilterWrapper = styled.aside`
+  position: relative;
   background: linear-gradient(
     180deg,
-    rgba(255, 255, 255, 0.04),
-    rgba(0, 0, 0, 0.02)
+    rgba(255, 255, 255, 0.09),
+    rgba(255, 255, 255, 0.31)
   );
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.29);
   padding: 20px;
   border-radius: 12px;
   width: 100%;
@@ -23,7 +24,7 @@ export const FilterHeader = styled.div`
   display: flex;
   align-items: center;
   gap: 10px;
-  justify-content: flex-start;
+  justify-content: center;
   margin-bottom: 14px;
 `;
 
@@ -106,19 +107,36 @@ export const ApplyButton = styled.button`
   background: ${coral};
   color: white;
   border: none;
-  padding: 10px 12px;
-  border-radius: 10px;
-  font-weight: 600;
+  padding: 8px 10px;
+  border-radius: 8px;
+  font-weight: 400;
   cursor: pointer;
   box-shadow: 0 8px 18px rgba(234, 108, 91, 0.18);
+
+  &:hover {
+    background: #d96f6a; /* slightly darker coral */
+    transform: translateY(-2px);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
 `;
 
 export const ResetButton = styled.button`
   background: white;
   color: #111;
   border: 1px solid ${border};
-  padding: 10px 12px;
-  border-radius: 10px;
-  font-weight: 600;
+  padding: 8px 10px;
+  border-radius: 8px;
+  font-weight: 400;
   cursor: pointer;
+  transition:
+    background 150ms ease,
+    border-color 150ms ease;
+
+  &:hover {
+    background: #fafafa;
+    border-color: rgba(0, 0, 0, 0.08);
+  }
 `;

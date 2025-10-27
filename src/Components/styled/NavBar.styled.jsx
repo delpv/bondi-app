@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 //created some color variables for easier reuse
-const coral = "#EA6C5B";
+const coral = "#E78F8E";
 const ink = "#111318";
 const border = "#E9ECEF";
 
