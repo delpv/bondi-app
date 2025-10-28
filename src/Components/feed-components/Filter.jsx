@@ -1,8 +1,8 @@
 import react from "react";
 import { useState } from "react";
-import SearchIcon from "../Assets/Icons/search.svg?react";
-import LocationIcon from "../Assets/Icons/map-pin.svg?react";
-import FilterIcon from "../Assets/Icons/filter-icon.svg?react";
+import SearchIcon from "../../assets/Icons/search.svg?react";
+import LocationIcon from "../../assets/Icons/map-pin.svg?react";
+import FilterIcon from "../../assets/Icons/filter-icon.svg?react";
 import {
   FilterWrapper,
   FilterHeader,
@@ -16,7 +16,7 @@ import {
   Buttons,
   ApplyButton,
   ResetButton,
-} from "./styled/Filter.styled.jsx";
+} from "../styled/feed-style-comp/Filter.styled.jsx";
 
 export default function Filter({ onApply = () => {}, onReset = () => {} }) {
   const [query, setQuery] = react.useState("");
