@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router";
-import BondiLogo from "../assets/Icons/second-logo.svg?react";
+import BondiLogo from "../../assets/Icons/second-logo.svg?react";
 import {
   FooterInner,
   FooterWrapper,
@@ -10,7 +10,7 @@ import {
   RightBlock,
   FooterLink,
   LogoContainer,
-} from "./styled/Footer.styled.jsx";
+} from "../styled/feed-style-comp/Footer.styled.jsx";
 
 function Footer() {
   return (

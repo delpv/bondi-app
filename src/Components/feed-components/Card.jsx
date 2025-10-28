@@ -16,10 +16,10 @@ import {
   LocationRow,
   LocationInfo,
   JoinButton,
-} from "./styled/Card.styled.jsx";
-import ParticipantsIcon from "../Assets/Icons/participants.svg?react";
-import LocationIcon from "../Assets/Icons/map-pin-green.svg?react";
-import { ElypsisText } from "./styled/Card.styled";
+} from "../styled/feed-style-comp/Card.styled.jsx";
+import ParticipantsIcon from "../../assets/Icons/participants.svg?react";
+import LocationIcon from "../../assets/Icons/map-pin-green.svg?react";
+import { ElypsisText } from "../styled/feed-style-comp/Card.styled.jsx";
 
 export default function Card({
   image,
