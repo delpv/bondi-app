@@ -17,8 +17,8 @@ import {
   LocationInfo,
   JoinButton,
 } from "./styled/Card.styled.jsx";
-import ParticipantsIcon from "../Assets/Icons/participants.svg?react";
-import LocationIcon from "../Assets/Icons/map-pin-green.svg?react";
+import ParticipantsIcon from "../assets/icons/participants.svg?react";
+import LocationIcon from "../assets/icons/map-pin-green.svg?react";
 import { ElypsisText } from "./styled/Card.styled";
 
 export default function Card({
