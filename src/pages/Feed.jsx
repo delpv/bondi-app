@@ -13,7 +13,7 @@ import PotteryImage from "../assets/Images/pottery.jpg";
 import HostPottery from "../assets/Images/mateo.jpg";
 import TriviaImage from "../assets/Images/trivia.jpg";
 import HostTrivia from "../assets/Images/clara.jpg";
-import BoardGameImage from "../assets/Images/boardgame.jpg";
+import BoardGameImage from "../assets/Images/volleyball.jpg";
 import HostBoardGame from "../assets/Images/elias.jpg";
 import { MainContainer } from "../Components/styled/Middle.styled.jsx";
 import { LayoutGrid } from "../Components/styled/Grid.styled.jsx";

@@ -1,14 +1,30 @@
 import Footer from "../Components/Footer";
 import NavBar from "../Components/NavBar";
-import Banner from "../Components/ProfilePageComponents/Banner";
+import Cover from "../Components/profile_components/Cover";
+import About from "../Components/profile_components/About";
+import Interest from "../Components/profile_components/Interest";
+import RecentActivities from "../Components/profile_components/RecentActivities";
+import ActivityStatus from "../Components/profile_components/ActivityStatus";
+import {
+  ProfilePageContainer,
+  ProfileMainContent,
+  ProfileSectionsContainer
+} from "../Components/styled/profile-style-comp/Profile.styled";
 
 export default function Profile() {
-
-
-
-return <div>
-    <NavBar />
-    <Banner />
-    <Footer />
-</div>;
+  return (
+    <ProfilePageContainer>
+      <NavBar />
+      <ProfileMainContent>
+        <Cover />
+        <ProfileSectionsContainer>
+          <About />
+          <Interest />
+          <RecentActivities />
+          <ActivityStatus />
+        </ProfileSectionsContainer>
+      </ProfileMainContent>
+      <Footer />
+    </ProfilePageContainer>
+  );
 }
