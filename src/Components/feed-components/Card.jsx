@@ -1,6 +1,5 @@
 import React from "react";
 import { useState } from "react";
-import { useNavigate } from "react-router";
 import {
   Container,
   Hero,
@@ -17,13 +16,12 @@ import {
   LocationRow,
   LocationInfo,
   JoinButton,
-} from "./styled/Card.styled.jsx";
-import ParticipantsIcon from "../Assets/Icons/participants.svg?react";
-import LocationIcon from "../Assets/Icons/map-pin-green.svg?react";
-import { ElypsisText } from "./styled/Card.styled";
+} from "../styled/feed-style-comp/Card.styled.jsx";
+import ParticipantsIcon from "../../assets/Icons/participants.svg?react";
+import LocationIcon from "../../assets/Icons/map-pin-green.svg?react";
+import { ElypsisText } from "../styled/feed-style-comp/Card.styled.jsx";
 
 export default function Card({
-  id,
   image,
   date,
   priceLabel,
@@ -32,26 +30,12 @@ export default function Card({
   host,
   participants,
   location,
-  onJoin = () => {},
+  onJoin,
 }) {
   // new: manage joined state locally
   const [joined, setJoined] = useState(false);
-  const navigate = useNavigate();
 
-  const goToDetail = () => {
-    if (!id) return;
-    navigate(`/activity/${id}`);
-  };
-
-  const onKeyGoToDetail = (e) => {
-    if (e.key === "Enter" || e.key === " ") {
-      e.preventDefault();
-      goToDetail();
-    }
-  };
-
-  const handleToggleJoin = (e) => {
-    e.stopPropagation();
+  const handleToggleJoin = () => {
     const next = !joined;
     setJoined(next);
     // call external handler when joined; you can modify to call onJoin/onCancel separately
@@ -59,14 +43,7 @@ export default function Card({
   };
 
   return (
-    <Container
-      onClick={goToDetail}
-      onKeyDown={onKeyGoToDetail}
-      role="button"
-      tabIndex={0}
-      style={{ cursor: "pointer" }}
-      aria-label={`Open details for ${title}`}
-    >
+    <Container>
       <Hero>
         {image && <HeroImage src={image} alt={title} />}
         <CornerChips>{date}</CornerChips>
@@ -121,7 +98,6 @@ export default function Card({
             )}
             <ElypsisText style={{ marginLeft: 6 }}>{location}</ElypsisText>
           </LocationInfo>
-
           <JoinButton
             joined={joined ? 1 : 0}
             onClick={handleToggleJoin}
