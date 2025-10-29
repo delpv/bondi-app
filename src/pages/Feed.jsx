@@ -1,25 +1,25 @@
 import React from "react";
-import NavBar from "../Components/feed-components/NavBar.jsx";
-import Footer from "../Components/feed-components/Footer.jsx";
-import Filter from "../Components/feed-components/Filter.jsx";
-import Card from "../Components/feed-components/Card.jsx";
-import YogaImage from "../assets/Images/yoga.jpg";
-import HostYoga from "../assets/Images/olly-yoga.jpg";
-import HostVolleyBall from "../assets/Images/avatar.png";
-import VolleyBallImage from "../assets/Images/volleyball.jpg";
-import CoffeeImage from "../assets/Images/coffee.jpg";
-import HostCoffee from "../assets/Images/sofia.jpg";
-import PotteryImage from "../assets/Images/pottery.jpg";
-import HostPottery from "../assets/Images/mateo.jpg";
-import TriviaImage from "../assets/Images/trivia.jpg";
-import HostTrivia from "../assets/Images/clara.jpg";
-import BoardGameImage from "../assets/Images/boardgame.jpg";
-import HostBoardGame from "../assets/Images/elias.jpg";
-import { MainContainer } from "../Components/styled//feed-style-comp/Middle.styled.jsx";
-import { LayoutGrid } from "../Components/styled/feed-style-comp/Grid.styled.jsx";
-import { GridContainer } from "../Components/styled/feed-style-comp/Grid.styled.jsx";
-import { SectionHeader } from "../Components/styled/feed-style-comp/Feed.styled.jsx";
-import { LoadMoreButton } from "../Components/styled/feed-style-comp/Feed.styled.jsx";
+import NavBar from "../components/NavBar.jsx";
+import Footer from "../components/Footer.jsx";
+import Filter from "../components/Filter.jsx";
+import Card from "../components/Card.jsx";
+import YogaImage from "../assets/images/yoga.jpg";
+import HostYoga from "../assets/images/olly-yoga.jpg";
+import HostVolleyBall from "../assets/images/avatar.png";
+import VolleyBallImage from "../assets/images/volleyball.jpg";
+import CoffeeImage from "../assets/images/coffee.jpg";
+import HostCoffee from "../assets/images/sofia.jpg";
+import PotteryImage from "../assets/images/pottery.jpg";
+import HostPottery from "../assets/images/mateo.jpg";
+import TriviaImage from "../assets/images/trivia.jpg";
+import HostTrivia from "../assets/images/clara.jpg";
+import BoardGameImage from "../assets/images/boardgame.jpg";
+import HostBoardGame from "../assets/images/elias.jpg";
+import { MainContainer } from "../components/styled/Middle.styled.jsx";
+import { LayoutGrid } from "../components/styled/Grid.styled.jsx";
+import { GridContainer } from "../components/styled/Grid.styled.jsx";
+import { SectionHeader } from "../components/styled/Feed.styled.jsx";
+import { LoadMoreButton } from "../components/styled/Feed.styled.jsx";
 
 export default function Feed() {
   const handleApply = (filters) => {
