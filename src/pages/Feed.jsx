@@ -1,8 +1,8 @@
 import React from "react";
-import NavBar from "../components/NavBar.jsx";
-import Footer from "../components/Footer.jsx";
-import Filter from "../components/Filter.jsx";
-import Card from "../components/Card.jsx";
+import NavBar from "../Components/NavBar.jsx";
+import Footer from "../Components/Footer.jsx";
+import Filter from "../Components/Filter.jsx";
+import Card from "../Components/Card.jsx";
 import YogaImage from "../assets/images/yoga.jpg";
 import HostYoga from "../assets/images/olly-yoga.jpg";
 import HostVolleyBall from "../assets/images/avatar.png";
@@ -15,11 +15,11 @@ import TriviaImage from "../assets/images/trivia.jpg";
 import HostTrivia from "../assets/images/clara.jpg";
 import BoardGameImage from "../assets/images/boardgame.jpg";
 import HostBoardGame from "../assets/images/elias.jpg";
-import { MainContainer } from "../components/styled/Middle.styled.jsx";
-import { LayoutGrid } from "../components/styled/Grid.styled.jsx";
-import { GridContainer } from "../components/styled/Grid.styled.jsx";
-import { SectionHeader } from "../components/styled/Feed.styled.jsx";
-import { LoadMoreButton } from "../components/styled/Feed.styled.jsx";
+import { MainContainer } from "../Components/styled/Middle.styled.jsx";
+import { LayoutGrid } from "../Components/styled/Grid.styled.jsx";
+import { GridContainer } from "../Components/styled/Grid.styled.jsx";
+import { SectionHeader } from "../Components/styled/Feed.styled.jsx";
+import { LoadMoreButton } from "../Components/styled/Feed.styled.jsx";
 
 export default function Feed() {
   const handleApply = (filters) => {
