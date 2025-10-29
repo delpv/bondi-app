@@ -1,10 +1,19 @@
 import styled from "styled-components";
 
 export const MainContainer = styled.nav`
-  familiy-font: "Poppins";
+  font-family: "Poppins";
   min-height: 80vh;
   display: flex;
   justify-content: center;
-  padding: 15px 20px;
-  background linear gradient(180deg, #e2e2e2ff 0%, #f1f1f1ff 100%);
+  align-items: flex-start;
+  padding: 40px 20px;
+  // background: white;
+`;
+
+export const ContentWrapper = styled.div`
+  width: 100%;
+  max-width: 900px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
 `;
