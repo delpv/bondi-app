@@ -1,8 +1,8 @@
 
 
 import React from 'react'
-import Avatar from "../../assets/Images/Avatar.png";
-import CoverBackground from "../../assets/Images/profile-images/cover_background.jpg";
+import Avatar from "../../assets/images/Avatar.png";
+import CoverBackground from "../../assets/images/profile-images/cover_background.jpg";
 import {
   CoverContainer,
   ProfileCover,

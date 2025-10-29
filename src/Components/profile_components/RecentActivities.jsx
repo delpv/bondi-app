@@ -12,9 +12,9 @@ import {
   ActivityImage,
   ActivityOverlay
 } from "../styled/profile-style-comp/RecentActivities.styled";
-import activityImage1 from "../../assets/Images/profile-images/activity-image-5.png";
-import activityImage2 from "../../assets/Images/profile-images/activity-image-4.png";
-import activityImage3 from "../../assets/Images/profile-images/activity-image-3.png";
+import activityImage1 from "../../assets/images/profile-images/activity-image-5.png";
+import activityImage2 from "../../assets/images/profile-images/activity-image-4.png";
+import activityImage3 from "../../assets/images/profile-images/activity-image-3.png";
 
 const RecentActivities = () => {
   // Sample activities data
