@@ -3,69 +3,22 @@ import NavBar from "../components/NavBar.jsx";
 import Footer from "../components/Footer.jsx";
 import { MainContainer } from "../components/styled/Middle.styled.jsx";
 import { SectionHeader } from "../components/styled/Feed.styled.jsx";
-import styled from "styled-components";
 
-const FormWrapper = styled.div`
-  background: #fff;
-  border-radius: 12px;
-  box-shadow: 0 10px 30px rgba(18, 22, 25, 0.08);
-  padding: 32px;
-  max-width: 720px;
-  width: 100%;
-  margin: 0 auto;
-`;
 
-const Field = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  margin-bottom: 16px;
+import {
+  FormWrapper,
+  FieldRow,
+  Actions,
+  Primary,
+  Secondary,
+} from "../components/CreateActivity/Layout.jsx";
 
-  label {
-    font-weight: 600;
-    color: #333;
-  }
-
-  input,
-  textarea,
-  select {
-    padding: 10px 12px;
-    border-radius: 8px;
-    border: 1px solid #ddd;
-    font-size: 0.95rem;
-  }
-
-  textarea {
-    resize: vertical;
-    min-height: 100px;
-  }
-`;
-
-const Buttons = styled.div`
-  display: flex;
-  gap: 12px;
-  margin-top: 12px;
-`;
-
-const Primary = styled.button`
-  background: #2d936c;
-  color: white;
-  border: none;
-  padding: 12px 18px;
-  border-radius: 10px;
-  font-weight: 600;
-  cursor: pointer;
-  &:hover { background: #1a6840; }
-`;
-const Secondary = styled.button`
-  background: white;
-  color: #1a6840;
-  border: 1px solid #1a6840;
-  padding: 12px 18px;
-  border-radius: 10px;
-  font-weight: 600;
-  cursor: pointer;
-`;
+import {
+  TextField,
+  TextArea,
+  SelectField,
+  CheckboxField,
+} from "../components/CreateActivity/Fields.jsx";
 
 export default function CreateActivity() {
   const [data, setData] = useState({
@@ -76,6 +29,8 @@ export default function CreateActivity() {
     time: "",
     max: "",
     isPublic: true,
+    priceLabel: "Free",
+    category: "",
   });
 
   const onChange = (e) => {
@@ -100,83 +55,115 @@ export default function CreateActivity() {
           </SectionHeader>
 
           <form onSubmit={onSubmit}>
-            <Field>
-              <label htmlFor="title">Activity Title</label>
-              <input
-                id="title"
-                name="title"
-                placeholder="e.g., Morning Café & Chat"
-                value={data.title}
+            <TextField
+              id="title"
+              name="title"
+              label="Activity Title"
+              placeholder="e.g., Morning Coffee & Chat"
+              value={data.title}
+              onChange={onChange}
+              required
+            />
+
+            <TextArea
+              id="description"
+              name="description"
+              label="Description"
+              placeholder="Tell people what to expect from this activity…"
+              value={data.description}
+              onChange={onChange}
+            />
+
+            <TextField
+              id="location"
+              name="location"
+              label="Location"
+              placeholder="Enter address or venue name…"
+              value={data.location}
+              onChange={onChange}
+            />
+
+            {/* Date & Time */}
+            <FieldRow>
+              <TextField
+                id="date"
+                name="date"
+                type="date"
+                label="Date"
+                value={data.date}
                 onChange={onChange}
-                required
               />
-            </Field>
-
-            <Field>
-              <label htmlFor="description">Description</label>
-              <textarea
-                id="description"
-                name="description"
-                placeholder="Tell people what to expect from this activity…"
-                value={data.description}
+              <TextField
+                id="time"
+                name="time"
+                type="time"
+                label="Time"
+                value={data.time}
                 onChange={onChange}
               />
-            </Field>
+            </FieldRow>
 
-            <Field>
-              <label htmlFor="location">Location</label>
-              <input
-                id="location"
-                name="location"
-                placeholder="Enter address or venue name…"
-                value={data.location}
+            {/* Participants & Price */}
+            <FieldRow>
+              <TextField
+                id="max"
+                name="max"
+                type="number"
+                min="0"
+                label="Maximum participants"
+                placeholder="Leave empty for unlimited"
+                value={data.max}
                 onChange={onChange}
               />
-            </Field>
+              <SelectField
+                id="priceLabel"
+                name="priceLabel"
+                label="Price"
+                value={data.priceLabel}
+                onChange={onChange}
+              >
+                <option value="Free">Free</option>
+                <option value="Paid">Paid</option>
+                <option value="Donation">Donation</option>
+              </SelectField>
+            </FieldRow>
 
-            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
-              <Field>
-                <label htmlFor="date">Date</label>
-                <input id="date" name="date" type="date" value={data.date} onChange={onChange} />
-              </Field>
-              <Field>
-                <label htmlFor="time">Time</label>
-                <input id="time" name="time" type="time" value={data.time} onChange={onChange} />
-              </Field>
-            </div>
+            {/* Category & Public */}
+            <FieldRow>
+              <SelectField
+                id="category"
+                name="category"
+                label="Category"
+                value={data.category}
+                onChange={onChange}
+              >
+                <option value="">Select category</option>
+                <option value="sports">Sports</option>
+                <option value="food">Food</option>
+                <option value="arts">Arts</option>
+                <option value="outdoors">Outdoors</option>
+                <option value="wellness">Wellness</option>
+              </SelectField>
 
-            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
-              <Field>
-                <label htmlFor="max">Maximum participants</label>
-                <input
-                  id="max"
-                  name="max"
-                  type="number"
-                  min="0"
-                  placeholder="Leave empty for unlimited"
-                  value={data.max}
-                  onChange={onChange}
-                />
-              </Field>
-              <Field>
-                <label>
-                  <input
-                    type="checkbox"
-                    name="isPublic"
-                    checked={data.isPublic}
-                    onChange={onChange}
-                  />{" "}
-                  Public Activity
-                </label>
-              </Field>
-            </div>
+              <CheckboxField
+                id="isPublic"
+                name="isPublic"
+                label="Public Activity"
+                checked={data.isPublic}
+                onChange={onChange}
+              />
+            </FieldRow>
 
-            <Buttons>
-              <Secondary type="button" onClick={() => alert("Draft saved (demo)")}>
+            {/* Buttons */}
+            <Actions>
+              <Secondary
+                type="button"
+                onClick={() => alert("Draft saved (demo)")}
+              >
                 Save draft
               </Secondary>
               <Primary type="submit">Publish Activity</Primary>
-            </Buttons>
+            </Actions>
           </form>
         </FormWrapper>
       </MainContainer>
