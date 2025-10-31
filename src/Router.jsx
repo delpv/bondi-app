@@ -14,13 +14,12 @@ const Router = () => {
       {/* Auth */}
       <Route index path="/" element={<RedirectToLogin />} />
       <Route path="/login" element={<Login />} />
-
       {/* Main App */}
       <Route path="/feed" element={<Feed />} />
       <Route path="/activity/:id" element={<ActivityDetail />} />
       <Route path="/create-activity" element={<CreateActivity />} />
+      <Route path="/profile" element={<Profile />} />
       <Route path="/profile/:username" element={<Profile />} />
-
       <Route path="*" element={<NotFound />} />
     </Routes>
   );
