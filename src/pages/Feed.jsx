@@ -132,15 +132,11 @@ export default function Feed() {
   return (
     <>
       <NavBar />
-      <MainContainer
-        style={{ display: "flex", gap: 40, alignItems: "flex-start" }}
-      >
+      <MainContainer>
         <LayoutGrid>
-          <div style={{ width: 320 }}>
-            <Filter onApply={handleApply} />
-          </div>
+          <Filter onApply={handleApply} />
 
-          <div style={{ flex: 1 }}>
+          <div>
             <SectionHeader>
               <h1>Discover Activities</h1>
               <p>Find amazing activities happening around you</p>

@@ -60,7 +60,7 @@ export const Label = styled.label`
   font-size: 14px;
 `;
 export const Input = styled.input`
-  width: 320px;
+  width: 100%;
   height: 44px;
   padding: 0 10px 0 6px;
   border: 1px solid ${line};
