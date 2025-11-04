@@ -1,18 +1,12 @@
 import React, { useState } from "react";
-import {
-  createBrowserRouter,
-  RouterProvider,
-  Route,
-  Link,
-  useParams,
-} from "react-router";
+import { Link, useParams } from "react-router-dom";
 
-import NavBar from "../Components/NavBar";
-import Footer from "../Components/Footer";
+import NavBar from "../components/feed-components/NavBar.jsx";
+import Footer from "../components/feed-components/Footer.jsx";
 import {
   ContentWrapper,
   MainContainer,
-} from "../Components/styled/Middle.styled.jsx";
+} from "../components/styled/activity-detail-comp/Middle.styled.jsx";
 import {
   BeforeContainer,
   HeaderSectionContainer,
@@ -53,7 +47,7 @@ import {
   DirectionButton,
   CountLabel,
   CountNumber,
-} from "../Components/styled/ActivityDetail.styled.jsx";
+} from "../components/styled/activity-detail-comp/ActivityDetail.styled.jsx";
 import Calendar from "../assets/Icons/calendar.svg?react"; // <-- Add ?react
 import Clock from "../assets/Icons/clock.svg?react";
 import Location from "../assets/Icons/location.svg?react";

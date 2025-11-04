@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Link } from "react-router";
+import { Link } from "react-router-dom";
 
 const coral = "#E78F8E";
 const text = "#2A2A2A";
@@ -60,7 +60,7 @@ export const Label = styled.label`
   font-size: 14px;
 `;
 export const Input = styled.input`
-  width: 320px;
+  width: 100%;
   height: 44px;
   padding: 0 10px 0 6px;
   border: 1px solid ${line};
@@ -158,7 +158,7 @@ export const Forgot = styled(Link)`
   color: #7a5af8;
 `;
 
-export const ButtonSignUp = styled.button`
+export const ButtonLogin = styled.button`
   width: 100%;
   height: 44px;
   border: none;

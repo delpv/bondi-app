@@ -1,6 +1,7 @@
 import React from "react";
 import { useState } from "react";
-import { useNavigate } from "react-router";
+import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import EyeIcon from "../../assets/Icons/eye.svg?react";
 import {
   Left,
@@ -15,7 +16,7 @@ import {
   RememberWrap,
   Checkbox,
   Forgot,
-  ButtonSignUp,
+  ButtonLogin,
   Divider,
   SocialStack,
   SocialButton,
@@ -90,7 +91,7 @@ const LoginLeft = () => {
           <Forgot to="/forgot-password">Forgot password</Forgot>
         </Row>
 
-        <ButtonSignUp type="submit">Login</ButtonSignUp>
+        <ButtonLogin type="submit">Login</ButtonLogin>
 
         <Divider>
           <span>or</span>
@@ -103,7 +104,7 @@ const LoginLeft = () => {
       </FormCard>
 
       <BellowText>
-        Don't have an account? <a href="/signup">Sign up</a>
+        Don't have an account? <Link>Sign up</Link>
       </BellowText>
     </Left>
   );
