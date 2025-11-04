@@ -1,6 +1,6 @@
 import React from "react";
 import { useState } from "react";
-import { useNavigate } from "react-router";
+import { useNavigate } from "react-router-dom";
 import {
   Container,
   Hero,
@@ -89,17 +89,7 @@ export default function Card({
           </HostInfo>
 
           <Participants title="Participants">
-            {typeof ParticipantsIcon === "string" ? (
-              <img
-                src={ParticipantsIcon}
-                width={20}
-                height={20}
-                alt=""
-                aria-hidden
-              />
-            ) : (
-              <ParticipantsIcon width={20} height={20} aria-hidden />
-            )}
+            <ParticipantsIcon width={20} height={20} aria-hidden />
             <span style={{ marginLeft: 6 }}>
               {participants.count}/{participants.max}
             </span>

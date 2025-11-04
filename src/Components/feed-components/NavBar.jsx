@@ -1,5 +1,5 @@
 import React from "react";
-import { useNavigate, Link, NavLink } from "react-router";
+import { useNavigate, Link, NavLink } from "react-router-dom";
 import BondiLogo from "../../assets/Icons/logo-Bondi.svg?react";
 import Settings from "../../assets/Icons/settings.svg?react";
 import Avatar from "../../assets/Images/Avatar.png";

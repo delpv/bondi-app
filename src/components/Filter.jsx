@@ -1,4 +1,4 @@
-import react from "react";
+import React from "react";
 import { useState } from "react";
 import SearchIcon from "../assets/icons/search.svg?react";
 import LocationIcon from "../assets/icons/map-pin.svg?react";
@@ -19,7 +19,7 @@ import {
 } from "./styled/Filter.styled.jsx";
 
 export default function Filter({ onApply = () => {}, onReset = () => {} }) {
-  const [query, setQuery] = react.useState("");
+  const [query, setQuery] = React.useState("");
   const [category, setCategory] = useState("");
   const [date, setDate] = useState("");
   const [sortBy, setSortBy] = useState("");

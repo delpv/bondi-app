@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Link } from "react-router";
+import { Link } from "react-router-dom";
 
 const coral = "#E78F8E";
 const text = "#2A2A2A";

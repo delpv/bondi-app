@@ -1,11 +1,5 @@
 import React, { useState } from "react";
-import {
-  createBrowserRouter,
-  RouterProvider,
-  Route,
-  Link,
-  useParams,
-} from "react-router";
+import { Link, useParams } from "react-router-dom";
 
 import NavBar from "../Components/NavBar";
 import Footer from "../Components/Footer";
