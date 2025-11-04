@@ -1,5 +1,5 @@
 import React from "react";
-import { Routes, Route } from "react-router";
+import { Routes, Route } from "react-router-dom";
 import Login from "./pages/Login.jsx";
 import Feed from "./pages/Feed.jsx";
 import ActivityDetail from "./pages/ActivityDetail.jsx";
