@@ -158,7 +158,7 @@ export const Forgot = styled(Link)`
   color: #7a5af8;
 `;
 
-export const ButtonSignUp = styled.button`
+export const ButtonLogin = styled.button`
   width: 100%;
   height: 44px;
   border: none;

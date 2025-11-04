@@ -16,7 +16,7 @@ import {
   RememberWrap,
   Checkbox,
   Forgot,
-  ButtonSignUp,
+  ButtonLogin,
   Divider,
   SocialStack,
   SocialButton,
@@ -91,7 +91,7 @@ const LoginLeft = () => {
           <Forgot to="/forgot-password">Forgot password</Forgot>
         </Row>
 
-        <ButtonSignUp type="submit">Login</ButtonSignUp>
+        <ButtonLogin type="submit">Login</ButtonLogin>
 
         <Divider>
           <span>or</span>
