@@ -1,6 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import EyeIcon from "../../assets/Icons/eye.svg?react";
 import {
   Left,
@@ -103,7 +104,7 @@ const LoginLeft = () => {
       </FormCard>
 
       <BellowText>
-        Don't have an account? <a href="/signup">Sign up</a>
+        Don't have an account? <Link>Sign up</Link>
       </BellowText>
     </Left>
   );
