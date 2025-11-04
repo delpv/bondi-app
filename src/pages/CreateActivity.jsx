@@ -1,9 +1,8 @@
 import React, { useState } from "react";
-import NavBar from "../components/NavBar.jsx";
-import Footer from "../components/Footer.jsx";
-import { MainContainer } from "../components/styled/Middle.styled.jsx";
-import { SectionHeader } from "../components/styled/Feed.styled.jsx";
-
+import NavBar from "../components/feed-components/NavBar.jsx";
+import Footer from "../components/feed-components/Footer.jsx";
+import { MainContainer } from "../components/styled/activity-detail-comp/Middle.styled.jsx";
+import { SectionHeader } from "../components/styled/feed-style-comp/Feed.styled.jsx";
 
 import {
   FormWrapper,
