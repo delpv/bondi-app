@@ -1,6 +1,6 @@
 import React from "react";
-import NavBar from "../components/feed-components/NavBar.jsx";
-import Footer from "../components/feed-components/Footer.jsx";
+import NavBar from "../Components/feed-components/NavBar.jsx";
+import Footer from "../Components/feed-components/Footer.jsx";
 import Filter from "../components/feed-components/Filter.jsx";
 import Card from "../components/feed-components/Card.jsx";
 import YogaImage from "../assets/images/yoga.jpg";
@@ -15,7 +15,7 @@ import TriviaImage from "../assets/images/trivia.jpg";
 import HostTrivia from "../assets/images/clara.jpg";
 import BoardGameImage from "../assets/images/boardgame.jpg";
 import HostBoardGame from "../assets/images/elias.jpg";
-import { MainContainer } from "../components/styled/activity-detail-comp/Middle.styled.jsx";
+import { MainContainer } from "../Components/styled/MiddleSection/Middle.styled";
 import {
   LayoutGrid,
   GridContainer,
