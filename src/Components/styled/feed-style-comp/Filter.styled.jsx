@@ -15,8 +15,6 @@ export const FilterWrapper = styled.aside`
   border: 1px solid rgba(255, 255, 255, 0.29);
   padding: 20px;
   border-radius: 12px;
-  width: 100%;
-  max-width: 320px;
   backdrop-filter: blur(4px);
 `;
 
