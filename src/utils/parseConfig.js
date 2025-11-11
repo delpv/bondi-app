@@ -1,12 +1,26 @@
-// Import Parse SDK
-import Parse from "parse/dist/parse.min.js";
+// Import Parse SDK (standard import)
+import Parse from "parse";
 
-// Initialize with your Back4App keys
+// Initialize Parse with credentials from .env file
 Parse.initialize(
-    "JhB5FwxCJnm9LOkEugEuabuD5aXq2nvjnAX9eIAO",
-    "DfcVQS5DNB5AzEUw8Wpd63cIuv6hZPrHchSQHzSB"
+    import.meta.env.VITE_PARSE_APP_ID, // Application ID
+    import.meta.env.VITE_PARSE_JS_KEY // JavaScript Key
 );
-Parse.serverURL = "https://parseapi.back4app.com/";
 
-// Export so it can be used anywhere in your app
+// Set the server URL
+Parse.serverURL =
+    import.meta.env.VITE_PARSE_SERVER_URL;
+
+// Optional: Enable local datastore for offline support
+// Parse.enableLocalDatastore();
+
+// Log initialization in development mode
+if (
+    import.meta.env.DEV) {
+    console.log("Parse SDK initialized");
+    console.log("App ID:", Parse.applicationId);
+    console.log("Server URL:", Parse.serverURL);
+}
+
+// Export Parse instance to use in other files
 export default Parse;
