@@ -1,32 +1,5 @@
 import React from "react";
-import styled from "styled-components";
-
-export const Field = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  margin-bottom: 16px;
-
-  label {
-    font-weight: 600;
-    color: #333;
-  }
-
-  input,
-  textarea,
-  select {
-    padding: 10px 12px;
-    border-radius: 8px;
-    border: 1px solid #ddd;
-    font-size: 0.95rem;
-    background: #fff;
-  }
-
-  textarea {
-    resize: vertical;
-    min-height: 100px;
-  }
-`;
+import { Field } from "../styled/create-activity-style-comp/CreateActivity.styled.jsx";
 
 export function TextField({ id, label, ...props }) {
   return (

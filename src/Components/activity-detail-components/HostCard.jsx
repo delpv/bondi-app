@@ -13,7 +13,7 @@ import {
   ActivitiesHostedLabel,
   DescriptionContainer,
 } from "../styled/act-detail-style-comp/HostCard.styled.jsx";
-import User from "../../assets/Icons/user.svg?react";
+import User from "../../assets/Icons/User.svg?react";
 import hostImage from "../../assets/images/olly-yoga.jpg";
 import Divider from "../../assets/Icons/divider.svg?react";
 
