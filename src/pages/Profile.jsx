@@ -1,5 +1,5 @@
-import Footer from "../components/feed-components/Footer";
-import NavBar from "../components/feed-components/NavBar";
+import NavBar from "../Components/feed-components/NavBar.jsx";
+import Footer from "../Components/feed-components/Footer.jsx";
 import Cover from "../components/profile_components/Cover";
 import About from "../components/profile_components/About";
 import Interest from "../components/profile_components/Interest";

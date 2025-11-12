@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   LocationCardContainer,
   LocationTitle,
@@ -10,21 +10,25 @@ import {
 import Walker from "../../assets/Icons/directions_walk.svg?react";
 import Icon from "../../assets/Icons/Icon.svg?react";
 
-const LocationCard = ({ location, locationImage }) => (
-  <LocationCardContainer>
-    <LocationTitle>
-      <Icon />
-      Location
-    </LocationTitle>
-    <LocationContent>
-      <LocationImage src={locationImage} alt="Location" />
-      <p>{location}</p>
-      <DirectionButton>
-        <Walker />
-        Get directions
-      </DirectionButton>
-    </LocationContent>
-  </LocationCardContainer>
-);
+const LocationCard = ({ location, locationImage }) => {
+  if (!location) return <div>Loading...</div>;
+
+  return (
+    <LocationCardContainer>
+      <LocationTitle>
+        <Icon />
+        Location
+      </LocationTitle>
+      <LocationContent>
+        <LocationImage src={locationImage} alt="Location" />
+        <p>{location}</p>
+        <DirectionButton>
+          <Walker />
+          Get directions
+        </DirectionButton>
+      </LocationContent>
+    </LocationCardContainer>
+  );
+};
 
 export default LocationCard;

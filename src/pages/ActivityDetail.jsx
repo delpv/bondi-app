@@ -1,21 +1,21 @@
 import Parse from "../utils/parseConfig.js"; // use the initialized Parse
 import React, { useState, useEffect } from "react";
 
-import NavBar from "../Components/feed-components/NavBar.jsx";
-import Footer from "../Components/feed-components/Footer.jsx";
+import NavBar from "../components/feed-components/NavBar.jsx";
+import Footer from "../components/feed-components/Footer.jsx";
 
 import {
   MainContainer,
   ContentWrapper,
-} from "../Components/styled/MiddleSection/Middle.styled.jsx";
-import Before from "../Components/activity-detail-components/Before";
-import HeaderSection from "../Components/activity-detail-components/HeaderSection";
-import TitleCard from "../Components/activity-detail-components/TitleCard";
-import HostCard from "../Components/activity-detail-components/HostCard";
-import ParticipantsCard from "../Components/activity-detail-components/ParticipantCard";
-import LocationCard from "../Components/activity-detail-components/LocationCard";
+} from "../components/styled/MiddleSection/Middle.styled.jsx";
+import Before from "../components/activity-detail-components/Before.jsx";
+import HeaderSection from "../components/activity-detail-components/HeaderSection.jsx";
+import TitleCard from "../components/activity-detail-components/TitleCard.jsx";
+import HostCard from "../components/activity-detail-components/HostCard.jsx";
+import ParticipantsCard from "../components/activity-detail-components/ParticipantCard.jsx";
+import LocationCard from "../components/activity-detail-components/LocationCard.jsx";
 
-import { CardContainer } from "../Components/styled/act-detail-style-comp/Common";
+import { CardContainer } from "../components/styled/act-detail-style-comp/Common.jsx";
 
 const ActivityDetail = () => {
   const [activity, setActivity] = useState(null);
@@ -40,6 +40,8 @@ const ActivityDetail = () => {
 
   if (!activity) return <div>Loading...</div>;
 
+  const location = activity.get("location");
+
   return (
     <>
       <NavBar />
@@ -47,7 +49,7 @@ const ActivityDetail = () => {
         <ContentWrapper>
           <Before />
 
-          <HeaderSection />
+          <HeaderSection activity={activity} />
           <CardContainer>
             <TitleCard
               title={activity.get("Title")}
@@ -57,6 +59,7 @@ const ActivityDetail = () => {
                   "Yoga mat",
                   "Water bottle",
                   "Good energy",
+                  "Sunshine",
                 ]
               }
             />
@@ -73,7 +76,7 @@ const ActivityDetail = () => {
               participantImage="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTnFW7ZDLxu41lI2gB6ExZT7vczi163BrA9WA&s"
             />
             <LocationCard
-              location="Gothersgade 128, 1123 København K"
+              location={activity.get("location")}
               locationImage="https://upload.wikimedia.org/wikipedia/commons/5/5b/Palm_House%2C_Copenhagen_Botanical_Garden.jpg"
             />
           </CardContainer>
