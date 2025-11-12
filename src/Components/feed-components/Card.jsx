@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
@@ -21,6 +21,7 @@ import {
 } from "../styled/feed-style-comp/Card.styled.jsx";
 import ParticipantsIcon from "../../assets/icons/participants.svg?react";
 import LocationIcon from "../../assets/icons/map-pin-green.svg?react";
+import Parse from "parse";
 
 export default function Card({
   id,
@@ -29,11 +30,13 @@ export default function Card({
   priceLabel,
   title,
   description,
-  host,
-  participants,
+  hostId,
+  maxParticipants,
+  participantCount,
   location,
   onJoin = () => {},
 }) {
+  const [hostObject, setHostObject] = useState(undefined);
   // new: manage joined state locally
   const [joined, setJoined] = useState(false);
   const navigate = useNavigate();
@@ -42,6 +45,24 @@ export default function Card({
     if (!id) return;
     navigate(`/activity/${id}`);
   };
+
+  const getHost = async () => {
+    const hostQuery = new Parse.Query("USER");
+
+    try {
+      const hoestedBy = await hostQuery.get(hostId);
+      const hostJson = await hoestedBy.toJSON();
+
+      setHostObject(hostJson);
+      console.log(hostJson);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  useEffect(() => {
+    getHost();
+  }, []);
 
   const onKeyGoToDetail = (e) => {
     if (e.key === "Enter" || e.key === " ") {
@@ -68,8 +89,12 @@ export default function Card({
       aria-label={`Open details for ${title}`}
     >
       <Hero>
-        {image && <HeroImage src={image} alt={title} />}
-        <CornerChips>{date}</CornerChips>
+        <HeroImage src={"public/" + image || "default.jpg"} alt={title} />
+        <CornerChips>
+          {new Intl.DateTimeFormat("en-GB", {
+            dateStyle: "short",
+          }).format(new Date(date))}
+        </CornerChips>
         <CornerChips variant="right">{priceLabel}</CornerChips>
       </Hero>
 
@@ -78,20 +103,25 @@ export default function Card({
         <Description>{description}</Description>
 
         <HostRow>
-          <HostInfo>
-            <HostAvatar src={host.avatar} alt={host.name} />
-            <HostMeta>
-              <div style={{ fontWeight: 600 }}>{host.name}</div>
-              <div style={{ color: "#9AA0A6", fontSize: "0.9rem" }}>
-                {host.role}
-              </div>
-            </HostMeta>
-          </HostInfo>
+          {hostObject && (
+            <HostInfo>
+              <HostAvatar
+                src={"public/" + hostObject.profilePictureUrl}
+                alt={hostObject.username}
+              />
+              <HostMeta>
+                <div style={{ fontWeight: 600 }}>Hosted by</div>
+                <div style={{ color: "#9AA0A6", fontSize: "0.9rem" }}>
+                  {hostObject.fullName}
+                </div>
+              </HostMeta>
+            </HostInfo>
+          )}
 
           <Participants title="Participants">
             <ParticipantsIcon width={20} height={20} aria-hidden />
             <span style={{ marginLeft: 6 }}>
-              {participants.count}/{participants.max}
+              {participantCount}/{maxParticipants}
             </span>
           </Participants>
         </HostRow>
