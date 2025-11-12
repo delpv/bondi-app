@@ -1,4 +1,5 @@
 import React from "react";
+
 import NavBar from "../Components/feed-components/NavBar.jsx";
 import Footer from "../Components/feed-components/Footer.jsx";
 import Filter from "../components/feed-components/Filter.jsx";
@@ -15,7 +16,10 @@ import TriviaImage from "../assets/images/trivia.jpg";
 import HostTrivia from "../assets/images/clara.jpg";
 import BoardGameImage from "../assets/images/boardgame.jpg";
 import HostBoardGame from "../assets/images/elias.jpg";
+
 import { MainContainer } from "../Components/styled/MiddleSection/Middle.styled";
+import { MainContainer } from "../components/styled/activity-detail-comp/Middle.styled.jsx";
+
 import {
   LayoutGrid,
   GridContainer,

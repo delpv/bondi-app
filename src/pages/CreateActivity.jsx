@@ -1,7 +1,9 @@
 import React, { useState } from "react";
+
 import NavBar from "../Components/feed-components/NavBar.jsx";
 import Footer from "../Components/feed-components/Footer.jsx";
 import { MainContainer } from "../Components/styled/MiddleSection/Middle.styled.jsx";
+
 import { SectionHeader } from "../components/styled/feed-style-comp/Feed.styled.jsx";
 
 import {

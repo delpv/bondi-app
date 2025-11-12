@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+
 import NavBar from "../Components/feed-components/NavBar.jsx";
 import Footer from "../Components/feed-components/Footer.jsx";
 
@@ -24,6 +25,7 @@ const ActivityDetail = () => {
       <MainContainer>
         <ContentWrapper>
           <Before />
+
           <HeaderSection activityName={activityName} />
           <CardContainer>
             <TitleCard
@@ -36,6 +38,7 @@ const ActivityDetail = () => {
                 "Water bottle",
                 "Small towel",
                 "Good energy",
+
                 "Plastic Bag",
               ]}
             />
