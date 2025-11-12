@@ -1,5 +1,6 @@
 // Styled imports
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import Parse from "../../utils/parseConfig.js"; // use the initialized Parse
 
 // Styled imports
 import {
@@ -34,22 +35,74 @@ const HeaderSection = ({ activityName }) => {
     setJoinedCount((prev) => prev + (hasJoined ? -1 : 1));
   };
 
+  const [activity, setActivity] = useState(null);
+
+  // Manually set the objectId of the activity you want to display
+  const activityObjectId = "XNGNoKPR5r";
+
+  useEffect(() => {
+    const fetchActivity = async () => {
+      try {
+        const Activity = Parse.Object.extend("Activity");
+        const query = new Parse.Query(Activity);
+        const result = await query.get(activityObjectId); // fetch from Back4App
+        setActivity(result);
+      } catch (error) {
+        console.error("Error fetching activity:", error);
+      }
+    };
+
+    fetchActivity();
+  }, []);
+
+  const [category, setCategory] = useState(null);
+
+  // Manually set the objectId of the activity you want to display
+  const categoryObjectId = "pz8KRp3sBx";
+
+  useEffect(() => {
+    const fetchCategory = async () => {
+      try {
+        const Category = Parse.Object.extend("Category");
+        const query = new Parse.Query(Category);
+        const result = await query.get(categoryObjectId); // fetch from Back4App
+        setCategory(result);
+      } catch (error) {
+        console.error("Error fetching category:", error);
+      }
+    };
+
+    fetchCategory();
+  }, []);
+  if (!activity || !category) return <div>Loading...</div>;
+
+  const dateStart = activity?.get("dateStart");
+  const dateEnd = activity?.get("dateEnd");
+
+  const formattedStart = dateStart ? dateStart.toLocaleString() : "Loading...";
+  const formattedEnd = dateEnd ? dateEnd.toLocaleString() : "Loading...";
+
+  const title = activity?.get("Title") || "Loading...";
+  const location = activity?.get("location") || "Loading...";
+  const categoryName = category?.get("name") || "Loading...";
+
   return (
     <HeaderSectionContainer>
       <HeaderImage src={Yoga} alt="Yoga" />
-      <HeaderText>{activityName}</HeaderText>
+      <HeaderText>{title}</HeaderText>
       <CardRow>
         <CardLeft>
           <Label type="yellow">
-            <Calendar /> Date
+            <Calendar /> {formattedStart} - {formattedEnd}
           </Label>
-          <Label type="yellow">
+
+          {/* <Label type="yellow">
             <Clock /> Time
-          </Label>
+          </Label> */}
           <Label type="yellow">
-            <Location /> Location
+            <Location /> {location}
           </Label>
-          <Label type="green">Category</Label>
+          <Label type="green">{categoryName}</Label>
         </CardLeft>
         <CardRight>
           <JoinButton $joined={hasJoined} onClick={handleJoin}>

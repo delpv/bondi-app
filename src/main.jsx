@@ -5,7 +5,7 @@ import "./main.css";
 import { BrowserRouter, Routes } from "react-router-dom";
 import Router from "./Router.jsx";
 
-import "./utils/parseConfig";
+import Parse from "./utils/parseConfig"; // now Parse is initialized
 
 const root = document.getElementById("root");
 
