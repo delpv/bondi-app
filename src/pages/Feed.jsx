@@ -18,7 +18,6 @@ import BoardGameImage from "../assets/images/boardgame.jpg";
 import HostBoardGame from "../assets/images/elias.jpg";
 
 import { MainContainer } from "../Components/styled/MiddleSection/Middle.styled";
-import { MainContainer } from "../components/styled/activity-detail-comp/Middle.styled.jsx";
 
 import {
   LayoutGrid,
