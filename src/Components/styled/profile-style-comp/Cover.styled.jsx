@@ -7,9 +7,8 @@ const shadowColor = "rgba(0, 0, 0, 0.4)";
 // Main cover container - entire cover area (cover frame)
 export const CoverContainer = styled.div`
   width: 100%;
-  max-width: 1440px;
   height: clamp(300px, 30vw, 424px);
-  padding: clamp(20px, 2.5vw, 35px) clamp(20px, 5vw, 70px);
+  padding: clamp(20px, 2.5vw, 35px) 0;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -19,22 +18,25 @@ export const CoverContainer = styled.div`
 
   @media (max-width: 768px) {
     height: clamp(280px, 40vw, 350px);
-    padding: 16px 20px;
+    padding: 16px 0;
   }
 
   @media (max-width: 480px) {
     height: 280px;
-    padding: 12px 16px;
+    padding: 12px 0;
   }
 `;
 
 // Profile cover - inner container with the actual cover content
 export const ProfileCover = styled.div`
   display: flex;
+  width: 1440px;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
   height: 354px;
   padding: 10px 0;
   justify-content: center;
-  align-items: center;
   align-self: stretch;
   border-radius: 16px;
   border: 1px solid ${border};
@@ -44,7 +46,19 @@ export const ProfileCover = styled.div`
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  flex-direction: column;
+  margin: 0 auto;
+
+  @media (max-width: 1520px) {
+    width: calc(100vw - 80px);
+  }
+
+  @media (max-width: 768px) {
+    width: calc(100vw - 72px);
+  }
+
+  @media (max-width: 480px) {
+    width: calc(100vw - 64px);
+  }
 `;
 
 // Overlay for better text readability on background image
@@ -251,6 +265,7 @@ export const ProfileInfoCard = styled.div`
 
 // Profile name styling
 export const ProfileName = styled.h2`
+  font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   font-size: clamp(1.2rem, 3vw, 1.5rem);
   font-weight: 600;
   margin: 0 0 4px 0;
@@ -267,6 +282,7 @@ export const ProfileName = styled.h2`
 
 // Member since text
 export const MemberSince = styled.p`
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   font-size: clamp(0.8rem, 2vw, 0.9rem);
   color: #6B7280;
   margin: 0;
@@ -303,6 +319,7 @@ export const StatsContainer = styled.div`
 
 // Individual stat badge
 export const StatBadge = styled.div`
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   background: white;
   border-radius: clamp(16px, 2vw, 20px);
   padding: clamp(6px, 0.8vw, 8px) clamp(12px, 1.5vw, 16px);

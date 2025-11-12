@@ -51,7 +51,7 @@ const RecentActivities = () => {
         <TitleSection>
           <SectionTitle>Recent Activities</SectionTitle>
         </TitleSection>
-        
+
         <ActionsSection>
           <ViewAllLink href="#" onClick={(e) => e.preventDefault()}>
             View all
@@ -63,10 +63,10 @@ const RecentActivities = () => {
           </EditButton>
         </ActionsSection>
       </HeaderFrame>
-      
+
       <ActivitiesContent>
         {activities.map((activity) => (
-          <ActivityImageContainer 
+          <ActivityImageContainer
             key={activity.id}
             onClick={() => handleActivityClick(activity)}
             role="button"
@@ -77,8 +77,8 @@ const RecentActivities = () => {
               }
             }}
           >
-            <ActivityImage 
-              src={activity.image} 
+            <ActivityImage
+              src={activity.image}
               alt={activity.alt}
               onError={(e) => {
                 e.target.src = `https://via.placeholder.com/280x120/e5e7eb/9ca3af?text=${encodeURIComponent(activity.title)}`;

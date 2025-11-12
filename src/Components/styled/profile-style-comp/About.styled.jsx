@@ -29,6 +29,7 @@ export const AboutFrame = styled.div`
 
 // About title
 export const AboutTitle = styled.h2`
+  font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   font-size: 1.5rem;
   font-weight: 600;
   color: #111318;
@@ -68,6 +69,7 @@ export const AboutTextContainer = styled.div`
 
 // About text content
 export const AboutText = styled.p`
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   font-size: 1rem;
   line-height: 1.5;
   color: #374151;

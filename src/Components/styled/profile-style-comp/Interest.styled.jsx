@@ -29,6 +29,7 @@ export const InterestFrame = styled.div`
 
 // Interest title
 export const InterestTitle = styled.h2`
+  font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   font-size: 1.5rem;
   font-weight: 600;
   color: #111318;
@@ -97,6 +98,7 @@ export const InterestChip = styled.div`
 
 // Text inside the chip
 export const ChipText = styled.span`
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   width: 100%;
   height: 20px;
   font-size: 0.875rem;
