@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import Parse from "../utils/parseConfig.js"; // use the initialized Parse
+import React, { useState, useEffect } from "react";
 
 import NavBar from "../Components/feed-components/NavBar.jsx";
 import Footer from "../Components/feed-components/Footer.jsx";
@@ -17,7 +18,27 @@ import LocationCard from "../Components/activity-detail-components/LocationCard"
 import { CardContainer } from "../Components/styled/act-detail-style-comp/Common";
 
 const ActivityDetail = () => {
-  const activityName = "Morning Yoga";
+  const [activity, setActivity] = useState(null);
+
+  // Manually set the objectId of the activity you want to display
+  const activityObjectId = "XNGNoKPR5r";
+
+  useEffect(() => {
+    const fetchActivity = async () => {
+      try {
+        const Activity = Parse.Object.extend("Activity");
+        const query = new Parse.Query(Activity);
+        const result = await query.get(activityObjectId); // fetch from Back4App
+        setActivity(result);
+      } catch (error) {
+        console.error("Error fetching activity:", error);
+      }
+    };
+
+    fetchActivity();
+  }, []);
+
+  if (!activity) return <div>Loading...</div>;
 
   return (
     <>
@@ -26,21 +47,18 @@ const ActivityDetail = () => {
         <ContentWrapper>
           <Before />
 
-          <HeaderSection activityName={activityName} />
+          <HeaderSection />
           <CardContainer>
             <TitleCard
-              title={activityName}
-              description="Start your day with a peaceful yoga session on the beautiful garden. This morning class is perfect for all levels, from beginners to experienced yogis. We'll focus on gentle flow movements and breathing exercises while enjoying the ocean breeze and sunrise.
-
-              Please bring your own yoga mat and water bottle. We'll provide blocks and straps if needed. The session will be held rain or shine under our covered pavilion area.."
-              whatToBring={[
-                "Yoga mat",
-                "Water bottle",
-                "Small towel",
-                "Good energy",
-
-                "Plastic Bag",
-              ]}
+              title={activity.get("Title")}
+              description={activity.get("description")}
+              whatToBring={
+                activity.get("whatToBring") || [
+                  "Yoga mat",
+                  "Water bottle",
+                  "Good energy",
+                ]
+              }
             />
             <HostCard
               hostName="Alice Johnson"
