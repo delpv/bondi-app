@@ -4,22 +4,21 @@ import NavBar from "../Components/feed-components/NavBar.jsx";
 import Footer from "../Components/feed-components/Footer.jsx";
 import { MainContainer } from "../Components/styled/MiddleSection/Middle.styled.jsx";
 
-import { SectionHeader } from "../components/styled/feed-style-comp/Feed.styled.jsx";
-
 import {
   FormWrapper,
   FieldRow,
   Actions,
   Primary,
   Secondary,
-} from "../components/CreateActivity/Layout.jsx";
+  SectionHeader,
+} from "../Components/styled/create-activity-style-comp/CreateActivity.styled.jsx";
 
 import {
   TextField,
   TextArea,
   SelectField,
   CheckboxField,
-} from "../components/CreateActivity/Fields.jsx";
+} from "../Components/create-activity-components/Fields.jsx";
 
 export default function CreateActivity() {
   const [data, setData] = useState({
