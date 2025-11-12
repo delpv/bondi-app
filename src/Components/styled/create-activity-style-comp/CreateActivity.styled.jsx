@@ -17,6 +17,7 @@ export const SectionHeader = styled.header`
 `;
 
 /* Form shell and layout */
+
 export const FormWrapper = styled.div`
   background: #fff;
   border-radius: 12px;
@@ -90,10 +91,45 @@ export const Field = styled.div`
     border: 1px solid #ddd;
     font-size: 0.95rem;
     background: #fff;
+    color: #222;
+    outline: none;
+    transition: border 0.2s ease;
   }
+
+  input::placeholder,
+  textarea::placeholder {
+    color: #999;
+  }
+
+  input:focus,
+  textarea:focus,
+  select:focus {
+    border-color: #2d936c;
+  }
+
 
   textarea {
     resize: vertical;
     min-height: 100px;
   }
+`;
+
+/* Add Image */
+export const ImagePreview = styled.div`
+  margin-top: 8px;
+  border: 1px dashed #c9c9c9;
+  border-radius: 10px;
+  padding: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 140px;
+  background: #fafafa;
+`;
+
+export const PreviewImg = styled.img`
+  max-width: 100%;
+  max-height: 240px;
+  border-radius: 8px;
+  display: block;
 `;
