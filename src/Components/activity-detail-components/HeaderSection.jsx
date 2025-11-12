@@ -21,21 +21,19 @@ import {
 
 // Icons
 import Calendar from "../../assets/Icons/calendar.svg?react";
-import Clock from "../../assets/Icons/clock.svg?react";
+// import Clock from "../../assets/Icons/clock.svg?react";
 import Location from "../../assets/Icons/location.svg?react";
 
 import Yoga from "../../assets/images/yoga.jpg";
 
-const HeaderSection = ({ activityName }) => {
+const HeaderSection = ({ activityTitle }) => {
   const [hasJoined, setHasJoined] = useState(false);
   const [joinedCount, setJoinedCount] = useState(0);
-
-  const handleJoin = () => {
-    setHasJoined((prev) => !prev);
-    setJoinedCount((prev) => prev + (hasJoined ? -1 : 1));
-  };
+  const [waitingList, setWaitingList] = useState(false);
 
   const [activity, setActivity] = useState(null);
+
+  const [category, setCategory] = useState(null);
 
   // Manually set the objectId of the activity you want to display
   const activityObjectId = "XNGNoKPR5r";
@@ -55,8 +53,6 @@ const HeaderSection = ({ activityName }) => {
     fetchActivity();
   }, []);
 
-  const [category, setCategory] = useState(null);
-
   // Manually set the objectId of the activity you want to display
   const categoryObjectId = "pz8KRp3sBx";
 
@@ -75,6 +71,23 @@ const HeaderSection = ({ activityName }) => {
     fetchCategory();
   }, []);
   if (!activity || !category) return <div>Loading...</div>;
+
+  const maxCapacity = activity?.get("maxCapacity") || 0;
+
+  const handleJoin = () => {
+    if (hasJoined) {
+      setHasJoined(false);
+      setJoinedCount((prev) => prev - 1);
+      setWaitingList(false);
+    } else {
+      if (joinedCount < maxCapacity) {
+        setHasJoined(true);
+        setJoinedCount((prev) => prev + 1);
+      } else {
+        setWaitingList(true);
+      }
+    }
+  };
 
   const dateStart = activity?.get("dateStart");
   const dateEnd = activity?.get("dateEnd");
@@ -106,11 +119,25 @@ const HeaderSection = ({ activityName }) => {
         </CardLeft>
         <CardRight>
           <JoinButton $joined={hasJoined} onClick={handleJoin}>
-            {hasJoined ? "Joined" : "Join Activity"}
+            {waitingList
+              ? "Join Waiting List"
+              : hasJoined
+                ? "Joined"
+                : "Join Activity"}
           </JoinButton>
+
           <CountLabel>
-            <CountNumber>{joinedCount}</CountNumber> people joined
+            <CountNumber>
+              {joinedCount}/{maxCapacity}
+            </CountNumber>{" "}
+            people joined
           </CountLabel>
+
+          {waitingList && (
+            <p style={{ color: "black", background: "pink" }}>
+              Activity is full — you’re on the waiting list.
+            </p>
+          )}
         </CardRight>
       </CardRow>
     </HeaderSectionContainer>
