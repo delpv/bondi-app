@@ -16,13 +16,14 @@ import {
 
 export default function Feed() {
   const [activities, setActivites] = useState(undefined);
+  const [isLoading, setIsLoading] = useState(false);
   const handleApply = (filters) => {
     console.log("Applied Filters:", filters);
   };
 
   const getActivities = async () => {
     const query = new Parse.Query("Activity");
-
+    setIsLoading(true);
     try {
       const activitiesArray = await query.find();
       const allActivities = activitiesArray.map((activity) =>
@@ -33,6 +34,8 @@ export default function Feed() {
       console.log(allActivities);
     } catch (e) {
       console.log(e);
+    } finally {
+      setIsLoading(false);
     }
   };
 
