@@ -33,13 +33,13 @@ export default function Card({
   hostId,
   maxParticipants,
   location,
+  userId,
 }) {
   const [hostObject, setHostObject] = useState(undefined);
   const [isLoading, setIsLoading] = useState(false);
   const [joined, setJoined] = useState(false);
   const [partNumber, setPartNumber] = useState(undefined);
   const navigate = useNavigate();
-  const currentUserId = "yESQnpupOj";
 
   const goToDetail = () => {
     if (!id) return;
@@ -75,7 +75,7 @@ export default function Card({
 
       const participants = allParticipants.map((part) => {
         const partJson = part.toJSON();
-        if (partJson.objectId === currentUserId) {
+        if (partJson.objectId === userId) {
           setJoined(true);
         }
 
@@ -109,7 +109,7 @@ export default function Card({
     e.stopPropagation();
     setIsLoading(true);
     const userQuery = new Parse.Query("USER");
-    const currentUser = await userQuery.get(currentUserId);
+    const currentUser = await userQuery.get(userId);
 
     const activityQuery = new Parse.Query("Activity");
     const currentActivity = await activityQuery.get(id);

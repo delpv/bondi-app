@@ -13,13 +13,21 @@ import {
   SectionHeader,
   LoadMoreButton,
 } from "../Components/styled/feed-style-comp/Feed.styled.jsx";
+import { useNavigate } from "react-router-dom";
 
-export default function Feed() {
+export default function Feed({ userObject }) {
   const [activities, setActivites] = useState(undefined);
   const [isLoading, setIsLoading] = useState(false);
+
   const handleApply = (filters) => {
     console.log("Applied Filters:", filters);
   };
+
+  const navigate = useNavigate();
+
+  if (!userObject) {
+    navigate("/login");
+  }
 
   const getActivities = async () => {
     const query = new Parse.Query("Activity");
@@ -60,6 +68,7 @@ export default function Feed() {
               {activities?.map((activity, index) => (
                 <Card
                   key={`activity-number-${index}`}
+                  userId={userObject.objectId}
                   id={activity.objectId}
                   image={activity.coverPhoto}
                   date={activity.dateStart.iso}
