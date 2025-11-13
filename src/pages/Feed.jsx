@@ -8,11 +8,11 @@ import { MainContainer } from "../components/styled/activity-detail-comp/Middle.
 import {
   LayoutGrid,
   GridContainer,
-} from "../components/styled/feed-style-comp/Grid.styled.jsx";
+} from "../Components/styled/feed-style-comp/Grid.styled.jsx";
 import {
   SectionHeader,
   LoadMoreButton,
-} from "../components/styled/feed-style-comp/Feed.styled.jsx";
+} from "../Components/styled/feed-style-comp/Feed.styled.jsx";
 
 export default function Feed() {
   const [activities, setActivites] = useState(undefined);
