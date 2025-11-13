@@ -9,7 +9,7 @@ import {
   ProfilePageContainer,
   ProfileMainContent,
   ProfileSectionsContainer,
-} from "../components/styled/profile-style-comp/Profile.styled";
+} from "../Components/styled/profile-style-comp/Profile.styled";
 
 export default function Profile() {
   return (
