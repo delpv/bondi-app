@@ -39,7 +39,7 @@ function NavBar() {
 
         <NavActions>
           <Link to="/profile" aria-label="Profile">
-            <AvatarImg src={"public/avatarDefault.jpg"} alt="User avatar" />
+            <AvatarImg src={"/defaultAvatar.jpg"} alt="User avatar" />
           </Link>
 
           <IconButton title="Settings" onClick={() => alert("Settings soon!")}>

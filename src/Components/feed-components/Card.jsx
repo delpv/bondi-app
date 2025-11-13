@@ -32,14 +32,14 @@ export default function Card({
   description,
   hostId,
   maxParticipants,
-  participantCount,
   location,
 }) {
   const [hostObject, setHostObject] = useState(undefined);
   const [isLoading, setIsLoading] = useState(false);
   const [joined, setJoined] = useState(false);
-  const [partNumber, setPartNumber] = useState(participantCount);
+  const [partNumber, setPartNumber] = useState(undefined);
   const navigate = useNavigate();
+  const currentUserId = "yESQnpupOj";
 
   const goToDetail = () => {
     if (!id) return;
@@ -62,8 +62,38 @@ export default function Card({
     }
   };
 
+  const getTotalParticipants = async () => {
+    try {
+      const activityQuery = new Parse.Query("Activity");
+      const currentActivity = await activityQuery.get(id);
+
+      const participationQuery = new Parse.Query("Participation");
+
+      participationQuery.equalTo("activity_id", currentActivity);
+
+      const allParticipants = await participationQuery.find();
+
+      const participants = allParticipants.map((part) => {
+        const partJson = part.toJSON();
+        if (partJson.objectId === currentUserId) {
+          setJoined(true);
+        }
+
+        return part.toJSON();
+      });
+
+      setPartNumber(participants.length);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   useEffect(() => {
-    getHost();
+    const makeApiCalls = async () => {
+      await getHost();
+      await getTotalParticipants();
+    };
+    makeApiCalls();
     // TODO: check if user has joined activities.
     // TODO: On join/cancel click removes user
   }, []);
@@ -79,13 +109,13 @@ export default function Card({
     e.stopPropagation();
     setIsLoading(true);
     const userQuery = new Parse.Query("USER");
-    const currentUser = await userQuery.get("yESQnpupOj");
+    const currentUser = await userQuery.get(currentUserId);
 
     const activityQuery = new Parse.Query("Activity");
     const currentActivity = await activityQuery.get(id);
 
     try {
-      if (!joined && participantCount + 1 < maxParticipants) {
+      if (!joined && partNumber < maxParticipants) {
         const participationObj = new Parse.Object("Participation");
 
         participationObj.set("UserID", currentUser);
@@ -95,6 +125,7 @@ export default function Card({
 
         setJoined(true);
         setPartNumber((partNumber) => partNumber + 1);
+
         console.log("New object created with objectId: " + result.id);
       } else {
         const participationQuery = new Parse.Query("Participation");
@@ -104,6 +135,7 @@ export default function Card({
 
         const currentParticipation = await participationQuery.first();
         await currentParticipation.destroy();
+
         setPartNumber((partNumber) => partNumber - 1);
 
         setJoined(false);
@@ -156,9 +188,11 @@ export default function Card({
 
           <Participants title="Participants">
             <ParticipantsIcon width={20} height={20} aria-hidden />
-            <span style={{ marginLeft: 6 }}>
-              {partNumber}/{maxParticipants}
-            </span>
+            {partNumber !== undefined && (
+              <span style={{ marginLeft: 6 }}>
+                {partNumber}/{maxParticipants}
+              </span>
+            )}
           </Participants>
         </HostRow>
 
@@ -179,13 +213,17 @@ export default function Card({
           </LocationInfo>
 
           <JoinButton
-            disabled={isLoading}
+            disabled={isLoading || (!joined && partNumber === maxParticipants)}
             joined={joined ? 1 : 0}
             onClick={handleToggleJoin}
             aria-pressed={joined}
             aria-label={joined ? "Cancel participation" : "Join activity"}
           >
-            {joined ? "Cancel" : "Join"}
+            {joined
+              ? "Cancel"
+              : partNumber === maxParticipants
+                ? "Full"
+                : "Join"}
           </JoinButton>
         </LocationRow>
       </Content>
