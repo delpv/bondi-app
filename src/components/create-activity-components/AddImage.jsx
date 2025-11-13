@@ -3,7 +3,7 @@ import {
   Field,
   ImagePreview,
   PreviewImg,
-} from "../../Components/styled/create-activity-style-comp/CreateActivity.styled.jsx";
+} from "../../components/styled/create-activity-style-comp/CreateActivity.styled.jsx";
 
 export default function AddImage({
   id = "image",
