@@ -68,7 +68,7 @@ export default function Feed({ userObject }) {
               {activities?.map((activity, index) => (
                 <Card
                   key={`activity-number-${index}`}
-                  userId={userObject.objectId}
+                  userId={userObject.id}
                   id={activity.objectId}
                   image={activity.coverPhoto}
                   date={activity.dateStart.iso}

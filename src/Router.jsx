@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Routes, Route, useNavigate } from "react-router-dom";
 import Login from "./pages/Login.jsx";
+import Register from "./pages/Register.jsx";
 import Feed from "./pages/Feed.jsx";
 import ActivityDetail from "./pages/ActivityDetail.jsx";
 import CreateActivity from "./pages/CreateActivity.jsx";
@@ -19,6 +20,11 @@ const Router = () => {
       <Route
         path="/login"
         element={<Login onGetLogin={(login) => setUserObject(login)} />}
+      />
+
+      <Route
+        path="/signup"
+        element={<Register onRegister={(login) => setUserObject(login)} />}
       />
 
       {/* Main App */}

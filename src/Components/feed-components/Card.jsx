@@ -75,7 +75,8 @@ export default function Card({
 
       const participants = allParticipants.map((part) => {
         const partJson = part.toJSON();
-        if (partJson.objectId === userId) {
+        console.log("partJson", partJson);
+        if (partJson.UserID.objectId === userId) {
           setJoined(true);
         }
 
