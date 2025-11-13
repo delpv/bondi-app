@@ -39,7 +39,6 @@ export default function Feed({ userObject }) {
       );
 
       setActivites(allActivities);
-      console.log(allActivities);
     } catch (e) {
       console.log(e);
     } finally {
@@ -77,9 +76,7 @@ export default function Feed({ userObject }) {
                   description={activity.description}
                   hostId={activity.host_ID.objectId}
                   maxParticipants={activity.maxCapacity}
-                  participantCount={activity.participantCount}
                   location={activity.location}
-                  onJoin={() => console.log("Joined:", activity.id)}
                 />
               ))}
             </GridContainer>

@@ -39,11 +39,6 @@ const LoginLeft = ({ onGetUser }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("password", password);
-    console.log("repeatPassword", repeatPassword);
-    console.log("username", username);
-    console.log("fullName", fullName);
-    console.log("email", email);
 
     if (password !== repeatPassword) {
       setError("Password and repeat password do not match");

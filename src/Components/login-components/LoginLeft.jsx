@@ -34,8 +34,6 @@ const LoginLeft = ({ onGetUser }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("password", password);
-    console.log("email", email);
 
     try {
       const userQuery = new Parse.Query("USER");
@@ -46,7 +44,6 @@ const LoginLeft = ({ onGetUser }) => {
       const user = await userQuery.first();
 
       if (user) {
-        console.log(user.toJSON());
         onGetUser(user);
         navigate("/feed");
       } else {

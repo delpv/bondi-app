@@ -54,7 +54,6 @@ export default function Card({
       const hostJson = await hoestedBy.toJSON();
 
       setHostObject(hostJson);
-      console.log(hostJson);
     } catch (e) {
       console.log(e);
     } finally {
@@ -75,7 +74,6 @@ export default function Card({
 
       const participants = allParticipants.map((part) => {
         const partJson = part.toJSON();
-        console.log("partJson", partJson);
         if (partJson.UserID.objectId === userId) {
           setJoined(true);
         }
