@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import BondiLogo from "../../assets/Icons/second-logo.svg?react";
+import BondiLogo from "../../assets/icons/second-logo.svg?react";
 import {
   FooterInner,
   FooterWrapper,

@@ -1,8 +1,9 @@
 import React from "react";
-import NavBar from "../components/feed-components/NavBar.jsx";
-import Footer from "../components/feed-components/Footer.jsx";
-import Filter from "../components/feed-components/Filter.jsx";
-import Card from "../components/feed-components/Card.jsx";
+
+import NavBar from "../Components/feed-components/NavBar.jsx";
+import Footer from "../Components/feed-components/Footer.jsx";
+import Filter from "../Components/feed-components/Filter.jsx";
+import Card from "../Components/feed-components/Card.jsx";
 import YogaImage from "../assets/images/yoga.jpg";
 import HostYoga from "../assets/images/olly-yoga.jpg";
 import HostVolleyBall from "../assets/images/avatar.png";
@@ -15,15 +16,17 @@ import TriviaImage from "../assets/images/trivia.jpg";
 import HostTrivia from "../assets/images/clara.jpg";
 import BoardGameImage from "../assets/images/boardgame.jpg";
 import HostBoardGame from "../assets/images/elias.jpg";
-import { MainContainer } from "../components/styled/activity-detail-comp/Middle.styled.jsx";
+
+import { MainContainer } from "../Components/styled/MiddleSection/Middle.styled";
+
 import {
   LayoutGrid,
   GridContainer,
-} from "../components/styled/feed-style-comp/Grid.styled.jsx";
+} from "../Components/styled/feed-style-comp/Grid.styled.jsx";
 import {
   SectionHeader,
   LoadMoreButton,
-} from "../components/styled/feed-style-comp/Feed.styled.jsx";
+} from "../Components/styled/feed-style-comp/Feed.styled.jsx";
 
 export default function Feed() {
   const handleApply = (filters) => {

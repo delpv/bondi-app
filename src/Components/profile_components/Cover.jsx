@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect, useRef } from 'react'
-import Avatar from "../../assets/images/Avatar.png";
+import Avatar from "../../assets/images/avatar.png";
 import CoverBackground from "../../assets/images/profile-images/cover_background.jpg";
 import {
   CoverContainer,

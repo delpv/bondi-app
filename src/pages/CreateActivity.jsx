@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import NavBar from "../components/feed-components/NavBar.jsx";
-import Footer from "../components/feed-components/Footer.jsx";
-import { MainContainer } from "../components/styled/activity-detail-comp/Middle.styled.jsx";
-import { SectionHeader } from "../components/styled/feed-style-comp/Feed.styled.jsx";
+
+import NavBar from "../Components/feed-components/NavBar.jsx";
+import Footer from "../Components/feed-components/Footer.jsx";
+import { MainContainer } from "../Components/styled/MiddleSection/Middle.styled.jsx";
 
 import {
   FormWrapper,
@@ -10,14 +10,17 @@ import {
   Actions,
   Primary,
   Secondary,
-} from "../components/CreateActivity/Layout.jsx";
+  SectionHeader,
+} from "../Components/styled/create-activity-style-comp/CreateActivity.styled.jsx";
 
 import {
   TextField,
   TextArea,
   SelectField,
   CheckboxField,
-} from "../components/CreateActivity/Fields.jsx";
+} from "../Components/create-activity-components/Fields.jsx";
+
+import AddImage from "../Components/create-activity-components/AddImage.jsx";
 
 export default function CreateActivity() {
   const [data, setData] = useState({
@@ -30,6 +33,8 @@ export default function CreateActivity() {
     isPublic: true,
     priceLabel: "Free",
     category: "",
+    imageFile: null,
+    imagePreview: "",
   });
 
   const onChange = (e) => {
@@ -37,9 +42,25 @@ export default function CreateActivity() {
     setData((d) => ({ ...d, [name]: type === "checkbox" ? checked : value }));
   };
 
+  const onImageChange = (e) => {
+    const file = e.target.files?.[0];
+    const preview = file ? URL.createObjectURL(file) : "";
+    setData((d) => ({ ...d, imageFile: file, imagePreview: preview }));
+  };
+
   const onSubmit = (e) => {
     e.preventDefault();
-    console.log("Create Activity:", data);
+
+    const formData = new FormData();
+    Object.entries(data).forEach(([k, v]) => {
+      if (k === "imageFile") {
+        if (v) formData.append("image", v);
+      } else if (k !== "imagePreview") {
+        formData.append(k, v);
+      }
+    });
+
+    console.log("Create Activity (demo payload):", data);
     alert("Activity saved (demo). Check console for payload.");
   };
 
@@ -54,6 +75,15 @@ export default function CreateActivity() {
           </SectionHeader>
 
           <form onSubmit={onSubmit}>
+            {/* Add Image */}
+            <AddImage
+              id="activityImage"
+              label="Add Image"
+              onChange={onImageChange}
+              preview={data.imagePreview}
+            />
+
+            {/* Title */}
             <TextField
               id="title"
               name="title"
@@ -64,6 +94,7 @@ export default function CreateActivity() {
               required
             />
 
+            {/* Description */}
             <TextArea
               id="description"
               name="description"
@@ -73,6 +104,7 @@ export default function CreateActivity() {
               onChange={onChange}
             />
 
+            {/* Location */}
             <TextField
               id="location"
               name="location"
@@ -102,7 +134,7 @@ export default function CreateActivity() {
               />
             </FieldRow>
 
-            {/* Participants & Price */}
+            {/* Participants */}
             <FieldRow>
               <TextField
                 id="max"
@@ -114,36 +146,30 @@ export default function CreateActivity() {
                 value={data.max}
                 onChange={onChange}
               />
-              <SelectField
+              
+              {/* Price */}
+              <TextField
                 id="priceLabel"
                 name="priceLabel"
                 label="Price"
+                placeholder="e.g., Free, €10, Donation"
                 value={data.priceLabel}
                 onChange={onChange}
-              >
-                <option value="Free">Free</option>
-                <option value="Paid">Paid</option>
-                <option value="Donation">Donation</option>
-              </SelectField>
+              />
             </FieldRow>
 
-            {/* Category & Public */}
-            <FieldRow>
-              <SelectField
+              {/* Category */}
+              <FieldRow>
+              <TextField
                 id="category"
                 name="category"
                 label="Category"
+                placeholder="Type category (e.g., Sports, Food...)"
                 value={data.category}
                 onChange={onChange}
-              >
-                <option value="">Select category</option>
-                <option value="sports">Sports</option>
-                <option value="food">Food</option>
-                <option value="arts">Arts</option>
-                <option value="outdoors">Outdoors</option>
-                <option value="wellness">Wellness</option>
-              </SelectField>
+              />
 
+              {/* Public or Private */}
               <CheckboxField
                 id="isPublic"
                 name="isPublic"
