@@ -1,11 +1,11 @@
-import Footer from "../components/feed-components/Footer";
-import NavBar from "../components/feed-components/NavBar";
-import Cover from "../components/profile_components/Cover";
-import About from "../components/profile_components/About";
-import Interest from "../components/profile_components/Interest";
-import RecentActivities from "../components/profile_components/RecentActivities";
-import ActivityStatus from "../components/profile_components/ActivityStatus";
-import { MainContainer } from "../components/styled/activity-detail-comp/Middle.styled";
+import Footer from "../Components/feed-components/Footer";
+import NavBar from "../Components/feed-components/NavBar";
+import Cover from "../Components/profile_components/Cover";
+import About from "../Components/profile_components/About";
+import Interest from "../Components/profile_components/Interest";
+import RecentActivities from "../Components/profile_components/RecentActivities";
+import ActivityStatus from "../Components/profile_components/ActivityStatus";
+import { MainContainer } from "../Components/styled/activity-detail-comp/Middle.styled";
 import {
   ProfilePageContainer,
   ProfileMainContent,
