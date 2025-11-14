@@ -34,6 +34,8 @@ const LoginLeft = ({ onGetUser }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log("password", password);
+    console.log("email", email);
 
     try {
       const userQuery = new Parse.Query("USER");
