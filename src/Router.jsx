@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Routes, Route } from "react-router-dom";
 import Login from "./pages/Login.jsx";
 import Register from "./pages/Register.jsx";
@@ -8,32 +8,13 @@ import CreateActivity from "./pages/CreateActivity.jsx";
 import Profile from "./pages/Profile.jsx";
 import NotFound from "./pages/NotFound.jsx";
 import RedirectToLogin from "./pages/RedirectToLogin.jsx";
-import Parse from "parse";
 
 const Router = () => {
   const [userObject, setUserObject] = useState(undefined);
 
   const handleUserObject = (localUserObject) => {
-    sessionStorage.setItem("userId", localUserObject.id);
     setUserObject(localUserObject);
   };
-
-  useEffect(() => {
-    const savedItemSession = sessionStorage.getItem("userId");
-    if (savedItemSession) {
-      const getUser = async () => {
-        const userQuery = new Parse.Query("USER");
-
-        userQuery.equalTo("objectId", savedItemSession);
-
-        const user = await userQuery.first();
-        console.log("user", user.toJSON());
-        setUserObject(user.toJSON());
-      };
-
-      getUser();
-    }
-  }, []);
 
   return (
     <Routes>
