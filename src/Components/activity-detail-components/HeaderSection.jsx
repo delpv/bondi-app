@@ -24,8 +24,6 @@ import Calendar from "../../assets/Icons/calendar.svg?react";
 import Clock from "../../assets/Icons/clock.svg?react";
 import Location from "../../assets/Icons/location.svg?react";
 
-import Yoga from "../../assets/images/yoga.jpg";
-
 const HeaderSection = ({ activityName }) => {
   const [hasJoined, setHasJoined] = useState(false);
   const [joinedCount, setJoinedCount] = useState(0);
@@ -88,7 +86,7 @@ const HeaderSection = ({ activityName }) => {
 
   return (
     <HeaderSectionContainer>
-      <HeaderImage src={Yoga} alt="Yoga" />
+      <HeaderImage src={"public/yoga.jpg"} alt="Yoga" />
       <HeaderText>{title}</HeaderText>
       <CardRow>
         <CardLeft>

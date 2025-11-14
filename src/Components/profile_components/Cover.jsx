@@ -1,7 +1,7 @@
 
 import Parse from "../../utils/parseConfig.js";
 import React, { useState, useEffect, useRef } from 'react'
-import Avatar from "../../assets/images/avatar.png";
+import Avatar from "/public/avatar.png";
 import CoverBackground from "../../assets/images/profile-images/cover_background.jpg";
 import EditProfileIcon from "../../assets/Icons/edit-profile.svg?react";
 import Calendar2Icon from "../../assets/Icons/calendar2.svg?react";

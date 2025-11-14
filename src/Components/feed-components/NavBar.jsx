@@ -1,9 +1,8 @@
 import React from "react";
 import { useNavigate, Link, NavLink } from "react-router-dom";
-import BondiLogo from "../../assets/icons/logo-Bondi.svg?react";
-import Settings from "../../assets/icons/settings.svg?react";
-import Avatar from "../../assets/images/avatar.png";
-import LogoutIcon from "../../assets/icons/logout.svg?react";
+import BondiLogo from "../../assets/Icons/logo-Bondi.svg?react";
+import Settings from "../../assets/Icons/settings.svg?react";
+import LogoutIcon from "../../assets/Icons/logout.svg?react";
 import {
   NavBarContainer,
   Inner,
@@ -40,7 +39,7 @@ function NavBar() {
 
         <NavActions>
           <Link to="/profile" aria-label="Profile">
-            <AvatarImg src={Avatar} alt="User avatar" />
+            <AvatarImg src={"/defaultAvatar.jpg"} alt="User avatar" />
           </Link>
 
           <IconButton title="Settings" onClick={() => alert("Settings soon!")}>
