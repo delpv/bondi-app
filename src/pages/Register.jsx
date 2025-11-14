@@ -2,9 +2,9 @@ import React from "react";
 import {
   PageWrap,
   Split,
-} from "../Components/styled/login-style-comp/Login.styled.jsx";
-import RegisterLeft from "../Components/login-components/RegisterLeft.jsx";
-import LoginRight from "../Components/login-components/LoginRight.jsx";
+} from "../components/styled/login-style-comp/Login.styled.jsx";
+import RegisterLeft from "../components/login-components/RegisterLeft.jsx";
+import LoginRight from "../components/login-components/LoginRight.jsx";
 
 const Register = ({ onRegister }) => {
   return (

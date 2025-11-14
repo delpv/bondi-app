@@ -8,11 +8,11 @@ import { MainContainer } from "../components/styled/activity-detail-comp/Middle.
 import {
   LayoutGrid,
   GridContainer,
-} from "../Components/styled/feed-style-comp/Grid.styled.jsx";
+} from "../components/styled/feed-style-comp/Grid.styled.jsx";
 import {
   SectionHeader,
   LoadMoreButton,
-} from "../Components/styled/feed-style-comp/Feed.styled.jsx";
+} from "../components/styled/feed-style-comp/Feed.styled.jsx";
 import { useNavigate } from "react-router-dom";
 
 export default function Feed({ userObject }) {

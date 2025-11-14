@@ -1,21 +1,21 @@
 import Parse from "../utils/parseConfig.js"; // use the initialized Parse
 import React, { useState, useEffect } from "react";
 
-import NavBar from "../Components/feed-components/NavBar.jsx";
-import Footer from "../Components/feed-components/Footer.jsx";
+import NavBar from "../components/feed-components/NavBar.jsx";
+import Footer from "../components/feed-components/Footer.jsx";
 
 import {
   MainContainer,
   ContentWrapper,
-} from "../Components/styled/MiddleSection/Middle.styled.jsx";
-import Before from "../Components/activity-detail-components/Before";
-import HeaderSection from "../Components/activity-detail-components/HeaderSection";
-import TitleCard from "../Components/activity-detail-components/TitleCard";
-import HostCard from "../Components/activity-detail-components/HostCard";
-import ParticipantsCard from "../Components/activity-detail-components/ParticipantCard";
-import LocationCard from "../Components/activity-detail-components/LocationCard";
+} from "../components/styled/MiddleSection/Middle.styled.jsx";
+import Before from "../components/activity-detail-components/Before.jsx";
+import HeaderSection from "../components/activity-detail-components/HeaderSection.jsx";
+import TitleCard from "../components/activity-detail-components/TitleCard.jsx";
+import HostCard from "../components/activity-detail-components/HostCard.jsx";
+import ParticipantsCard from "../components/activity-detail-components/ParticipantCard.jsx";
+import LocationCard from "../components/activity-detail-components/LocationCard.jsx";
 
-import { CardContainer } from "../Components/styled/act-detail-style-comp/Common";
+import { CardContainer } from "../components/styled/act-detail-style-comp/Common.jsx";
 
 const ActivityDetail = () => {
   const [activity, setActivity] = useState(null);
