@@ -5,25 +5,28 @@ import About from "../Components/profile_components/About";
 import Interest from "../Components/profile_components/Interest";
 import RecentActivities from "../Components/profile_components/RecentActivities";
 import ActivityStatus from "../Components/profile_components/ActivityStatus";
+import { MainContainer } from "../Components/styled/activity-detail-comp/Middle.styled";
 import {
   ProfilePageContainer,
   ProfileMainContent,
   ProfileSectionsContainer,
-} from "../Components/styled/profile-style-comp/Profile.styled";
+} from "../components/styled/profile-style-comp/Profile.styled";
 
 export default function Profile() {
   return (
     <ProfilePageContainer>
       <NavBar />
-      <ProfileMainContent>
-        <Cover />
-        <ProfileSectionsContainer>
-          <About />
-          <Interest />
-          <RecentActivities />
-          <ActivityStatus />
-        </ProfileSectionsContainer>
-      </ProfileMainContent>
+      <MainContainer>
+        <ProfileMainContent>
+          <Cover />
+          <ProfileSectionsContainer>
+            <About />
+            <Interest />
+            <RecentActivities />
+            <ActivityStatus />
+          </ProfileSectionsContainer>
+        </ProfileMainContent>
+      </MainContainer>
       <Footer />
     </ProfilePageContainer>
   );

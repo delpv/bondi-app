@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import Parse from "parse";
-import NavBar from "../components/feed-components/NavBar.jsx";
-import Footer from "../components/feed-components/Footer.jsx";
-import Filter from "../components/feed-components/Filter.jsx";
-import Card from "../components/feed-components/Card.jsx";
-import { MainContainer } from "../components/styled/activity-detail-comp/Middle.styled.jsx";
+import NavBar from "../Components/feed-components/NavBar.jsx";
+import Footer from "../Components/feed-components/Footer.jsx";
+import Filter from "../Components/feed-components/Filter.jsx";
+import Card from "../Components/feed-components/Card.jsx";
+import { MainContainer } from "../Components/styled/activity-detail-comp/Middle.styled.jsx";
 import {
   LayoutGrid,
   GridContainer,

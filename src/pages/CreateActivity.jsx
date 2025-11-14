@@ -11,16 +11,16 @@ import {
   Primary,
   Secondary,
   SectionHeader,
-} from "../Components/styled/create-activity-style-comp/CreateActivity.styled.jsx";
+} from "../components/styled/create-activity-style-comp/CreateActivity.styled.jsx";
 
 import {
   TextField,
   TextArea,
   SelectField,
   CheckboxField,
-} from "../Components/create-activity-components/Fields.jsx";
+} from "../components/create-activity-components/Fields.jsx";
 
-import AddImage from "../Components/create-activity-components/AddImage.jsx";
+import AddImage from "../components/create-activity-components/AddImage.jsx";
 
 export default function CreateActivity() {
   const [data, setData] = useState({
