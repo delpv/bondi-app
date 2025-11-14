@@ -1,18 +1,18 @@
 import React, { useEffect, useState } from "react";
 import Parse from "parse";
-import NavBar from "../Components/feed-components/NavBar.jsx";
-import Footer from "../Components/feed-components/Footer.jsx";
-import Filter from "../Components/feed-components/Filter.jsx";
-import Card from "../Components/feed-components/Card.jsx";
-import { MainContainer } from "../Components/styled/activity-detail-comp/Middle.styled.jsx";
+import NavBar from "../components/feed-components/NavBar.jsx";
+import Footer from "../components/feed-components/Footer.jsx";
+import Filter from "../components/feed-components/Filter.jsx";
+import Card from "../components/feed-components/Card.jsx";
+import { MainContainer } from "../components/styled/activity-detail-comp/Middle.styled.jsx";
 import {
   LayoutGrid,
   GridContainer,
-} from "../Components/styled/feed-style-comp/Grid.styled.jsx";
+} from "../components/styled/feed-style-comp/Grid.styled.jsx";
 import {
   SectionHeader,
   LoadMoreButton,
-} from "../Components/styled/feed-style-comp/Feed.styled.jsx";
+} from "../components/styled/feed-style-comp/Feed.styled.jsx";
 import { useNavigate } from "react-router-dom";
 
 export default function Feed({ userObject }) {
@@ -39,7 +39,6 @@ export default function Feed({ userObject }) {
       );
 
       setActivites(allActivities);
-      console.log(allActivities);
     } catch (e) {
       console.log(e);
     } finally {
@@ -68,7 +67,7 @@ export default function Feed({ userObject }) {
               {activities?.map((activity, index) => (
                 <Card
                   key={`activity-number-${index}`}
-                  userId={userObject.objectId}
+                  userId={userObject.id}
                   id={activity.objectId}
                   image={activity.coverPhoto}
                   date={activity.dateStart.iso}
@@ -77,9 +76,7 @@ export default function Feed({ userObject }) {
                   description={activity.description}
                   hostId={activity.host_ID.objectId}
                   maxParticipants={activity.maxCapacity}
-                  participantCount={activity.participantCount}
                   location={activity.location}
-                  onJoin={() => console.log("Joined:", activity.id)}
                 />
               ))}
             </GridContainer>

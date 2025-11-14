@@ -27,29 +27,49 @@ import {
 
 const LoginLeft = ({ onGetUser }) => {
   const [showPass, setShowPass] = useState(false);
+  const [showRepeatPass, setShowRepeatPass] = useState(false);
+
   const [password, setPassword] = useState("");
+  const [repeatPassword, setRepeatPassword] = useState("");
+  const [fullName, setFullName] = useState("");
+  const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("password", password);
-    console.log("email", email);
+
+    if (password !== repeatPassword) {
+      setError("Password and repeat password do not match");
+      return;
+    }
 
     try {
-      const userQuery = new Parse.Query("USER");
+      const userQuery1 = new Parse.Query("USER");
+      const userQuery2 = new Parse.Query("USER");
 
-      userQuery.equalTo("email", email);
-      userQuery.equalTo("password", password);
+      userQuery1.equalTo("email", email);
+      userQuery2.equalTo("username", username);
 
-      const user = await userQuery.first();
+      const user = await Parse.Query.or(userQuery1, userQuery2).first();
 
       if (user) {
-        onGetUser(user);
+        setError("Email or username already exists");
+        return;
+      }
+
+      const userObj = new Parse.Object("USER");
+
+      userObj.set("email", email);
+      userObj.set("fullName", fullName);
+      userObj.set("username", username);
+      userObj.set("password", password);
+
+      const result = await userObj.save();
+      if (result) {
+        onGetUser(result);
         navigate("/feed");
-      } else {
-        setError("Email or password are wrong.");
       }
     } catch (e) {
       setError(e.message);
@@ -76,6 +96,28 @@ const LoginLeft = ({ onGetUser }) => {
         </Field>
 
         <Field>
+          <Label htmlFor="fullname">Full name</Label>
+          <Input
+            id="fullname"
+            type="text"
+            placeholder="Enter full name"
+            required
+            onChange={(e) => setFullName(e.target.value)}
+          />
+        </Field>
+
+        <Field>
+          <Label htmlFor="username">Username</Label>
+          <Input
+            id="username"
+            type="text"
+            placeholder="Enter your username"
+            onChange={(e) => setUsername(e.target.value)}
+            required
+          />
+        </Field>
+
+        <Field>
           <Label htmlFor="password">Password</Label>
           <Row>
             <Input
@@ -98,6 +140,28 @@ const LoginLeft = ({ onGetUser }) => {
           </Row>
         </Field>
 
+        <Field>
+          <Row>
+            <Label htmlFor="repeatPass">Repeat password</Label>
+            <Input
+              id="repeatPass"
+              type={showRepeatPass ? "text" : "password"}
+              placeholder="Repeat your password"
+              required
+              onChange={(e) => setRepeatPassword(e.target.value)}
+            />
+            <button
+              className="reveal"
+              type="button"
+              aria-label="Toggle password visibility"
+              onClick={() => setShowRepeatPass((v) => !v)}
+              title={showPass ? "Hide password" : "Show password"}
+            >
+              <EyeIcon />
+            </button>
+          </Row>
+        </Field>
+
         <Row style={{ marginBottom: 12 }}>
           <RememberWrap>
             <Checkbox id="remember" type="checkbox" />
@@ -107,7 +171,7 @@ const LoginLeft = ({ onGetUser }) => {
           <Forgot to="/forgot-password">Forgot password</Forgot>
         </Row>
 
-        <ButtonLogin type="submit">Login</ButtonLogin>
+        <ButtonLogin type="submit">Sign up</ButtonLogin>
 
         <Divider>
           <span>or</span>
