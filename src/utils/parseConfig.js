@@ -7,5 +7,9 @@ Parse.initialize(
   import.meta.env.VITE_PARSE_JS_KEY // JavaScript Key
 );
 
-// Export so it can be used anywhere in your app
+// Set the server URL
+Parse.serverURL =
+  import.meta.env.VITE_PARSE_SERVER_URL;
+
+// Export Parse instance to use in other files
 export default Parse;

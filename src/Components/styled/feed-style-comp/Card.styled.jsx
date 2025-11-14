@@ -72,6 +72,13 @@ export const Description = styled.p`
   color: ${subtle};
   line-height: 1.5;
   flex-grow: 1;
+
+  display: -webkit-box;
+  -webkit-line-clamp: 3; /* number of lines to show */
+  -webkit-box-orient: vertical;
+
+  overflow: hidden;
+  text-overflow: ellipsis;
 `;
 
 /* host row with avatar on left and participants on right */
@@ -129,13 +136,18 @@ export const LocationInfo = styled.div`
 `;
 
 export const JoinButton = styled.button`
-  background: ${(p) => (p.joined ? "#166638" : "#2d936c")};
+  background: ${(p) => {
+    if (p.disabled) {
+      return "gray";
+    }
+    return p.joined ? "#166638" : "#2d936c";
+  }};
   color: white;
   border: none;
   padding: 10px 18px;
   border-radius: 18px;
   font-weight: 600;
-  cursor: pointer;
+  cursor: ${(p) => (p.disabled ? undefined : "pointer")};
   box-shadow: ${(p) =>
     p.joined
       ? "0 8px 18px rgba(22,102,56,0.18)"
@@ -151,7 +163,12 @@ export const JoinButton = styled.button`
       p.joined
         ? "0 12px 26px rgba(22,102,56,0.26)"
         : "0 12px 26px rgba(47, 133, 90, 0.22)"};
-    background: ${(p) => (p.joined ? "#125031" : "#2a8e60")};
+    background: ${(p) => {
+      if (p.disabled) {
+        return "gray";
+      }
+      return p.joined ? "#125031" : "#2a8e60";
+    }};
   }
 `;
 
