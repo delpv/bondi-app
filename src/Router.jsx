@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import { Routes, Route } from "react-router-dom";
 import Login from "./pages/Login.jsx";
+import Register from "./pages/Register.jsx";
 import Feed from "./pages/Feed.jsx";
 import ActivityDetail from "./pages/ActivityDetail.jsx";
 import CreateActivity from "./pages/CreateActivity.jsx";
@@ -9,13 +10,29 @@ import NotFound from "./pages/NotFound.jsx";
 import RedirectToLogin from "./pages/RedirectToLogin.jsx";
 
 const Router = () => {
+  const [userObject, setUserObject] = useState(undefined);
+
+  const handleUserObject = (localUserObject) => {
+    setUserObject(localUserObject);
+  };
+
   return (
     <Routes>
       {/* Auth */}
       <Route index path="/" element={<RedirectToLogin />} />
-      <Route path="/login" element={<Login />} />
+
+      <Route
+        path="/login"
+        element={<Login onGetLogin={(login) => handleUserObject(login)} />}
+      />
+
+      <Route
+        path="/signup"
+        element={<Register onRegister={(login) => handleUserObject(login)} />}
+      />
+
       {/* Main App */}
-      <Route path="/feed" element={<Feed />} />
+      <Route path="/feed" element={<Feed userObject={userObject} />} />
       <Route path="/activity/:id" element={<ActivityDetail />} />
       <Route path="/create-activity" element={<CreateActivity />} />
       <Route path="/profile" element={<Profile />} />
