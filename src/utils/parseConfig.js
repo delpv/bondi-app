@@ -7,5 +7,7 @@ Parse.initialize(
   import.meta.env.VITE_PARSE_JS_KEY // JavaScript Key
 );
 
+// THIS IS THE KEY LINE — it must match your Back4App server
+Parse.serverURL = import.meta.env.VITE_PARSE_SERVER_URL;
 // Export so it can be used anywhere in your app
 export default Parse;
