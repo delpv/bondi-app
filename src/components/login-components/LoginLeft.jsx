@@ -3,7 +3,6 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import EyeIcon from "../../assets/Icons/eye.svg?react";
-import Parse from "parse";
 import {
   Left,
   H1,
@@ -22,36 +21,25 @@ import {
   SocialStack,
   SocialButton,
   BellowText,
-  ErrorMessage,
 } from "../styled/login-style-comp/LoginLeft.styled.jsx";
 
-const LoginLeft = ({ onGetUser }) => {
+const LoginLeft = () => {
   const [showPass, setShowPass] = useState(false);
-  const [password, setPassword] = useState("");
-  const [email, setEmail] = useState("");
-  const [error, setError] = useState("");
   const navigate = useNavigate();
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
 
-    try {
-      const userQuery = new Parse.Query("USER");
+    // Mock up data
+    const mockUser = {
+      name: "Catalina Popovici",
+      email: "catalina@example.com",
+      avatar: "/src/assets/Images/avatar.png",
+    };
 
-      userQuery.equalTo("email", email);
-      userQuery.equalTo("password", password);
+    localStorage.setItem("bondi_user", JSON.stringify(mockUser));
 
-      const user = await userQuery.first();
-
-      if (user) {
-        onGetUser(user);
-        navigate("/feed");
-      } else {
-        setError("Email or password are wrong.");
-      }
-    } catch (e) {
-      setError(e.message);
-    }
+    navigate("/feed");
   };
 
   return (
@@ -61,7 +49,7 @@ const LoginLeft = ({ onGetUser }) => {
 
       <FormCard onSubmit={handleSubmit}>
         <SectionTitle>Welcome</SectionTitle>
-        {error && <ErrorMessage>{error}</ErrorMessage>}
+
         <Field>
           <Label htmlFor="email">Email</Label>
           <Input
@@ -69,7 +57,6 @@ const LoginLeft = ({ onGetUser }) => {
             type="email"
             placeholder="Enter your email"
             required
-            onChange={(e) => setEmail(e.target.value)}
           />
         </Field>
 
@@ -81,7 +68,6 @@ const LoginLeft = ({ onGetUser }) => {
               type={showPass ? "text" : "password"}
               placeholder="Enter your password"
               required
-              onChange={(e) => setPassword(e.target.value)}
             />
 
             <button
@@ -118,7 +104,7 @@ const LoginLeft = ({ onGetUser }) => {
       </FormCard>
 
       <BellowText>
-        Don't have an account? <Link to={"/signup"}>Sign up</Link>
+        Don't have an account? <Link>Sign up</Link>
       </BellowText>
     </Left>
   );

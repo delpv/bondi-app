@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
@@ -21,7 +21,6 @@ import {
 } from "../styled/feed-style-comp/Card.styled.jsx";
 import ParticipantsIcon from "../../assets/icons/participants.svg?react";
 import LocationIcon from "../../assets/icons/map-pin-green.svg?react";
-import Parse from "parse";
 
 export default function Card({
   id,
@@ -30,72 +29,19 @@ export default function Card({
   priceLabel,
   title,
   description,
-  hostId,
-  maxParticipants,
+  host,
+  participants,
   location,
-  userId,
+  onJoin = () => {},
 }) {
-  const [hostObject, setHostObject] = useState(undefined);
-  const [isLoading, setIsLoading] = useState(false);
+  // new: manage joined state locally
   const [joined, setJoined] = useState(false);
-  const [partNumber, setPartNumber] = useState(undefined);
   const navigate = useNavigate();
 
   const goToDetail = () => {
     if (!id) return;
     navigate(`/activity/${id}`);
   };
-
-  const getHost = async () => {
-    const hostQuery = new Parse.Query("USER");
-    setIsLoading(true);
-    try {
-      const hoestedBy = await hostQuery.get(hostId);
-      const hostJson = await hoestedBy.toJSON();
-
-      setHostObject(hostJson);
-    } catch (e) {
-      console.log(e);
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  const getTotalParticipants = async () => {
-    try {
-      const activityQuery = new Parse.Query("Activity");
-      const currentActivity = await activityQuery.get(id);
-
-      const participationQuery = new Parse.Query("Participation");
-
-      participationQuery.equalTo("activity_id", currentActivity);
-
-      const allParticipants = await participationQuery.find();
-
-      const participants = allParticipants.map((part) => {
-        const partJson = part.toJSON();
-        if (partJson.UserID.objectId === userId) {
-          setJoined(true);
-        }
-
-        return part.toJSON();
-      });
-
-      setPartNumber(participants.length);
-    } catch (e) {
-      console.log(e);
-    }
-  };
-
-  useEffect(() => {
-    const makeApiCalls = async () => {
-      await getHost();
-      await getTotalParticipants();
-    };
-    makeApiCalls();
-    // TODO: check if user has joined activities.
-    // TODO: On join/cancel click removes user
-  }, []);
 
   const onKeyGoToDetail = (e) => {
     if (e.key === "Enter" || e.key === " ") {
@@ -104,46 +50,12 @@ export default function Card({
     }
   };
 
-  const handleToggleJoin = async (e) => {
+  const handleToggleJoin = (e) => {
     e.stopPropagation();
-    setIsLoading(true);
-    const userQuery = new Parse.Query("USER");
-    const currentUser = await userQuery.get(userId);
-
-    const activityQuery = new Parse.Query("Activity");
-    const currentActivity = await activityQuery.get(id);
-
-    try {
-      if (!joined && partNumber < maxParticipants) {
-        const participationObj = new Parse.Object("Participation");
-
-        participationObj.set("UserID", currentUser);
-        participationObj.set("activity_id", currentActivity);
-
-        const result = await participationObj.save();
-
-        setJoined(true);
-        setPartNumber((partNumber) => partNumber + 1);
-
-        console.log("New object created with objectId: " + result.id);
-      } else {
-        const participationQuery = new Parse.Query("Participation");
-
-        participationQuery.equalTo("UserID", currentUser);
-        participationQuery.equalTo("activity_id", currentActivity);
-
-        const currentParticipation = await participationQuery.first();
-        await currentParticipation.destroy();
-
-        setPartNumber((partNumber) => partNumber - 1);
-
-        setJoined(false);
-      }
-    } catch (error) {
-      console.error("Error: " + error.message);
-    } finally {
-      setIsLoading(false);
-    }
+    const next = !joined;
+    setJoined(next);
+    // call external handler when joined; you can modify to call onJoin/onCancel separately
+    if (next) onJoin();
   };
 
   return (
@@ -156,12 +68,8 @@ export default function Card({
       aria-label={`Open details for ${title}`}
     >
       <Hero>
-        <HeroImage src={"public/" + image || "default.jpg"} alt={title} />
-        <CornerChips>
-          {new Intl.DateTimeFormat("en-GB", {
-            dateStyle: "short",
-          }).format(new Date(date))}
-        </CornerChips>
+        {image && <HeroImage src={image} alt={title} />}
+        <CornerChips>{date}</CornerChips>
         <CornerChips variant="right">{priceLabel}</CornerChips>
       </Hero>
 
@@ -170,28 +78,21 @@ export default function Card({
         <Description>{description}</Description>
 
         <HostRow>
-          {hostObject && (
-            <HostInfo>
-              <HostAvatar
-                src={"public/" + hostObject.profilePictureUrl}
-                alt={hostObject.username}
-              />
-              <HostMeta>
-                <div style={{ fontWeight: 600 }}>Hosted by</div>
-                <div style={{ color: "#9AA0A6", fontSize: "0.9rem" }}>
-                  {hostObject.fullName}
-                </div>
-              </HostMeta>
-            </HostInfo>
-          )}
+          <HostInfo>
+            <HostAvatar src={host.avatar} alt={host.name} />
+            <HostMeta>
+              <div style={{ fontWeight: 600 }}>{host.name}</div>
+              <div style={{ color: "#9AA0A6", fontSize: "0.9rem" }}>
+                {host.role}
+              </div>
+            </HostMeta>
+          </HostInfo>
 
           <Participants title="Participants">
             <ParticipantsIcon width={20} height={20} aria-hidden />
-            {partNumber !== undefined && (
-              <span style={{ marginLeft: 6 }}>
-                {partNumber}/{maxParticipants}
-              </span>
-            )}
+            <span style={{ marginLeft: 6 }}>
+              {participants.count}/{participants.max}
+            </span>
           </Participants>
         </HostRow>
 
@@ -212,17 +113,12 @@ export default function Card({
           </LocationInfo>
 
           <JoinButton
-            disabled={isLoading || (!joined && partNumber === maxParticipants)}
             joined={joined ? 1 : 0}
             onClick={handleToggleJoin}
             aria-pressed={joined}
             aria-label={joined ? "Cancel participation" : "Join activity"}
           >
-            {joined
-              ? "Cancel"
-              : partNumber === maxParticipants
-                ? "Full"
-                : "Join"}
+            {joined ? "Cancel" : "Join"}
           </JoinButton>
         </LocationRow>
       </Content>
