@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import EyeIcon from "../../assets/Icons/eye.svg?react";
+import Parse from "parse";
 import {
   Left,
   H1,
@@ -21,25 +22,36 @@ import {
   SocialStack,
   SocialButton,
   BellowText,
+  ErrorMessage,
 } from "../styled/login-style-comp/LoginLeft.styled.jsx";
 
-const LoginLeft = () => {
+const LoginLeft = ({ onGetUser }) => {
   const [showPass, setShowPass] = useState(false);
+  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("");
+  const [error, setError] = useState("");
   const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Mock up data
-    const mockUser = {
-      name: "Catalina Popovici",
-      email: "catalina@example.com",
-      avatar: "/src/assets/Images/avatar.png",
-    };
+    try {
+      const userQuery = new Parse.Query("USER");
 
-    localStorage.setItem("bondi_user", JSON.stringify(mockUser));
+      userQuery.equalTo("email", email);
+      userQuery.equalTo("password", password);
 
-    navigate("/feed");
+      const user = await userQuery.first();
+
+      if (user) {
+        onGetUser(user);
+        navigate("/feed");
+      } else {
+        setError("Email or password are wrong.");
+      }
+    } catch (e) {
+      setError(e.message);
+    }
   };
 
   return (
@@ -49,7 +61,7 @@ const LoginLeft = () => {
 
       <FormCard onSubmit={handleSubmit}>
         <SectionTitle>Welcome</SectionTitle>
-
+        {error && <ErrorMessage>{error}</ErrorMessage>}
         <Field>
           <Label htmlFor="email">Email</Label>
           <Input
@@ -57,6 +69,7 @@ const LoginLeft = () => {
             type="email"
             placeholder="Enter your email"
             required
+            onChange={(e) => setEmail(e.target.value)}
           />
         </Field>
 
@@ -68,6 +81,7 @@ const LoginLeft = () => {
               type={showPass ? "text" : "password"}
               placeholder="Enter your password"
               required
+              onChange={(e) => setPassword(e.target.value)}
             />
 
             <button
@@ -104,7 +118,7 @@ const LoginLeft = () => {
       </FormCard>
 
       <BellowText>
-        Don't have an account? <Link>Sign up</Link>
+        Don't have an account? <Link to={"/signup"}>Sign up</Link>
       </BellowText>
     </Left>
   );
