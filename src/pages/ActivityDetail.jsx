@@ -40,6 +40,8 @@ const ActivityDetail = () => {
 
   if (!activity) return <div>Loading...</div>;
 
+  const location = activity.get("location");
+
   return (
     <>
       <NavBar />
@@ -47,7 +49,7 @@ const ActivityDetail = () => {
         <ContentWrapper>
           <Before />
 
-          <HeaderSection />
+          <HeaderSection activity={activity} />
           <CardContainer>
             <TitleCard
               title={activity.get("Title")}
@@ -57,6 +59,7 @@ const ActivityDetail = () => {
                   "Yoga mat",
                   "Water bottle",
                   "Good energy",
+                  "Sunshine",
                 ]
               }
             />
@@ -73,7 +76,7 @@ const ActivityDetail = () => {
               participantImage="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTnFW7ZDLxu41lI2gB6ExZT7vczi163BrA9WA&s"
             />
             <LocationCard
-              location="Gothersgade 128, 1123 København K"
+              location={activity.get("location")}
               locationImage="https://upload.wikimedia.org/wikipedia/commons/5/5b/Palm_House%2C_Copenhagen_Botanical_Garden.jpg"
             />
           </CardContainer>
