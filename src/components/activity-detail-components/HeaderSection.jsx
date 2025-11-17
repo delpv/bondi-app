@@ -24,13 +24,7 @@ import Calendar from "../../assets/Icons/calendar.svg?react";
 // import Clock from "../../assets/Icons/clock.svg?react";
 import Location from "../../assets/Icons/location.svg?react";
 
-<<<<<<< HEAD:src/Components/activity-detail-components/HeaderSection.jsx
-import Yoga from "../../assets/images/yoga.jpg";
-
 const HeaderSection = ({ activity }) => {
-=======
-const HeaderSection = ({ activityName }) => {
->>>>>>> fb28215a0f9a558d12196340cf89e188465d7ff9:src/components/activity-detail-components/HeaderSection.jsx
   const [hasJoined, setHasJoined] = useState(false);
   const [joinedCount, setJoinedCount] = useState(0);
   const [waitingList, setWaitingList] = useState(false);
