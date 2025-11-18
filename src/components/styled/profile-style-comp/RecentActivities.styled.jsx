@@ -87,27 +87,26 @@ export const ViewAllLink = styled.a`
 
 // Edit button
 export const EditButton = styled.button`
-  width: 32px;
-  height: 32px;
+  width: 24px;
+  height: 24px;
   background: none;
   border: none;
   cursor: pointer;
-  padding: 8px;
+  padding: 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 6px;
+  border-radius: 4px;
   transition: background-color 0.2s ease;
-  position: relative;
 
   &:hover {
     background-color: #f3f4f6;
   }
 
-  svg {
-    width: 20px;
-    height: 20px;
-    fill: #6b7280;
+  svg, span {
+    width: 24px;
+    height: 24px;
+    color: #6b7280;
   }
 `;
 

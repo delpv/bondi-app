@@ -29,7 +29,6 @@ export const AboutFrame = styled.div`
 
 // About title
 export const AboutTitle = styled.h2`
-  font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   font-size: 1.5rem;
   font-weight: 600;
   color: #111318;
@@ -47,18 +46,15 @@ export const EditButton = styled.button`
   align-items: center;
   justify-content: center;
   transition: background-color 0.2s ease;
-  width: 32px;
-  height: 32px;
-  position: relative;
 
   &:hover {
     background-color: #f3f4f6;
   }
 
-  svg {
+  svg, span {
     width: 20px;
     height: 20px;
-    fill: #6b7280;
+    color: #6b7280;
   }
 `;
 
@@ -72,56 +68,8 @@ export const AboutTextContainer = styled.div`
 
 // About text content
 export const AboutText = styled.p`
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   font-size: 1rem;
   line-height: 1.5;
   color: #374151;
   margin: 0;
-`;
-
-// About textarea for editing
-export const AboutTextarea = styled.textarea`
-  width: 100%;
-  min-height: 80px;
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  font-size: 1rem;
-  line-height: 1.5;
-  color: #374151;
-  margin: 0 0 12px 0;
-  padding: 8px;
-  border: 1px solid #ddd;
-  border-radius: 6px;
-  outline: none;
-  background: ${props => props.disabled ? '#f5f5f5' : 'white'};
-  resize: vertical;
-  box-sizing: border-box;
-`;
-
-// About edit actions container
-export const AboutEditActions = styled.div`
-  display: flex;
-  gap: 8px;
-  justify-content: flex-end;
-`;
-
-// About edit button
-export const AboutEditButton = styled.button`
-  padding: 6px 12px;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  font-size: 14px;
-  cursor: ${props => props.disabled ? 'not-allowed' : 'pointer'};
-  opacity: ${props => props.disabled ? 0.5 : 1};
-  
-  ${props => {
-    switch(props.variant) {
-      case 'discard':
-        return `background-color: #6c757d;`;
-      case 'save':
-        return `background-color: #28a745;`;
-      default:
-        return `background-color: #6c757d;`;
-    }
-  }}
 `;
