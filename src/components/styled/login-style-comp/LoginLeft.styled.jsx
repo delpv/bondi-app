@@ -7,10 +7,6 @@ const subtext = "#6F6F6F";
 const cardBg = "#FFFFFF";
 const line = "rgba(0,0,0,0.1)";
 
-export const ErrorMessage = styled.p`
-  color: red;
-`;
-
 export const Left = styled.div`
   background: ${cardBg};
   border-radius: 14px;
