@@ -19,8 +19,8 @@ import {
   JoinButton,
   ElypsisText,
 } from "../styled/feed-style-comp/Card.styled.jsx";
-import ParticipantsIcon from "../../assets/icons/participants.svg?react";
-import LocationIcon from "../../assets/icons/map-pin-green.svg?react";
+import ParticipantsIcon from "../../assets/icons_app/participants.svg?react";
+import LocationIcon from "../../assets/icons_app/map-pin-green.svg?react";
 
 export default function Card({
   id,

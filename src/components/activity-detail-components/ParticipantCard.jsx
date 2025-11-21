@@ -9,8 +9,8 @@ import {
   HostLabel,
   ViewMoreButton,
 } from "../styled/act-detail-style-comp/Participants.styled";
-import Participant from "../../assets/icons/participant.svg?react";
-import Divider from "../../assets/icons/divider.svg?react";
+import Participant from "../../assets/icons_app/participant.svg?react";
+import Divider from "../../assets/icons_app/divider.svg?react";
 
 const ParticipantsCard = ({
   participants = [],

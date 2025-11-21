@@ -20,9 +20,9 @@ import {
 } from "../styled/act-detail-style-comp/Common.jsx";
 
 // Icons
-import Calendar from "../../assets/icons/calendar.svg?react";
+import Calendar from "../../assets/icons_app/calendar.svg?react";
 // import Clock from "../../assets/Icons/clock.svg?react";
-import Location from "../../assets/icons/location.svg?react";
+import Location from "../../assets/icons_app/location.svg?react";
 
 const HeaderSection = ({ activity }) => {
   const [hasJoined, setHasJoined] = useState(false);
