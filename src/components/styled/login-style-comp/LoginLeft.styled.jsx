@@ -233,3 +233,9 @@ export const BellowText = styled.p`
     text-decoration: none;
   }
 `;
+
+export const ErrorMessage = styled.p`
+  color: #e63946;
+  font-size: 0.9rem;
+  margin-bottom: 10px;
+`;

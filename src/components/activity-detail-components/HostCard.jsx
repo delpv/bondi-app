@@ -14,8 +14,8 @@ import {
   ActivitiesHostedLabel,
   DescriptionContainer,
 } from "../styled/act-detail-style-comp/HostCard.styled.jsx";
-import UserIcon from "../../assets/Icons/user.svg?react";
-import Divider from "../../assets/Icons/divider.svg?react";
+import UserIcon from "../../assets/icons/user.svg?react";
+import Divider from "../../assets/icons/divider.svg?react";
 
 const HostCard = ({ activitiesHosted }) => {
   const [user, setUser] = useState(null);
