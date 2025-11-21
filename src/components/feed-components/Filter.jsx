@@ -1,8 +1,8 @@
 import react from "react";
 import { useState } from "react";
-import SearchIcon from "../../assets/Icons/search.svg?react";
-import LocationIcon from "../../assets/Icons/map-pin.svg?react";
-import FilterIcon from "../../assets/Icons/filter-icon.svg?react";
+import SearchIcon from "../../assets/icons_app/search.svg?react";
+import LocationIcon from "../../assets/icons_app/map-pin.svg?react";
+import FilterIcon from "../../assets/icons_app/filter-icon.svg?react";
 import {
   FilterWrapper,
   FilterHeader,

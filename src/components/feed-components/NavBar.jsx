@@ -1,9 +1,9 @@
 import React from "react";
 import { useNavigate, Link, NavLink } from "react-router-dom";
-import BondiLogo from "../../assets/Icons/logo-Bondi.svg?react";
-import Settings from "../../assets/Icons/settings.svg?react";
-import Avatar from "../../assets/Images/Avatar.png";
-import LogoutIcon from "../../assets/Icons/logout.svg?react";
+import BondiLogo from "../../assets/icons_app/logo-Bondi.svg?react";
+import Settings from "../../assets/icons_app/settings.svg?react";
+import Avatar from "../../assets/images/avatar.png";
+import LogoutIcon from "../../assets/icons_app/logout.svg?react";
 import {
   NavBarContainer,
   Inner,

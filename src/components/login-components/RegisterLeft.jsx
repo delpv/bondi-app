@@ -2,7 +2,7 @@ import React from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
-import EyeIcon from "../../assets/Icons/eye.svg?react";
+import EyeIcon from "../../assets/icons_app/eye.svg?react";
 import Parse from "parse";
 import {
   Left,

@@ -8,9 +8,9 @@ import {
   BringBadge,
 } from "../styled/act-detail-style-comp/TitleCard.styled";
 
-import Info from "../../assets/Icons/info.svg?react";
-import Divider from "../../assets/Icons/divider.svg?react";
-import List from "../../assets/Icons/list.svg?react";
+import Info from "../../assets/icons_app/info.svg?react";
+import Divider from "../../assets/icons_app/divider.svg?react";
+import List from "../../assets/icons_app/list.svg?react";
 
 const TitleCard = ({ title, description, whatToBring }) => (
   <TitleCardContainer>

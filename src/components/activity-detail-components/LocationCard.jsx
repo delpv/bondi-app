@@ -7,8 +7,8 @@ import {
   DirectionButton,
 } from "../styled/act-detail-style-comp/LocationCard.styled";
 
-import Walker from "../../assets/Icons/directions_walk.svg?react";
-import Icon from "../../assets/Icons/Icon.svg?react";
+import Walker from "../../assets/icons_app/directions_walk.svg?react";
+import Icon from "../../assets/icons_app/icon_icon.svg?react";
 
 const LocationCard = ({ location, locationImage }) => {
   if (!location) return <div>Loading...</div>;

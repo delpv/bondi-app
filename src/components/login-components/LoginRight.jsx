@@ -7,7 +7,7 @@ import {
   BulletList,
   BulletItem,
 } from "../styled/login-style-comp/LoginRight.styled.jsx";
-import PuzzleIcon from "../../assets/Icons/puzzle.svg?react";
+import PuzzleIcon from "../../assets/icons_app/puzzle.svg?react";
 
 const LoginRight = () => {
   return (
