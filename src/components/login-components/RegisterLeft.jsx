@@ -14,13 +14,7 @@ import {
   Label,
   Input,
   Row,
-  RememberWrap,
-  Checkbox,
-  Forgot,
   ButtonLogin,
-  Divider,
-  SocialStack,
-  SocialButton,
   BellowText,
   ErrorMessage,
 } from "../styled/login-style-comp/LoginLeft.styled.jsx";
@@ -162,29 +156,11 @@ const LoginLeft = ({ onGetUser }) => {
           </Row>
         </Field>
 
-        <Row style={{ marginBottom: 12 }}>
-          <RememberWrap>
-            <Checkbox id="remember" type="checkbox" />
-            <Label htmlFor="remember">Remember me</Label>
-          </RememberWrap>
-
-          <Forgot to="/forgot-password">Forgot password</Forgot>
-        </Row>
-
         <ButtonLogin type="submit">Sign up</ButtonLogin>
-
-        <Divider>
-          <span>or</span>
-        </Divider>
-
-        <SocialStack>
-          <SocialButton type="button">Continue with Google</SocialButton>
-          <SocialButton type="button">Continue with Facebook</SocialButton>
-        </SocialStack>
       </FormCard>
 
       <BellowText>
-        Don't have an account? <Link to={"/signup"}>Sign up</Link>
+        Already have an account? <Link to={"/login"}>Log in</Link>
       </BellowText>
     </Left>
   );

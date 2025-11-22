@@ -105,58 +105,6 @@ export const Row = styled.div`
     opacity: 0.8;
   }
 `;
-export const RememberWrap = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 8px;
-
-  label {
-    font-size: 13px;
-    color: rgba(0, 0, 0, 0.75);
-    cursor: pointer;
-  }
-`;
-
-export const Checkbox = styled.input`
-  width: 18px;
-  height: 18px;
-  appearance: none; /* remove default browser style */
-  border: 1.5px solid rgba(0, 0, 0, 0.25);
-  border-radius: 4px;
-  background: #fff;
-  cursor: pointer;
-  display: inline-block;
-  position: relative;
-  transition: all 0.2s ease;
-
-  &:checked {
-    background-color: ${coral};
-    border-color: ${coral};
-  }
-
-  &:checked::after {
-    content: "";
-    position: absolute;
-    top: 2px;
-    left: 5px;
-    width: 4px;
-    height: 8px;
-    border: solid white;
-    border-width: 0 2px 2px 0;
-    transform: rotate(45deg);
-  }
-
-  &:hover {
-    border-color: #ea6c5b;
-  }
-`;
-
-export const Forgot = styled(Link)`
-  margin-left: auto;
-  font-size: 13px;
-  text-decoration: none;
-  color: #7a5af8;
-`;
 
 export const ButtonLogin = styled.button`
   width: 100%;
@@ -170,56 +118,6 @@ export const ButtonLogin = styled.button`
 
   &:hover {
     filter: brightness(0.92);
-  }
-`;
-
-export const Divider = styled.div`
-  position: relative;
-  margin: 6px 0 14px;
-  text-align: center;
-
-  span {
-    position: relative;
-    z-index: 1;
-    padding: 0 10px;
-    background: ${cardBg};
-    color: ${subtext};
-    font-size: 14px;
-  }
-
-  &::before,
-  &::after {
-    content: "";
-    position: absolute;
-    top: 50%;
-    height: 1px;
-    background: ${line};
-    width: 45%;
-  }
-
-  &::before {
-    left: 0;
-  }
-  &::after {
-    right: 0;
-  }
-`;
-
-export const SocialStack = styled.div`
-  display: grid;
-  gap: 10px;
-`;
-
-export const SocialButton = styled.button`
-  height: 42px;
-  border-radius: 8px;
-  border: 1px solid #e5e5e5;
-  background: #000000ff;
-  cursor: pointer;
-  font-weight: 500;
-
-  &:hover {
-    background: rgba(116, 116, 116, 1);
   }
 `;
 

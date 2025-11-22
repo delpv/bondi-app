@@ -13,33 +13,40 @@ import {
   Label,
   Input,
   Row,
-  RememberWrap,
-  Checkbox,
-  Forgot,
-  ButtonLogin,
-  Divider,
-  SocialStack,
-  SocialButton,
   BellowText,
+  ButtonLogin,
 } from "../styled/login-style-comp/LoginLeft.styled.jsx";
-
-const LoginLeft = () => {
+import Parse from "parse";
+const LoginLeft = ({ onGetUser }) => {
+  const [isLoading, setIsLoading] = useState(false);
   const [showPass, setShowPass] = useState(false);
+  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("");
+  const [error, setError] = useState("");
   const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsLoading(true);
+    try {
+      const userQuery = new Parse.Query("USER");
 
-    // Mock up data
-    const mockUser = {
-      name: "Catalina Popovici",
-      email: "catalina@example.com",
-      avatar: "/src/assets/Images/avatar.png",
-    };
+      userQuery.equalTo("email", email);
+      userQuery.equalTo("password", password);
 
-    localStorage.setItem("bondi_user", JSON.stringify(mockUser));
+      const user = await userQuery.first();
 
-    navigate("/feed");
+      if (user) {
+        onGetUser(user);
+        navigate("/feed");
+      } else {
+        setError("Email or password are wrong.");
+      }
+    } catch (e) {
+      setError(e.message);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -49,7 +56,7 @@ const LoginLeft = () => {
 
       <FormCard onSubmit={handleSubmit}>
         <SectionTitle>Welcome</SectionTitle>
-
+        {error && <ErrorMessage>{error}</ErrorMessage>}
         <Field>
           <Label htmlFor="email">Email</Label>
           <Input
@@ -57,6 +64,7 @@ const LoginLeft = () => {
             type="email"
             placeholder="Enter your email"
             required
+            onChange={(e) => setEmail(e.target.value)}
           />
         </Field>
 
@@ -68,6 +76,7 @@ const LoginLeft = () => {
               type={showPass ? "text" : "password"}
               placeholder="Enter your password"
               required
+              onChange={(e) => setPassword(e.target.value)}
             />
 
             <button
@@ -81,30 +90,13 @@ const LoginLeft = () => {
             </button>
           </Row>
         </Field>
-
-        <Row style={{ marginBottom: 12 }}>
-          <RememberWrap>
-            <Checkbox id="remember" type="checkbox" />
-            <Label htmlFor="remember">Remember me</Label>
-          </RememberWrap>
-
-          <Forgot to="/forgot-password">Forgot password</Forgot>
-        </Row>
-
-        <ButtonLogin type="submit">Login</ButtonLogin>
-
-        <Divider>
-          <span>or</span>
-        </Divider>
-
-        <SocialStack>
-          <SocialButton type="button">Continue with Google</SocialButton>
-          <SocialButton type="button">Continue with Facebook</SocialButton>
-        </SocialStack>
+        <ButtonLogin type="submit" disabled={isLoading}>
+          {isLoading ? "Loading" : "Login"}
+        </ButtonLogin>
       </FormCard>
 
       <BellowText>
-        Don't have an account? <Link>Sign up</Link>
+        Don't have an account? <Link to="/signup">Sign up</Link>
       </BellowText>
     </Left>
   );
