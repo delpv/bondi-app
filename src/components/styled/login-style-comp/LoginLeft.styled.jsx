@@ -173,56 +173,6 @@ export const ButtonLogin = styled.button`
   }
 `;
 
-export const Divider = styled.div`
-  position: relative;
-  margin: 6px 0 14px;
-  text-align: center;
-
-  span {
-    position: relative;
-    z-index: 1;
-    padding: 0 10px;
-    background: ${cardBg};
-    color: ${subtext};
-    font-size: 14px;
-  }
-
-  &::before,
-  &::after {
-    content: "";
-    position: absolute;
-    top: 50%;
-    height: 1px;
-    background: ${line};
-    width: 45%;
-  }
-
-  &::before {
-    left: 0;
-  }
-  &::after {
-    right: 0;
-  }
-`;
-
-export const SocialStack = styled.div`
-  display: grid;
-  gap: 10px;
-`;
-
-export const SocialButton = styled.button`
-  height: 42px;
-  border-radius: 8px;
-  border: 1px solid #e5e5e5;
-  background: #000000ff;
-  cursor: pointer;
-  font-weight: 500;
-
-  &:hover {
-    background: rgba(116, 116, 116, 1);
-  }
-`;
-
 export const BellowText = styled.p`
   margin-top: 10px;
   font-size: 13px;

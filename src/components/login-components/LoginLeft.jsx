@@ -17,9 +17,6 @@ import {
   Checkbox,
   Forgot,
   ButtonLogin,
-  Divider,
-  SocialStack,
-  SocialButton,
   BellowText,
 } from "../styled/login-style-comp/LoginLeft.styled.jsx";
 
@@ -92,19 +89,10 @@ const LoginLeft = () => {
         </Row>
 
         <ButtonLogin type="submit">Login</ButtonLogin>
-
-        <Divider>
-          <span>or</span>
-        </Divider>
-
-        <SocialStack>
-          <SocialButton type="button">Continue with Google</SocialButton>
-          <SocialButton type="button">Continue with Facebook</SocialButton>
-        </SocialStack>
       </FormCard>
 
       <BellowText>
-        Don't have an account? <Link>Sign up</Link>
+        Don't have an account? <Link to="/signup">Sign up</Link>
       </BellowText>
     </Left>
   );
