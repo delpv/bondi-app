@@ -14,10 +14,55 @@ import { useNavigate } from "react-router-dom";
 
 export default function Feed({ userObject }) {
   const [activities, setActivites] = useState(undefined);
+  const [filteredActivities, setFilteredActivities] = useState(undefined);
   const [isLoading, setIsLoading] = useState(false);
 
   const handleApply = (filters) => {
     console.log("Applied Filters:", filters);
+
+    if (!activities) return;
+
+    let filtered = [...activities];
+
+    // Filter by search query (title)
+    if (filters.query && filters.query.trim() !== "") {
+      filtered = filtered.filter((activity) =>
+        activity.Title.toLowerCase().includes(filters.query.toLowerCase())
+      );
+    }
+
+    // Filter by category
+    if (filters.category && filters.category.trim() !== "") {
+      filtered = filtered.filter((activity) => {
+        const categoryName =
+          activity.category_id?.name || activity.category?.name || "";
+        return categoryName.toLowerCase() === filters.category.toLowerCase();
+      });
+    }
+
+    // Filter by location
+    if (filters.location && filters.location.trim() !== "") {
+      filtered = filtered.filter((activity) =>
+        activity.location
+          ?.toLowerCase()
+          .includes(filters.location.toLowerCase())
+      );
+    }
+
+    // Filter by price
+    if (filters.priceType) {
+      if (filters.priceType === "free") {
+        filtered = filtered.filter((activity) => activity.price === 0);
+      } else if (filters.priceType === "paid") {
+        filtered = filtered.filter((activity) => activity.price > 0);
+      }
+    }
+
+    setFilteredActivities(filtered);
+  };
+
+  const handleReset = () => {
+    setFilteredActivities(activities || []);
   };
 
   const navigate = useNavigate();
@@ -28,14 +73,19 @@ export default function Feed({ userObject }) {
 
   const getActivities = async () => {
     const query = new Parse.Query("Activity");
+    query.include("category_id"); // Try category_id instead
     setIsLoading(true);
     try {
       const activitiesArray = await query.find();
-      const allActivities = activitiesArray.map((activity) =>
-        activity.toJSON()
-      );
+      const allActivities = activitiesArray.map((activity) => {
+        const json = activity.toJSON();
+        console.log("Single activity structure:", json);
+        return json;
+      });
 
+      console.log("Activities with categories:", allActivities);
       setActivites(allActivities);
+      setFilteredActivities(allActivities);
     } catch (e) {
       console.log(e);
     } finally {
@@ -51,7 +101,7 @@ export default function Feed({ userObject }) {
       <NavBar />
       <MainContainer>
         <LayoutGrid>
-          <Filter onApply={handleApply} />
+          <Filter onApply={handleApply} onReset={handleReset} />
 
           <div>
             <SectionHeader>
@@ -61,8 +111,11 @@ export default function Feed({ userObject }) {
 
             <GridContainer>
               {isLoading && <p>Loading...</p>}
+              {!isLoading && filteredActivities?.length === 0 && activities && (
+                <p>No activities found matching your filters.</p>
+              )}
               {!isLoading &&
-                activities?.map((activity, index) => (
+                filteredActivities?.map((activity, index) => (
                   <Card
                     key={`activity-number-${index}`}
                     userId={userObject.id}

@@ -1,5 +1,6 @@
 import react from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import Parse from "parse";
 import SearchIcon from "../../assets/icons_app/search.svg?react";
 import LocationIcon from "../../assets/icons_app/map-pin.svg?react";
 import FilterIcon from "../../assets/icons_app/filter-icon.svg?react";
@@ -21,21 +22,35 @@ import {
 export default function Filter({ onApply = () => {}, onReset = () => {} }) {
   const [query, setQuery] = react.useState("");
   const [category, setCategory] = useState("");
-  const [date, setDate] = useState("");
-  const [sortBy, setSortBy] = useState("");
+  const [priceType, setPriceType] = useState("");
   const [location, setLocation] = useState("");
+  const [categories, setCategories] = useState([]);
+
+  const fetchCategories = async () => {
+    try {
+      const query = new Parse.Query("Category");
+      const results = await query.find();
+      const categoryList = results.map((cat) => cat.toJSON());
+      setCategories(categoryList);
+    } catch (error) {
+      console.error("Error fetching categories:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchCategories();
+  }, []);
 
   function handleApply(e) {
     e.preventDefault();
-    onApply({ query, category, date, sortBy, location });
+    onApply({ query, category, priceType, location });
   }
 
   function handleReset(e) {
     e.preventDefault();
     setQuery("");
     setCategory("");
-    setDate("");
-    setSortBy("");
+    setPriceType("");
     setLocation("");
     onReset();
   }
@@ -72,34 +87,23 @@ export default function Filter({ onApply = () => {}, onReset = () => {} }) {
             onChange={(e) => setCategory(e.target.value)}
           >
             <option value="">All Categories</option>
-            <option value="sport">Sport</option>
-            <option value="food">Food</option>
-            <option value="arts">Arts</option>
-            <option value="music">Music</option>
-            <option value="technology">Technology</option>
-            <option value="travel">Travel</option>
-            <option value="education">Education</option>
-            <option value="health">Health</option>
-            <option value="outdoors">Outdoors</option>
+            {categories.map((cat) => (
+              <option key={cat.objectId} value={cat.name}>
+                {cat.name}
+              </option>
+            ))}
           </Select>
         </Section>
 
         <Section>
-          <Label>Date</Label>
-          <Select value={date} onChange={(e) => setDate(e.target.value)}>
-            <option value="">Any Time</option>
-            <option value="today">Today</option>
-            <option value="week">This week</option>
-            <option value="month">This month</option>
-          </Select>
-        </Section>
-
-        <Section>
-          <Label>Sort by</Label>
-          <Select value={sortBy} onChange={(e) => setSortBy(e.target.value)}>
-            <option value="price">Price</option>
-            <option value="rating">Rating</option>
-            <option value="distance">Distance</option>
+          <Label>Price</Label>
+          <Select
+            value={priceType}
+            onChange={(e) => setPriceType(e.target.value)}
+          >
+            <option value="">All Prices</option>
+            <option value="free">Free</option>
+            <option value="paid">Paid</option>
           </Select>
         </Section>
 
