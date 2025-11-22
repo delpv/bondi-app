@@ -13,9 +13,6 @@ import {
   Label,
   Input,
   Row,
-  RememberWrap,
-  Checkbox,
-  Forgot,
   ButtonLogin,
   BellowText,
 } from "../styled/login-style-comp/LoginLeft.styled.jsx";
@@ -78,15 +75,6 @@ const LoginLeft = () => {
             </button>
           </Row>
         </Field>
-
-        <Row style={{ marginBottom: 12 }}>
-          <RememberWrap>
-            <Checkbox id="remember" type="checkbox" />
-            <Label htmlFor="remember">Remember me</Label>
-          </RememberWrap>
-
-          <Forgot to="/forgot-password">Forgot password</Forgot>
-        </Row>
 
         <ButtonLogin type="submit">Login</ButtonLogin>
       </FormCard>

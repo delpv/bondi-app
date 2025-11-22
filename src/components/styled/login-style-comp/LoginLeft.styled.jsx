@@ -105,58 +105,6 @@ export const Row = styled.div`
     opacity: 0.8;
   }
 `;
-export const RememberWrap = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 8px;
-
-  label {
-    font-size: 13px;
-    color: rgba(0, 0, 0, 0.75);
-    cursor: pointer;
-  }
-`;
-
-export const Checkbox = styled.input`
-  width: 18px;
-  height: 18px;
-  appearance: none; /* remove default browser style */
-  border: 1.5px solid rgba(0, 0, 0, 0.25);
-  border-radius: 4px;
-  background: #fff;
-  cursor: pointer;
-  display: inline-block;
-  position: relative;
-  transition: all 0.2s ease;
-
-  &:checked {
-    background-color: ${coral};
-    border-color: ${coral};
-  }
-
-  &:checked::after {
-    content: "";
-    position: absolute;
-    top: 2px;
-    left: 5px;
-    width: 4px;
-    height: 8px;
-    border: solid white;
-    border-width: 0 2px 2px 0;
-    transform: rotate(45deg);
-  }
-
-  &:hover {
-    border-color: #ea6c5b;
-  }
-`;
-
-export const Forgot = styled(Link)`
-  margin-left: auto;
-  font-size: 13px;
-  text-decoration: none;
-  color: #7a5af8;
-`;
 
 export const ButtonLogin = styled.button`
   width: 100%;

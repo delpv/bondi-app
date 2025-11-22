@@ -14,9 +14,6 @@ import {
   Label,
   Input,
   Row,
-  RememberWrap,
-  Checkbox,
-  Forgot,
   ButtonLogin,
   BellowText,
   ErrorMessage,
@@ -158,15 +155,6 @@ const LoginLeft = ({ onGetUser }) => {
             </button>
           </Row>
         </Field>
-
-        <Row style={{ marginBottom: 12 }}>
-          <RememberWrap>
-            <Checkbox id="remember" type="checkbox" />
-            <Label htmlFor="remember">Remember me</Label>
-          </RememberWrap>
-
-          <Forgot to="/forgot-password">Forgot password</Forgot>
-        </Row>
 
         <ButtonLogin type="submit">Sign up</ButtonLogin>
       </FormCard>
