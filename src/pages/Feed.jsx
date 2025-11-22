@@ -9,10 +9,7 @@ import {
   LayoutGrid,
   GridContainer,
 } from "../components/styled/feed-style-comp/Grid.styled.jsx";
-import {
-  SectionHeader,
-  LoadMoreButton,
-} from "../components/styled/feed-style-comp/Feed.styled.jsx";
+import { SectionHeader } from "../components/styled/feed-style-comp/Feed.styled.jsx";
 import { useNavigate } from "react-router-dom";
 
 export default function Feed({ userObject }) {
@@ -49,7 +46,6 @@ export default function Feed({ userObject }) {
   useEffect(() => {
     getActivities();
   }, []);
-
   return (
     <>
       <NavBar />
@@ -64,24 +60,24 @@ export default function Feed({ userObject }) {
             </SectionHeader>
 
             <GridContainer>
-              {activities?.map((activity, index) => (
-                <Card
-                  key={`activity-number-${index}`}
-                  userId={userObject.id}
-                  id={activity.objectId}
-                  image={activity.coverPhoto}
-                  date={activity.dateStart.iso}
-                  priceLabel={activity.price === 0 ? "Free" : "Paid"}
-                  title={activity.Title}
-                  description={activity.description}
-                  hostId={activity.host_ID.objectId}
-                  maxParticipants={activity.maxCapacity}
-                  location={activity.location}
-                />
-              ))}
+              {isLoading && <p>Loading...</p>}
+              {!isLoading &&
+                activities?.map((activity, index) => (
+                  <Card
+                    key={`activity-number-${index}`}
+                    userId={userObject.id}
+                    id={activity.objectId}
+                    image={activity.coverPhoto_img}
+                    date={activity.dateStart.iso}
+                    priceLabel={activity.price === 0 ? "Free" : "Paid"}
+                    title={activity.Title}
+                    description={activity.description}
+                    hostId={activity.host_ID.objectId}
+                    maxParticipants={activity.maxCapacity}
+                    location={activity.location}
+                  />
+                ))}
             </GridContainer>
-
-            <LoadMoreButton>Load More Activities</LoadMoreButton>
           </div>
         </LayoutGrid>
       </MainContainer>

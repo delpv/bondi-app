@@ -18,6 +18,7 @@ import {
 } from "../styled/login-style-comp/LoginLeft.styled.jsx";
 import Parse from "parse";
 const LoginLeft = ({ onGetUser }) => {
+  const [isLoading, setIsLoading] = useState(false);
   const [showPass, setShowPass] = useState(false);
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
@@ -26,7 +27,7 @@ const LoginLeft = ({ onGetUser }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    setIsLoading(true);
     try {
       const userQuery = new Parse.Query("USER");
 
@@ -43,6 +44,8 @@ const LoginLeft = ({ onGetUser }) => {
       }
     } catch (e) {
       setError(e.message);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -87,7 +90,9 @@ const LoginLeft = ({ onGetUser }) => {
             </button>
           </Row>
         </Field>
-        <ButtonLogin type="submit">Login</ButtonLogin>
+        <ButtonLogin type="submit" disabled={isLoading}>
+          {isLoading ? "Loading" : "Login"}
+        </ButtonLogin>
       </FormCard>
 
       <BellowText>

@@ -145,7 +145,6 @@ export default function Card({
       setIsLoading(false);
     }
   };
-
   return (
     <Container
       onClick={goToDetail}
@@ -156,7 +155,7 @@ export default function Card({
       aria-label={`Open details for ${title}`}
     >
       <Hero>
-        <HeroImage src={"public/" + image || "default.jpg"} alt={title} />
+        <HeroImage src={image?.url || "default.jpg"} alt={title} />
         <CornerChips>
           {new Intl.DateTimeFormat("en-GB", {
             dateStyle: "short",
