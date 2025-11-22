@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import Parse from "../../utils/parseConfig.js";
+import Parse from "parse";
 import {
   HostCardContainer,
   HostTitle,

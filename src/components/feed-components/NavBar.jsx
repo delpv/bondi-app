@@ -27,7 +27,7 @@ function NavBar() {
           <BrandLogo>
             <BondiLogo />
           </BrandLogo>
-          <BrandName>BONDI</BrandName>
+          <BrandName onClick={() => navigate("/feed")}>BONDI</BrandName>
         </BrandContainer>
 
         <NavLinksContainer>

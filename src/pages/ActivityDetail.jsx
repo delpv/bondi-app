@@ -1,4 +1,4 @@
-import Parse from "../utils/parseConfig.js"; // use the initialized Parse
+import Parse from "parse"; // use the initialized Parse
 import React, { useState, useEffect } from "react";
 
 import NavBar from "../components/feed-components/NavBar.jsx";

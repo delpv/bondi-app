@@ -4,6 +4,7 @@ import "./main.css";
 
 import { BrowserRouter, Routes } from "react-router-dom";
 import Router from "./Router.jsx";
+import "./utils/parseConfig.js";
 
 const root = document.getElementById("root");
 

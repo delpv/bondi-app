@@ -15,7 +15,6 @@ const Router = () => {
   const handleUserObject = (localUserObject) => {
     setUserObject(localUserObject);
   };
-
   return (
     <Routes>
       {/* Auth */}
