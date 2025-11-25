@@ -5,7 +5,6 @@ import React, { useState, useEffect, useRef } from 'react'
 import Avatar from "/avatar.png";
 import CoverBackground from "../../assets/images/profile-images/cover_background.jpg";
 import EditProfileIcon from "../../assets/icons_app/edit-profile.svg?react";
-import Calendar2Icon from "../../assets/icons_app/calendar2.svg?react";
 import CameraIcon from "../../assets/icons_app/camera.svg?react";
 import {
   CoverContainer,
@@ -23,7 +22,6 @@ import {
   ActionButtons,
   ActionButton,
   EditProfileButton,
-  CalendarButton,
   CameraDropdown,
   CameraDropdownOption,
   EditModalOverlay,
@@ -34,12 +32,16 @@ import {
   EditModalInput,
   EditModalButtonGroup,
   EditModalActions,
-  EditModalButton
+  EditModalSmallPrimaryButton,
+  EditModalSmallDangerButton,
+  EditModalSecondaryButton,
+  EditModalSuccessButton,
+  HiddenFileInput,
+  DynamicProfileCover
 } from "../styled/profile-style-comp/Cover.styled";
 
 const Cover = ({ user }) => {
   const [showCameraOptions, setShowCameraOptions] = useState(false);
-  const [hoveredOption, setHoveredOption] = useState('take');
   const [userData, setUserData] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
@@ -47,6 +49,13 @@ const Cover = ({ user }) => {
 
   // Use passed user ID or fallback to localStorage, then hardcoded
   const currentUserId = user?.id || localStorage.getItem('currentProfileUserId') || "yESQnpupOj";
+
+  // Helper function for handling avatar image load errors
+  const handleAvatarError = (e) => {
+    console.error('Image failed to load:', userData?.profilePicture);
+    console.error('Error details:', e);
+    e.target.src = Avatar;
+  };
   const dropdownRef = useRef(null);
   const fileInputRef = useRef(null);
   const coverInputRef = useRef(null);
@@ -99,9 +108,6 @@ const Cover = ({ user }) => {
 
   const handleCameraClick = () => {
     setShowCameraOptions(!showCameraOptions);
-    if (!showCameraOptions) {
-      setHoveredOption('take');
-    }
   };
 
   // Close dropdown when clicking outside
@@ -298,28 +304,23 @@ const Cover = ({ user }) => {
 
   return (
     <CoverContainer>
-      <input
+      <HiddenFileInput
         ref={fileInputRef}
         type="file"
         accept="image/*"
         onChange={handleFileChange}
-        style={{ display: 'none' }}
       />
-      <input
+      <HiddenFileInput
         ref={coverInputRef}
         type="file"
         accept="image/*"
         onChange={handleCoverFileChange}
-        style={{ display: 'none' }}
       />
-      <ProfileCover style={{ backgroundImage: `url(${userData?.coverPhoto || CoverBackground})` }}>
+      <DynamicProfileCover backgroundImage={userData?.coverPhoto || CoverBackground}>
         <CoverOverlay />
 
         {/* Action buttons */}
         <ActionButtons>
-          <CalendarButton>
-            <Calendar2Icon />
-          </CalendarButton>
           <EditProfileButton onClick={() => {
             setEditName(userData?.fullName || '');
             setShowEditModal(true);
@@ -335,11 +336,7 @@ const Cover = ({ user }) => {
               alt="User avatar"
               key={userData?.profilePicture || 'default'}
               onLoad={() => console.log('Image loaded successfully:', userData?.profilePicture)}
-              onError={(e) => {
-                console.error('Image failed to load:', userData?.profilePicture);
-                console.error('Error details:', e);
-                e.target.src = Avatar;
-              }}
+              onError={handleAvatarError}
             />
             <CameraIconButton onClick={handleCameraClick}>
               <CameraIcon />
@@ -349,25 +346,19 @@ const Cover = ({ user }) => {
               <CameraDropdown ref={dropdownRef}>
                 <CameraDropdownOption
                   onClick={handleTakePhoto}
-                  onMouseEnter={() => setHoveredOption('take')}
                   disabled={isLoading}
-                  isHovered={hoveredOption === 'take'}
                 >
                   Take Photo
                 </CameraDropdownOption>
                 <CameraDropdownOption
                   onClick={handleUploadPhoto}
-                  onMouseEnter={() => setHoveredOption('upload')}
                   disabled={isLoading}
-                  isHovered={hoveredOption === 'upload'}
                 >
                   Upload Photo
                 </CameraDropdownOption>
                 <CameraDropdownOption
                   onClick={handleRemovePhoto}
-                  onMouseEnter={() => setHoveredOption('remove')}
                   disabled={isLoading}
-                  isHovered={hoveredOption === 'remove'}
                 >
                   Remove Photo
                 </CameraDropdownOption>
@@ -385,7 +376,7 @@ const Cover = ({ user }) => {
             <StatBadge>Copenhagen, Denmark</StatBadge>
           </StatsContainer>
         </CoverContent>
-      </ProfileCover>
+      </DynamicProfileCover>
 
       {showEditModal && (
         <EditModalOverlay>
@@ -411,40 +402,34 @@ const Cover = ({ user }) => {
                 Cover Photo
               </EditModalLabel>
               <EditModalButtonGroup>
-                <EditModalButton
-                  variant="primary"
-                  size="small"
+                <EditModalSmallPrimaryButton
                   onClick={() => coverInputRef.current?.click()}
                   disabled={isLoading}
                 >
                   Upload Cover
-                </EditModalButton>
-                <EditModalButton
-                  variant="danger"
-                  size="small"
+                </EditModalSmallPrimaryButton>
+                <EditModalSmallDangerButton
                   onClick={handleRemoveCoverPhoto}
                   disabled={isLoading}
                 >
                   Remove Cover
-                </EditModalButton>
+                </EditModalSmallDangerButton>
               </EditModalButtonGroup>
             </EditModalField>
 
             <EditModalActions>
-              <EditModalButton
-                variant="secondary"
+              <EditModalSecondaryButton
                 onClick={() => setShowEditModal(false)}
                 disabled={isLoading}
               >
                 Cancel
-              </EditModalButton>
-              <EditModalButton
-                variant="success"
+              </EditModalSecondaryButton>
+              <EditModalSuccessButton
                 onClick={handleSaveName}
                 disabled={isLoading || !editName.trim()}
               >
                 {isLoading ? 'Saving...' : 'Save Changes'}
-              </EditModalButton>
+              </EditModalSuccessButton>
             </EditModalActions>
           </EditModalContainer>
         </EditModalOverlay>

@@ -6,7 +6,14 @@ import {
   InterestTitle,
   EditButton,
   InterestChipsContainer,
-  InterestChip,
+  InterestChipCoral,
+  InterestChipPeach,
+  InterestChipMint,
+  InterestChipOrange,
+  InterestChipBlue,
+  InterestChipPurple,
+  InterestChipGreen,
+  InterestChipDefault,
   ChipText,
   EditDropdownContainer,
   EditDropdown,
@@ -29,16 +36,28 @@ const Interest = () => {
   const [showEditOptions, setShowEditOptions] = useState(false);
   const [isRemoveMode, setIsRemoveMode] = useState(false);
   const [editingChip, setEditingChip] = useState(null);
-  const [hoveredOption, setHoveredOption] = useState('add');
   const dropdownRef = useRef(null);
 
   const colors = ['coral', 'peach', 'mint', 'orange', 'blue', 'purple', 'green'];
+
+  // Helper function to get the correct chip component based on color
+  const getChipComponent = (color) => {
+    switch(color) {
+      case 'coral': return InterestChipCoral;
+      case 'peach': return InterestChipPeach;
+      case 'mint': return InterestChipMint;
+      case 'orange': return InterestChipOrange;
+      case 'blue': return InterestChipBlue;
+      case 'purple': return InterestChipPurple;
+      case 'green': return InterestChipGreen;
+      default: return InterestChipDefault;
+    }
+  };
 
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
         setShowEditOptions(false);
-        setHoveredOption('add');
       }
     };
 
@@ -54,9 +73,6 @@ const Interest = () => {
   const handleEditClick = () => {
     setShowEditOptions(!showEditOptions);
     setIsRemoveMode(false);
-    if (!showEditOptions) {
-      setHoveredOption('add');
-    }
   };
 
   const handleAddNew = () => {
@@ -113,15 +129,11 @@ const Interest = () => {
             <EditDropdown ref={dropdownRef}>
               <EditDropdownOption
                 onClick={handleAddNew}
-                onMouseEnter={() => setHoveredOption('add')}
-                isHovered={hoveredOption === 'add'}
               >
                 Add new
               </EditDropdownOption>
               <EditDropdownOption
                 onClick={handleRemove}
-                onMouseEnter={() => setHoveredOption('remove')}
-                isHovered={hoveredOption === 'remove'}
               >
                 Remove
               </EditDropdownOption>
@@ -131,13 +143,14 @@ const Interest = () => {
       </InterestFrame>
 
       <InterestChipsContainer>
-        {interests.map((interest) => (
-          <InterestChip
-            key={interest.id}
-            color={interest.color}
-            onClick={() => handleChipClick(interest.id)}
-            isRemoveMode={isRemoveMode}
-          >
+        {interests.map((interest) => {
+          const ChipComponent = getChipComponent(interest.color);
+          return (
+            <ChipComponent
+              key={interest.id}
+              onClick={() => handleChipClick(interest.id)}
+              isRemoveMode={isRemoveMode}
+            >
             {editingChip === interest.id ? (
               <ChipInput
                 type="text"
@@ -151,8 +164,9 @@ const Interest = () => {
             ) : (
               <ChipText>{interest.text || "New Interest"}</ChipText>
             )}
-          </InterestChip>
-        ))}
+            </ChipComponent>
+          );
+        })}
       </InterestChipsContainer>
 
       {isRemoveMode && (

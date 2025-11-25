@@ -10,7 +10,8 @@ import {
   AboutText,
   AboutTextarea,
   AboutEditActions,
-  AboutEditButton
+  AboutDiscardButton,
+  AboutSaveButton
 } from "../styled/profile-style-comp/About.styled";
 
 const About = ({ user }) => {
@@ -110,20 +111,18 @@ const About = ({ user }) => {
               placeholder="Tell people about yourself..."
             />
             <AboutEditActions>
-              <AboutEditButton
-                variant="discard"
+              <AboutDiscardButton
                 onClick={handleDiscard}
                 disabled={isLoading}
               >
                 Discard
-              </AboutEditButton>
-              <AboutEditButton
-                variant="save"
+              </AboutDiscardButton>
+              <AboutSaveButton
                 onClick={handleSave}
                 disabled={isLoading}
               >
                 {isLoading ? 'Saving...' : 'Save'}
-              </AboutEditButton>
+              </AboutSaveButton>
             </AboutEditActions>
           </div>
         ) : (

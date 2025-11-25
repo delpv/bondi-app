@@ -77,7 +77,8 @@ export const InterestChipsContainer = styled.div`
 `;
 
 // Individual interest chip
-export const InterestChip = styled.div`
+// Base interest chip styles
+const BaseInterestChip = styled.div`
   width: 100%;
   height: 40px;
   border-radius: 16px;
@@ -91,18 +92,39 @@ export const InterestChip = styled.div`
   transform: ${props => props.isRemoveMode ? 'scale(0.95)' : 'scale(1)'};
   transition: all 0.2s ease;
   border: ${props => props.isRemoveMode ? '2px dashed #ff4444' : 'none'};
-  background: ${props => {
-    switch(props.color) {
-      case 'coral': return 'linear-gradient(90deg, #F6B4AF 40.39%, rgba(144, 105, 102, 0.5) 100%)';
-      case 'peach': return 'linear-gradient(90deg, #FAE6C8 46.56%, rgba(144, 105, 102, 0.5) 100%)';
-      case 'mint': return 'linear-gradient(90deg, #D1EEDF 46.56%, rgba(144, 105, 102, 0.5) 100%)';
-      case 'orange': return 'linear-gradient(90deg, #FFB370 55.77%, rgba(144, 105, 102, 0.5) 100%)';
-      case 'blue': return 'linear-gradient(90deg, #B8DEFF 0%, #437199 99.67%)';
-      case 'purple': return 'linear-gradient(90deg, #D789E2 38.94%, #437199 99.67%)';
-      case 'green': return 'linear-gradient(90deg, #ACDD8A 44.23%, #437199 99.67%)';
-      default: return 'linear-gradient(90deg, #E5E7EB 0%, #9CA3AF 100%)';
-    }
-  }};
+`;
+
+// Interest chip color variants
+export const InterestChipCoral = styled(BaseInterestChip)`
+  background: linear-gradient(90deg, #F6B4AF 40.39%, rgba(144, 105, 102, 0.5) 100%);
+`;
+
+export const InterestChipPeach = styled(BaseInterestChip)`
+  background: linear-gradient(90deg, #FAE6C8 46.56%, rgba(144, 105, 102, 0.5) 100%);
+`;
+
+export const InterestChipMint = styled(BaseInterestChip)`
+  background: linear-gradient(90deg, #D1EEDF 46.56%, rgba(144, 105, 102, 0.5) 100%);
+`;
+
+export const InterestChipOrange = styled(BaseInterestChip)`
+  background: linear-gradient(90deg, #FFB370 55.77%, rgba(144, 105, 102, 0.5) 100%);
+`;
+
+export const InterestChipBlue = styled(BaseInterestChip)`
+  background: linear-gradient(90deg, #B8DEFF 0%, #437199 99.67%);
+`;
+
+export const InterestChipPurple = styled(BaseInterestChip)`
+  background: linear-gradient(90deg, #D789E2 38.94%, #437199 99.67%);
+`;
+
+export const InterestChipGreen = styled(BaseInterestChip)`
+  background: linear-gradient(90deg, #ACDD8A 44.23%, #437199 99.67%);
+`;
+
+export const InterestChipDefault = styled(BaseInterestChip)`
+  background: linear-gradient(90deg, #E5E7EB 0%, #9CA3AF 100%);
 `;
 
 // Text inside the chip
@@ -144,7 +166,7 @@ export const EditDropdownOption = styled.button`
   width: 100%;
   padding: 12px 16px;
   border: none;
-  background: ${props => props.isHovered ? '#68B6FF' : 'white'};
+  background: white;
   text-align: left;
   cursor: pointer;
   font-size: 0.875rem;
@@ -152,6 +174,10 @@ export const EditDropdownOption = styled.button`
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   border-radius: 0;
   display: block;
+
+  &:hover {
+    background: #68B6FF;
+  }
 `;
 
 // Chip input for editing

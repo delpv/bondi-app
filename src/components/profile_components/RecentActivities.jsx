@@ -1,40 +1,36 @@
 import React from 'react';
-import EditIcon from "../../assets/icons_app/edit.svg?react";
 import {
   RecentActivitiesContainer,
   HeaderFrame,
   TitleSection,
   SectionTitle,
-  ActionsSection,
-  ViewAllLink,
-  EditButton,
   ActivitiesContent,
   ActivityImageContainer,
   ActivityImage,
   ActivityOverlay
 } from "../styled/profile-style-comp/RecentActivities.styled";
-import activityImage1 from "../../assets/images/profile-images/activity-image-5.png";
-import activityImage2 from "../../assets/images/profile-images/activity-image-4.png";
-import activityImage3 from "../../assets/images/profile-images/activity-image-3.png";
+import walkInNature from "../../assets/images/profile-images/walkInNature.jpg";
+import vintage from "../../assets/images/profile-images/vintage.jpg";
+import beachDay from "../../assets/images/profile-images/beachDay.jpg";
 
 const RecentActivities = () => {
   // Sample activities data
   const activities = [
     {
       id: 1,
-      image: activityImage1,
+      image: walkInNature,
       title: "Walk in nature",
       alt: "Nature walking activity"
     },
     {
       id: 2,
-      image: activityImage3,
+      image: vintage,
       title: "Vintage treasure hunt",
       alt: "Vintage treasure hunt activity"
     },
     {
       id: 3,
-      image: activityImage2,
+      image: beachDay,
       title: "Beach day",
       alt: "Beach day activity"
     }
@@ -44,21 +40,17 @@ const RecentActivities = () => {
     console.log(`Clicked on activity: ${activity.title}`);
   };
 
+  // Helper function for handling activity image load errors
+  const handleActivityImageError = (e, activity) => {
+    e.target.src = `https://via.placeholder.com/280x120/e5e7eb/9ca3af?text=${encodeURIComponent(activity.title)}`;
+  };
+
   return (
     <RecentActivitiesContainer>
       <HeaderFrame>
         <TitleSection>
           <SectionTitle>Recent Activities</SectionTitle>
         </TitleSection>
-
-        <ActionsSection>
-          <ViewAllLink href="#" onClick={(e) => e.preventDefault()}>
-            View all
-          </ViewAllLink>
-          <EditButton>
-            <EditIcon />
-          </EditButton>
-        </ActionsSection>
       </HeaderFrame>
 
       <ActivitiesContent>
@@ -77,9 +69,7 @@ const RecentActivities = () => {
             <ActivityImage
               src={activity.image}
               alt={activity.alt}
-              onError={(e) => {
-                e.target.src = `https://via.placeholder.com/280x120/e5e7eb/9ca3af?text=${encodeURIComponent(activity.title)}`;
-              }}
+              onError={(e) => handleActivityImageError(e, activity)}
             />
             <ActivityOverlay>
               {activity.title}

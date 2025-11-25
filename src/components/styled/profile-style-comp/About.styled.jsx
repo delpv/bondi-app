@@ -104,8 +104,8 @@ export const AboutEditActions = styled.div`
   justify-content: flex-end;
 `;
 
-// About edit button
-export const AboutEditButton = styled.button`
+// Base about edit button styles
+const BaseAboutEditButton = styled.button`
   padding: 6px 12px;
   color: white;
   border: none;
@@ -113,15 +113,13 @@ export const AboutEditButton = styled.button`
   font-size: 14px;
   cursor: ${props => props.disabled ? 'not-allowed' : 'pointer'};
   opacity: ${props => props.disabled ? 0.5 : 1};
+`;
 
-  ${props => {
-    switch(props.variant) {
-      case 'discard':
-        return `background-color: #6c757d;`;
-      case 'save':
-        return `background-color: #28a745;`;
-      default:
-        return `background-color: #6c757d;`;
-    }
-  }}
+// About edit button variants
+export const AboutDiscardButton = styled(BaseAboutEditButton)`
+  background-color: #6c757d;
+`;
+
+export const AboutSaveButton = styled(BaseAboutEditButton)`
+  background-color: #28a745;
 `;

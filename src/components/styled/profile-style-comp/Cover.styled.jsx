@@ -430,58 +430,6 @@ export const StatBadge = styled.div`
   }
 `;
 
-// Calendar Button with specific styling
-export const CalendarButton = styled.button`
-  width: 64px;
-  height: 64px;
-  border-radius: 50%;
-  background: transparent;
-  border: none;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  position: relative;
-  flex: none;
-  order: 0;
-  flex-grow: 0;
-  padding: 0;
-
-  svg {
-    width: 64px;
-    height: 64px;
-  }
-
-  @media (max-width: 768px) {
-    width: 56px;
-    height: 56px;
-
-    svg {
-      width: 56px;
-      height: 56px;
-    }
-  }
-
-  @media (max-width: 480px) {
-    width: 48px;
-    height: 48px;
-
-    svg {
-      width: 48px;
-      height: 48px;
-    }
-  }
-
-  &:hover {
-    transform: translateY(-2px);
-  }
-
-  &:active {
-    transform: translateY(0);
-  }
-`;
-
 // Edit Profile Button with specific styling
 export const EditProfileButton = styled.button`
   width: 64px;
@@ -496,7 +444,7 @@ export const EditProfileButton = styled.button`
   transition: all 0.2s ease;
   position: relative;
   flex: none;
-  order: 1;
+  order: 0;
   flex-grow: 0;
   padding: 0;
 
@@ -553,7 +501,7 @@ export const CameraDropdownOption = styled.button`
   width: 100%;
   padding: 12px 16px;
   border: none;
-  background: ${props => props.isHovered ? '#68B6FF' : 'white'};
+  background: white;
   text-align: left;
   cursor: ${props => props.disabled ? 'not-allowed' : 'pointer'};
   font-size: 0.875rem;
@@ -562,6 +510,10 @@ export const CameraDropdownOption = styled.button`
   border-radius: 0;
   display: block;
   opacity: ${props => props.disabled ? 0.5 : 1};
+
+  &:hover:not(:disabled) {
+    background: #68B6FF;
+  }
 `;
 
 // Edit modal overlay
@@ -629,38 +581,58 @@ export const EditModalActions = styled.div`
   justify-content: flex-end;
 `;
 
-// Edit modal button base
-export const EditModalButton = styled.button`
-  padding: ${props => props.size === 'small' ? '8px 16px' : '10px 20px'};
+// Base edit modal button styles
+const BaseEditModalButton = styled.button`
   border: none;
   border-radius: 6px;
   font-size: 14px;
   cursor: ${props => props.disabled ? 'not-allowed' : 'pointer'};
   opacity: ${props => props.disabled ? 0.5 : 1};
+`;
 
-  ${props => {
-    switch(props.variant) {
-      case 'primary':
-        return `
-          background-color: #007bff;
-          color: white;
-        `;
-      case 'danger':
-        return `
-          background-color: #dc3545;
-          color: white;
-        `;
-      case 'success':
-        return `
-          background-color: #28a745;
-          color: white;
-        `;
-      case 'secondary':
-      default:
-        return `
-          background-color: #6c757d;
-          color: white;
-        `;
-    }
-  }}
+// Edit modal button variants
+export const EditModalPrimaryButton = styled(BaseEditModalButton)`
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+`;
+
+export const EditModalSmallPrimaryButton = styled(BaseEditModalButton)`
+  padding: 8px 16px;
+  background-color: #007bff;
+  color: white;
+`;
+
+export const EditModalDangerButton = styled(BaseEditModalButton)`
+  padding: 10px 20px;
+  background-color: #dc3545;
+  color: white;
+`;
+
+export const EditModalSmallDangerButton = styled(BaseEditModalButton)`
+  padding: 8px 16px;
+  background-color: #dc3545;
+  color: white;
+`;
+
+export const EditModalSuccessButton = styled(BaseEditModalButton)`
+  padding: 10px 20px;
+  background-color: #28a745;
+  color: white;
+`;
+
+export const EditModalSecondaryButton = styled(BaseEditModalButton)`
+  padding: 10px 20px;
+  background-color: #6c757d;
+  color: white;
+`;
+
+// Hidden file input for photo uploads
+export const HiddenFileInput = styled.input`
+  display: none;
+`;
+
+// Dynamic ProfileCover that accepts backgroundImage prop
+export const DynamicProfileCover = styled(ProfileCover)`
+  background-image: url(${props => props.backgroundImage});
 `;

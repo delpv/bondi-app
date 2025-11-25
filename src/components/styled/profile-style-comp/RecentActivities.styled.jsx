@@ -17,13 +17,12 @@ export const RecentActivitiesContainer = styled.section`
   position: relative;
 `;
 
-// Header frame - contains title and view all + edit button
+// Header frame - contains title
 export const HeaderFrame = styled.div`
   width: 100%;
   height: 76px;
   display: flex;
   align-items: center;
-  justify-content: space-between;
   gap: 10px;
   padding: 6px 0;
   box-sizing: border-box;
@@ -53,63 +52,6 @@ export const SectionTitle = styled.h2`
   text-align: left;
   color: #111318;
   margin: 0;
-`;
-
-// View all and edit section
-export const ActionsSection = styled.div`
-  width: 152px;
-  height: 44px;
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  gap: 50px;
-  padding: 10px;
-  box-sizing: border-box;
-`;
-
-// View all link
-export const ViewAllLink = styled.a`
-  width: 58px;
-  height: 19px;
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  font-weight: 300;
-  font-size: 0.875rem;
-  line-height: 120%;
-  letter-spacing: 0;
-  text-align: center;
-  color: #3A00E5;
-  text-decoration: none;
-  cursor: pointer;
-  
-  &:hover {
-    text-decoration: underline;
-  }
-`;
-
-// Edit button
-export const EditButton = styled.button`
-  width: 32px;
-  height: 32px;
-  background: none;
-  border: none;
-  cursor: pointer;
-  padding: 8px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 6px;
-  transition: background-color 0.2s ease;
-  position: relative;
-
-  &:hover {
-    background-color: #f3f4f6;
-  }
-
-  svg {
-    width: 20px;
-    height: 20px;
-    fill: #6b7280;
-  }
 `;
 
 // Activities content container
