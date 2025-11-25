@@ -18,9 +18,12 @@ import {
   LocationInfo,
   JoinButton,
   ElypsisText,
+  HostByLabel,
+  HostFullName,
+  ParticipantsCount,
+  ParticipantsIcon,
+  LocationIcon,
 } from "../styled/feed-style-comp/Card.styled.jsx";
-import ParticipantsIcon from "../../assets/icons_app/participants.svg?react";
-import LocationIcon from "../../assets/icons_app/map-pin-green.svg?react";
 import Parse from "parse";
 
 export default function Card({
@@ -93,8 +96,6 @@ export default function Card({
       await getTotalParticipants();
     };
     makeApiCalls();
-    // TODO: check if user has joined activities.
-    // TODO: On join/cancel click removes user
   }, []);
 
   const onKeyGoToDetail = (e) => {
@@ -151,7 +152,7 @@ export default function Card({
       onKeyDown={onKeyGoToDetail}
       role="button"
       tabIndex={0}
-      style={{ cursor: "pointer" }}
+      isClickable
       aria-label={`Open details for ${title}`}
     >
       <Hero>
@@ -176,38 +177,26 @@ export default function Card({
                 alt={hostObject.username}
               />
               <HostMeta>
-                <div style={{ fontWeight: 600 }}>Hosted by</div>
-                <div style={{ color: "#9AA0A6", fontSize: "0.9rem" }}>
-                  {hostObject.fullName}
-                </div>
+                <HostByLabel>Hosted by</HostByLabel>
+                <HostFullName>{hostObject.fullName}</HostFullName>
               </HostMeta>
             </HostInfo>
           )}
 
           <Participants title="Participants">
-            <ParticipantsIcon width={20} height={20} aria-hidden />
+            <ParticipantsIcon size={20} aria-hidden />
             {partNumber !== undefined && (
-              <span style={{ marginLeft: 6 }}>
+              <ParticipantsCount>
                 {partNumber}/{maxParticipants}
-              </span>
+              </ParticipantsCount>
             )}
           </Participants>
         </HostRow>
 
         <LocationRow>
           <LocationInfo>
-            {typeof LocationIcon === "string" ? (
-              <img
-                src={LocationIcon}
-                width={18}
-                height={18}
-                alt=""
-                aria-hidden
-              />
-            ) : (
-              <LocationIcon width={18} height={18} aria-hidden />
-            )}
-            <ElypsisText style={{ marginLeft: 6 }}>{location}</ElypsisText>
+            <LocationIcon size={18} aria-hidden />
+            <ElypsisText withIcon>{location}</ElypsisText>
           </LocationInfo>
 
           <JoinButton
