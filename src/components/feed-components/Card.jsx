@@ -39,7 +39,8 @@ export default function Card({
   userId,
 }) {
   const [hostObject, setHostObject] = useState(undefined);
-  const [isLoading, setIsLoading] = useState(false);
+  // const [isLoading, setIsLoading] = useState(false);
+  const [isJoining, setIsJoining] = useState(false);
   const [joined, setJoined] = useState(false);
   const [partNumber, setPartNumber] = useState(undefined);
   const navigate = useNavigate();
@@ -51,7 +52,7 @@ export default function Card({
 
   const getHost = async () => {
     const hostQuery = new Parse.Query("USER");
-    setIsLoading(true);
+    // setIsLoading(true);
     try {
       const hoestedBy = await hostQuery.get(hostId);
       const hostJson = await hoestedBy.toJSON();
@@ -59,8 +60,8 @@ export default function Card({
       setHostObject(hostJson);
     } catch (e) {
       console.log(e);
-    } finally {
-      setIsLoading(false);
+      // } finally {
+      //   setIsLoading(false);
     }
   };
 
@@ -107,7 +108,7 @@ export default function Card({
 
   const handleToggleJoin = async (e) => {
     e.stopPropagation();
-    setIsLoading(true);
+    setIsJoining(true);
     const userQuery = new Parse.Query("USER");
     const currentUser = await userQuery.get(userId);
 
@@ -143,7 +144,7 @@ export default function Card({
     } catch (error) {
       console.error("Error: " + error.message);
     } finally {
-      setIsLoading(false);
+      setIsJoining(false);
     }
   };
   return (
@@ -200,17 +201,21 @@ export default function Card({
           </LocationInfo>
 
           <JoinButton
-            disabled={isLoading || (!joined && partNumber === maxParticipants)}
+            disabled={isJoining || (!joined && partNumber === maxParticipants)}
             joined={joined ? 1 : 0}
             onClick={handleToggleJoin}
             aria-pressed={joined}
             aria-label={joined ? "Cancel participation" : "Join activity"}
           >
-            {joined
-              ? "Cancel"
-              : partNumber === maxParticipants
-                ? "Full"
-                : "Join"}
+            {isJoining
+              ? joined
+                ? "Canceling..."
+                : "Joining..."
+              : joined
+                ? "Cancel"
+                : partNumber === maxParticipants
+                  ? "Full"
+                  : "Join"}
           </JoinButton>
         </LocationRow>
       </Content>
