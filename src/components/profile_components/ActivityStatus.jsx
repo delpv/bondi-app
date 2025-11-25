@@ -39,7 +39,7 @@ const ActivityStatus = () => {
           <SectionTitle>Activity Status</SectionTitle>
         </TitleSection>
       </HeaderFrame>
-      
+
       <StatusContent>
         {statusData.map((status) => (
           <StatusItem key={status.id}>

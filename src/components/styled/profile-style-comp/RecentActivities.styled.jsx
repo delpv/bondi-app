@@ -2,18 +2,19 @@ import styled from "styled-components";
 
 // Recent Activities section parent container
 export const RecentActivitiesContainer = styled.section`
-  width: 960px;
-  max-width: 100%;
+  width: 100%;
+  max-width: 960px;
   height: auto;
   min-height: 216px;
   border-radius: 12px;
   padding: 6px 10px;
   background: #FFFFFF;
-  box-shadow: 
+  box-shadow:
     0px 1px 3px 0px rgba(0, 0, 0, 0.3),
     0px 4px 8px 3px rgba(0, 0, 0, 0.15);
   margin: 0 auto;
   box-sizing: border-box;
+  position: relative;
 `;
 
 // Header frame - contains title and view all + edit button
@@ -50,7 +51,7 @@ export const SectionTitle = styled.h2`
   line-height: 120%;
   letter-spacing: -0.02em;
   text-align: left;
-  color: #000000;
+  color: #111318;
   margin: 0;
 `;
 
@@ -87,26 +88,27 @@ export const ViewAllLink = styled.a`
 
 // Edit button
 export const EditButton = styled.button`
-  width: 24px;
-  height: 24px;
+  width: 32px;
+  height: 32px;
   background: none;
   border: none;
   cursor: pointer;
-  padding: 0;
+  padding: 8px;
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 4px;
+  border-radius: 6px;
   transition: background-color 0.2s ease;
+  position: relative;
 
   &:hover {
     background-color: #f3f4f6;
   }
 
-  svg, span {
-    width: 24px;
-    height: 24px;
-    color: #6b7280;
+  svg {
+    width: 20px;
+    height: 20px;
+    fill: #6b7280;
   }
 `;
 

@@ -2,18 +2,19 @@ import styled from "styled-components";
 
 // Activity Status section parent container
 export const ActivityStatusContainer = styled.section`
-  width: 960px;
-  max-width: 100%;
+  width: 100%;
+  max-width: 960px;
   height: auto;
   min-height: 173px;
   border-radius: 12px;
   padding: 6px 10px;
   background: #FFFFFF;
-  box-shadow: 
+  box-shadow:
     0px 1px 3px 0px rgba(0, 0, 0, 0.3),
     0px 4px 8px 3px rgba(0, 0, 0, 0.15);
   margin: 0 auto;
   box-sizing: border-box;
+  position: relative;
 `;
 
 // Header frame - contains title
@@ -50,21 +51,19 @@ export const SectionTitle = styled.h2`
   line-height: 120%;
   letter-spacing: -0.02em;
   text-align: left;
-  color: #000000;
+  color: #111318;
   margin: 0;
-`;
-
-// Status content container
+`;// Status content container
 export const StatusContent = styled.div`
   width: 100%;
   height: 92px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 90px;
+  gap: clamp(20px, 8vw, 90px);
   padding: 10px;
   box-sizing: border-box;
-  
+
   /* Responsive: Stack on small screens */
   @media (max-width: 768px) {
     flex-direction: column;
@@ -85,19 +84,22 @@ export const StatusItem = styled.div`
   justify-content: center;
   gap: 20px;
   background: #FFFFFF;
-  
+  flex: 1;
+  min-width: 0;
+
   /* Responsive sizing */
   @media (max-width: 768px) {
     width: 100%;
     height: auto;
     gap: 10px;
+    flex: unset;
   }
 `;
 
 // Number container
 export const NumberContainer = styled.div`
-  width: 200px;
-  max-width: 100%;
+  width: 100%;
+  max-width: 200px;
   height: 29px;
   display: flex;
   align-items: center;
@@ -119,8 +121,8 @@ export const StatusNumber = styled.span`
 
 // Text activity container
 export const TextContainer = styled.div`
-  width: 200px;
-  max-width: 100%;
+  width: 100%;
+  max-width: 200px;
   height: 23px;
   display: flex;
   align-items: center;
@@ -130,8 +132,8 @@ export const TextContainer = styled.div`
 
 // Status description text
 export const StatusText = styled.span`
-  width: 200px;
-  max-width: 100%;
+  width: 100%;
+  max-width: 200px;
   height: 23px;
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   font-weight: 300;
@@ -139,7 +141,7 @@ export const StatusText = styled.span`
   line-height: 120%;
   letter-spacing: 0;
   text-align: center;
-  color: #000000;
+  color: #111318;
   display: flex;
   align-items: center;
   justify-content: center;
