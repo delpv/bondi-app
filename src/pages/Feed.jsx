@@ -73,7 +73,7 @@ export default function Feed({ userObject }) {
 
   const getActivities = async () => {
     const query = new Parse.Query("Activity");
-    query.include("category_id"); // Try category_id instead
+    query.include("category_id");
     setIsLoading(true);
     try {
       const activitiesArray = await query.find();
