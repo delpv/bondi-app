@@ -1,4 +1,6 @@
 import styled from "styled-components";
+import ParticipantsIconSvg from "../../../assets/icons_app/participants.svg?react";
+import LocationIconSvg from "../../../assets/icons_app/map-pin-green.svg?react";
 
 const ink = "#111318";
 const subtle = "#6B7280";
@@ -14,6 +16,7 @@ export const Container = styled.nav`
   box-shadow: 0 10px 30px rgba(18, 22, 25, 0.08);
   display: flex;
   flex-direction: column;
+  cursor: ${(p) => (p.isClickable ? "pointer" : "default")};
 `;
 
 // this is the top image
@@ -72,6 +75,11 @@ export const Description = styled.p`
   color: ${subtle};
   line-height: 1.5;
   flex-grow: 1;
+
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2; /* ← number of lines before truncating */
+  -webkit-box-orient: vertical;
 `;
 
 /* host row with avatar on left and participants on right */
@@ -104,10 +112,29 @@ export const HostMeta = styled.span`
   justify-content: center;
 `;
 
+export const HostByLabel = styled.div`
+  font-weight: 600;
+`;
+
+export const HostFullName = styled.div`
+  color: #9aa0a6;
+  font-size: 0.9rem;
+`;
+
 export const Participants = styled.span`
   display: inline-flex;
   align-items: center;
   gap: 8px;
+`;
+
+export const ParticipantsCount = styled.div`
+  margin-left: 6px;
+`;
+
+export const ParticipantsIcon = styled(ParticipantsIconSvg)`
+  width: ${(p) => (p.size ? `${p.size}px` : "20px")};
+  height: ${(p) => (p.size ? `${p.size}px` : "20px")};
+  flex-shrink: 0;
 `;
 
 export const LocationRow = styled.div`
@@ -126,6 +153,12 @@ export const LocationInfo = styled.div`
   font-size: 0.95rem;
   color: ${subtle};
   max-width: calc(100% - 24%);
+`;
+
+export const LocationIcon = styled(LocationIconSvg)`
+  width: ${(p) => (p.size ? `${p.size}px` : "18px")};
+  height: ${(p) => (p.size ? `${p.size}px` : "18px")};
+  flex-shrink: 0;
 `;
 
 export const JoinButton = styled.button`
@@ -156,9 +189,11 @@ export const JoinButton = styled.button`
 `;
 
 export const ElypsisText = styled.span`
-  text-wrap: nowrap;
   text-overflow: ellipsis;
-  width: calc(100%);
   overflow: hidden;
+  white-space: nowrap;
+  flex: 1;
+  min-width: 0;
   display: block;
+  margin-left: ${(p) => (p.withIcon ? "6px" : "0")};
 `;
