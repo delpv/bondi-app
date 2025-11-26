@@ -1,5 +1,10 @@
 import React from "react";
-import { Field } from "../styled/create-activity-style-comp/CreateActivity.styled.jsx";
+
+import {
+  Field,
+  CheckboxLabel,
+  CheckboxInput,
+} from "../styled/create-activity-style-comp/CreateActivity.styled.jsx";
 
 export function TextField({ id, label, ...props }) {
   return (
@@ -33,10 +38,10 @@ export function SelectField({ id, label, children, ...props }) {
 export function CheckboxField({ id, label, ...props }) {
   return (
     <Field>
-      <label htmlFor={id} style={{ fontWeight: 600 }}>
-        <input id={id} type="checkbox" style={{ marginRight: 8 }} {...props} />
+      <CheckboxLabel htmlFor={id}>
+        <CheckboxInput id={id} type="checkbox" {...props} />
         {label}
-      </label>
+      </CheckboxLabel>
     </Field>
   );
 }
