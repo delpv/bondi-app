@@ -133,3 +133,12 @@ export const PreviewImg = styled.img`
   border-radius: 8px;
   display: block;
 `;
+
+export const CheckboxLabel = styled.label`
+  font-weight: 600;
+`;
+
+export const CheckboxInput = styled.input`
+  margin-right: 8px;
+`;
+
