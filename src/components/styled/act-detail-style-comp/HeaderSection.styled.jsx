@@ -22,3 +22,7 @@ export const HeaderText = styled.h1`
   font-size: 24px;
   color: black;
 `;
+export const WaitingList = styled.div`
+  background-color: pink;
+  border-radius: 12px;
+`;

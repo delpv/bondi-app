@@ -10,7 +10,7 @@ const Before = () => {
   };
 
   return (
-    <BeforeContainer onClick={goBackToFeed} style={{ cursor: "pointer" }}>
+    <BeforeContainer onClick={goBackToFeed}>
       <p>← Back to activities</p>
     </BeforeContainer>
   );

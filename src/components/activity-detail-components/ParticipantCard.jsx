@@ -8,6 +8,7 @@ import {
   ParticipantTitle,
   HostLabel,
   ViewMoreButton,
+  ParticipantInfo,
 } from "../styled/act-detail-style-comp/Participants.styled";
 import Participant from "../../assets/icons_app/participant.svg?react";
 import Divider from "../../assets/icons_app/divider.svg?react";
@@ -37,16 +38,10 @@ const ParticipantsCard = ({
         {visibleParticipants.map((p, idx) => (
           <ParticipantBadge key={idx} isHost={p === hostName}>
             <ParticipantImage src={participantImage} alt={p} />
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-              }}
-            >
+            <ParticipantInfo>
               <span>{p}</span>
               {p === hostName && <HostLabel>Host</HostLabel>}
-            </div>
+            </ParticipantInfo>
           </ParticipantBadge>
         ))}
       </ParticipantList>

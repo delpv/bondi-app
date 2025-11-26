@@ -49,6 +49,11 @@ export const ParticipantImage = styled.img`
   border-radius: 50%;
   margin-right: 5px;
 `;
+export const ParticipantInfo = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
 
 export const HostLabel = styled.span`
   font-family: "Inter", sans-serif;
