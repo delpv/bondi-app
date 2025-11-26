@@ -6,6 +6,7 @@ import {
   HeaderSectionContainer,
   HeaderImage,
   HeaderText,
+  WaitingList,
 } from "../styled/act-detail-style-comp/HeaderSection.styled.jsx";
 
 import {
@@ -79,9 +80,11 @@ const HeaderSection = ({ activity }) => {
   const location = activity?.get("location") || "Loading...";
   const categoryName = category?.get("name") || "Loading...";
 
+  const image = activity?.get("coverPhoto_img")?.url() || "";
+
   return (
     <HeaderSectionContainer>
-      <HeaderImage src={"public/yoga.jpg"} alt="Yoga" />
+      <HeaderImage src={image} alt="Yoga" />
       <HeaderText>{title}</HeaderText>
       <CardRow>
         <CardLeft>
@@ -113,10 +116,10 @@ const HeaderSection = ({ activity }) => {
             people joined
           </CountLabel>
 
-          {waitingList && (
-            <p style={{ color: "black", background: "pink" }}>
-              Activity is full — you’re on the waiting list.
-            </p>
+          {joinedCount >= maxCapacity && (
+            <WaitingList>
+              <p>Activity is full — you’re on the waiting list.</p>
+            </WaitingList>
           )}
         </CardRight>
       </CardRow>

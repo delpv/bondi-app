@@ -21,14 +21,15 @@ const ActivityDetail = () => {
   const [activity, setActivity] = useState(null);
 
   // Manually set the objectId of the activity you want to display
-  const activityObjectId = "XNGNoKPR5r";
+  const ObjectId = "XNGNoKPR5r";
 
   useEffect(() => {
     const fetchActivity = async () => {
       try {
         const Activity = Parse.Object.extend("Activity");
         const query = new Parse.Query(Activity);
-        const result = await query.get(activityObjectId); // fetch from Back4App
+        const result = await query.get(ObjectId); // fetch from Back4App
+
         setActivity(result);
       } catch (error) {
         console.error("Error fetching activity:", error);
