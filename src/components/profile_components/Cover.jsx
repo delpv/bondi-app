@@ -1,6 +1,6 @@
 
 
-import Parse from "../../utils/parseConfig.js";
+import Parse from 'parse';
 import React, { useState, useEffect, useRef } from 'react'
 import Avatar from "/avatar.png";
 import CoverBackground from "../../assets/images/profile-images/cover_background.jpg";
@@ -47,25 +47,18 @@ const Cover = ({ user }) => {
   const [showEditModal, setShowEditModal] = useState(false);
   const [editName, setEditName] = useState('');
 
-  // Use passed user ID or fallback to localStorage, then hardcoded
-  const currentUserId = user?.id || localStorage.getItem('currentProfileUserId') || "yESQnpupOj";
+ 
+  const currentUserId = user?.id || Parse.User.current()?.id;
 
   // Helper function for handling avatar image load errors
   const handleAvatarError = (e) => {
-    console.error('Image failed to load:', userData?.profilePicture);
-    console.error('Error details:', e);
     e.target.src = Avatar;
   };
   const dropdownRef = useRef(null);
   const fileInputRef = useRef(null);
   const coverInputRef = useRef(null);
 
-  // Store user ID in localStorage when user is available (to persist across refreshes)
-  useEffect(() => {
-    if (user?.id) {
-      localStorage.setItem('currentProfileUserId', user.id);
-    }
-  }, [user]);
+  
 
   useEffect(() => {
     loadUserData();
@@ -92,9 +85,6 @@ const Cover = ({ user }) => {
         createdAt: user.get("createdAt")
       };
 
-      console.log('Loaded user data:', userData);
-      console.log('Profile picture URL:', userData.profilePicture);
-      console.log('Final image src will be:', userData.profilePicture ? `${userData.profilePicture}?t=${Date.now()}` : Avatar);
       setUserData(userData);
     } catch (error) {
       console.error('Database error details:', error);
@@ -335,7 +325,7 @@ const Cover = ({ user }) => {
               src={userData?.profilePicture ? `${userData.profilePicture}?t=${Date.now()}` : Avatar}
               alt="User avatar"
               key={userData?.profilePicture || 'default'}
-              onLoad={() => console.log('Image loaded successfully:', userData?.profilePicture)}
+              onLoad={() => {}}
               onError={handleAvatarError}
             />
             <CameraIconButton onClick={handleCameraClick}>

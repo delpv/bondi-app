@@ -1,4 +1,4 @@
-import Parse from "../../utils/parseConfig.js";
+import Parse from 'parse';
 import React, { useState, useEffect } from 'react';
 import EditIcon from "../../assets/icons_app/edit.svg?react";
 import {
@@ -21,8 +21,8 @@ const About = ({ user }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [userData, setUserData] = useState(null);
 
-  // Use passed user ID or fallback to localStorage, then hardcoded
-  const currentUserId = user?.id || localStorage.getItem('currentProfileUserId') || "yESQnpupOj";
+  
+  const currentUserId = user?.id || Parse.User.current()?.id;
 
   useEffect(() => {
     loadUserData();
@@ -71,7 +71,6 @@ const About = ({ user }) => {
 
       setOriginalText(aboutText);
       setIsEditing(false);
-      console.log('About text saved successfully');
     } catch (error) {
       console.error('Failed to save about text:', error);
     } finally {
@@ -88,7 +87,7 @@ const About = ({ user }) => {
     if (e.key === 'Escape') {
       handleDiscard();
     }
-  };
+  }; 
 
   return (
     <AboutContainer>

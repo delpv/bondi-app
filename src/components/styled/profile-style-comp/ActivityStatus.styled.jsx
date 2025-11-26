@@ -60,7 +60,7 @@ export const StatusContent = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: clamp(20px, 8vw, 90px);
+  gap: 8vw;
   padding: 10px;
   box-sizing: border-box;
 

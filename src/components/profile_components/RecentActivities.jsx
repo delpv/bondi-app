@@ -9,28 +9,26 @@ import {
   ActivityImage,
   ActivityOverlay
 } from "../styled/profile-style-comp/RecentActivities.styled";
-import walkInNature from "../../assets/images/profile-images/walkInNature.jpg";
-import vintage from "../../assets/images/profile-images/vintage.jpg";
-import beachDay from "../../assets/images/profile-images/beachDay.jpg";
+
 
 const RecentActivities = () => {
   // Sample activities data
   const activities = [
     {
       id: 1,
-      image: walkInNature,
+      image: "/walkInNature.jpg",
       title: "Walk in nature",
       alt: "Nature walking activity"
     },
     {
       id: 2,
-      image: vintage,
+      image: "/vintage.jpg",
       title: "Vintage treasure hunt",
       alt: "Vintage treasure hunt activity"
     },
     {
       id: 3,
-      image: beachDay,
+      image: "/beachDay.jpg",
       title: "Beach day",
       alt: "Beach day activity"
     }
