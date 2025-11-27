@@ -179,7 +179,7 @@ export const CoverContent = styled.div`
   }
 `;
 
-// Profile avatar container to position camera icon
+
 export const ProfileAvatarContainer = styled.div`
   position: relative;
   display: inline-block;
@@ -211,79 +211,6 @@ export const ProfileAvatar = styled.img`
     width: clamp(90px, 18vw, 110px);
     height: clamp(90px, 18vw, 110px);
     border-width: 2px;
-  }
-`;
-
-// Camera icon button positioned at bottom-right of avatar
-export const CameraIconButton = styled.button`
-  position: absolute;
-  bottom: 0px;
-  right: 0px;
-  width: 60px;
-  height: 60px;
-  border-radius: 30px;
-  background: transparent;
-  border: none;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  padding: 0;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  flex: none;
-  order: 0;
-  flex-grow: 0;
-
-  svg {
-    width: 60px;
-    height: 60px;
-  }
-
-  @media (max-width: 768px) {
-    width: 50px;
-    height: 50px;
-    bottom: 0px;
-    right: 0px;
-    border-radius: 25px;
-
-    svg {
-      width: 50px;
-      height: 50px;
-    }
-  }
-
-  @media (max-width: 580px) {
-    width: clamp(40px, 8vw, 48px);
-    height: clamp(40px, 8vw, 48px);
-    border-radius: 50%;
-    bottom: 0px;
-    right: 0px;
-
-    svg {
-      width: clamp(40px, 8vw, 48px);
-      height: clamp(40px, 8vw, 48px);
-    }
-  }
-
-  @media (max-width: 480px) {
-    width: clamp(36px, 7vw, 44px);
-    height: clamp(36px, 7vw, 44px);
-    bottom: 2px;
-    right: 2px;
-
-    svg {
-      width: clamp(36px, 7vw, 44px);
-      height: clamp(36px, 7vw, 44px);
-    }
-  }
-
-  &:hover {
-    transform: translateY(-1px);
-  }
-
-  &:active {
-    transform: translateY(0);
   }
 `;
 
@@ -482,40 +409,6 @@ export const EditProfileButton = styled.button`
   }
 `;
 
-// Camera dropdown container
-export const CameraDropdown = styled.div`
-  position: absolute;
-  bottom: -140px;
-  left: 0;
-  background-color: white;
-  border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-  padding: 0;
-  min-width: 180px;
-  z-index: 10;
-  overflow: hidden;
-`;
-
-// Camera dropdown option button
-export const CameraDropdownOption = styled.button`
-  width: 100%;
-  padding: 12px 16px;
-  border: none;
-  background: white;
-  text-align: left;
-  cursor: ${props => props.disabled ? 'not-allowed' : 'pointer'};
-  font-size: 0.875rem;
-  color: #374151;
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  border-radius: 0;
-  display: block;
-  opacity: ${props => props.disabled ? 0.5 : 1};
-
-  &:hover:not(:disabled) {
-    background: #68B6FF;
-  }
-`;
-
 // Edit modal overlay
 export const EditModalOverlay = styled.div`
   position: fixed;
@@ -568,12 +461,6 @@ export const EditModalInput = styled.input`
   font-size: 14px;
 `;
 
-// Edit modal button group
-export const EditModalButtonGroup = styled.div`
-  display: flex;
-  gap: 10px;
-`;
-
 // Edit modal actions container
 export const EditModalActions = styled.div`
   display: flex;
@@ -590,31 +477,6 @@ const BaseEditModalButton = styled.button`
   opacity: ${props => props.disabled ? 0.5 : 1};
 `;
 
-// Edit modal button variants
-export const EditModalPrimaryButton = styled(BaseEditModalButton)`
-  padding: 10px 20px;
-  background-color: #007bff;
-  color: white;
-`;
-
-export const EditModalSmallPrimaryButton = styled(BaseEditModalButton)`
-  padding: 8px 16px;
-  background-color: #007bff;
-  color: white;
-`;
-
-export const EditModalDangerButton = styled(BaseEditModalButton)`
-  padding: 10px 20px;
-  background-color: #dc3545;
-  color: white;
-`;
-
-export const EditModalSmallDangerButton = styled(BaseEditModalButton)`
-  padding: 8px 16px;
-  background-color: #dc3545;
-  color: white;
-`;
-
 export const EditModalSuccessButton = styled(BaseEditModalButton)`
   padding: 10px 20px;
   background-color: #28a745;
@@ -627,10 +489,6 @@ export const EditModalSecondaryButton = styled(BaseEditModalButton)`
   color: white;
 `;
 
-// Hidden file input for photo uploads
-export const HiddenFileInput = styled.input`
-  display: none;
-`;
 
 // Dynamic ProfileCover that accepts backgroundImage prop
 export const DynamicProfileCover = styled(ProfileCover)`

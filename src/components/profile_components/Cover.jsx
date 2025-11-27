@@ -1,11 +1,8 @@
-
-
 import Parse from 'parse';
 import React, { useState, useEffect, useRef } from 'react'
 import Avatar from "/avatar.png";
 import CoverBackground from "../../assets/images/profile-images/cover_background.jpg";
 import EditProfileIcon from "../../assets/icons_app/edit-profile.svg?react";
-import CameraIcon from "../../assets/icons_app/camera.svg?react";
 import {
   CoverContainer,
   ProfileCover,
@@ -13,7 +10,6 @@ import {
   CoverContent,
   ProfileAvatarContainer,
   ProfileAvatar,
-  CameraIconButton,
   ProfileInfoCard,
   ProfileName,
   MemberSince,
@@ -22,26 +18,19 @@ import {
   ActionButtons,
   ActionButton,
   EditProfileButton,
-  CameraDropdown,
-  CameraDropdownOption,
   EditModalOverlay,
   EditModalContainer,
   EditModalTitle,
   EditModalField,
   EditModalLabel,
   EditModalInput,
-  EditModalButtonGroup,
   EditModalActions,
-  EditModalSmallPrimaryButton,
-  EditModalSmallDangerButton,
   EditModalSecondaryButton,
   EditModalSuccessButton,
-  HiddenFileInput,
   DynamicProfileCover
 } from "../styled/profile-style-comp/Cover.styled";
 
 const Cover = ({ user }) => {
-  const [showCameraOptions, setShowCameraOptions] = useState(false);
   const [userData, setUserData] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
@@ -54,9 +43,6 @@ const Cover = ({ user }) => {
   const handleAvatarError = (e) => {
     e.target.src = Avatar;
   };
-  const dropdownRef = useRef(null);
-  const fileInputRef = useRef(null);
-  const coverInputRef = useRef(null);
 
   
 
@@ -96,129 +82,6 @@ const Cover = ({ user }) => {
     }
   };
 
-  const handleCameraClick = () => {
-    setShowCameraOptions(!showCameraOptions);
-  };
-
-  // Close dropdown when clicking outside
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-        setShowCameraOptions(false);
-      }
-    };
-
-    if (showCameraOptions) {
-      document.addEventListener('mousedown', handleClickOutside);
-    }
-
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, [showCameraOptions]);
-
-  const handleTakePhoto = async () => {
-    try {
-      const stream = await navigator.mediaDevices.getUserMedia({ video: true });
-      const video = document.createElement('video');
-      video.srcObject = stream;
-      video.play();
-
-      setTimeout(() => {
-        const canvas = document.createElement('canvas');
-        canvas.width = video.videoWidth;
-        canvas.height = video.videoHeight;
-        canvas.getContext('2d').drawImage(video, 0, 0);
-
-        canvas.toBlob(async (blob) => {
-          try {
-            setIsLoading(true);
-            const parseFile = new Parse.File(`profile-${Date.now()}.jpg`, blob);
-            await parseFile.save();
-
-            const User = Parse.Object.extend("USER");
-            const query = new Parse.Query(User);
-            const user = await query.get(currentUserId);
-            user.set("profilePicture", parseFile.url());
-            await user.save();
-
-            await loadUserData();
-          } catch (error) {
-            console.error('Failed to save photo:', error);
-          } finally {
-            setIsLoading(false);
-          }
-        });
-
-        stream.getTracks().forEach(track => track.stop());
-      }, 3000);
-    } catch (error) {
-      console.error('Camera not available:', error);
-    }
-    setShowCameraOptions(false);
-  };
-
-  const handleUploadPhoto = () => {
-    fileInputRef.current?.click();
-    setShowCameraOptions(false);
-  };
-
-  const handleFileChange = async (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      try {
-        setIsLoading(true);
-        
-        // Ensure user is authenticated
-        const currentUser = Parse.User.current();
-        if (!currentUser) {
-          throw new Error('User must be authenticated to upload files');
-        }
-
-        // Create and save the file
-        const parseFile = new Parse.File(`profile-${Date.now()}.jpg`, file);
-        await parseFile.save();
-
-        // Update user with the file object (not URL)
-        const User = Parse.Object.extend("USER");
-        const query = new Parse.Query(User);
-        const user = await query.get(currentUserId);
-        user.set("profilePicture", parseFile);
-        user.setACL(new Parse.ACL(currentUser));
-        await user.save();
-
-        await loadUserData();
-      } catch (error) {
-        console.error('Failed to upload photo:', error);
-        alert(`Failed to upload photo: ${error.message}`);
-      } finally {
-        setIsLoading(false);
-      }
-    }
-    // Reset the input value so the same file can be uploaded again
-    if (e.target) {
-      e.target.value = '';
-    }
-  };
-
-  const handleRemovePhoto = async () => {
-    try {
-      setIsLoading(true);
-      const User = Parse.Object.extend("USER");
-      const query = new Parse.Query(User);
-      const user = await query.get(currentUserId);
-      user.set("profilePicture", null);
-      await user.save();
-
-      await loadUserData();
-    } catch (error) {
-      console.error('Failed to remove photo:', error);
-    } finally {
-      setIsLoading(false);
-    }
-    setShowCameraOptions(false);
-  };
-
   const handleSaveName = async () => {
     try {
       setIsLoading(true);
@@ -237,75 +100,8 @@ const Cover = ({ user }) => {
     }
   };
 
-  const handleCoverFileChange = async (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      try {
-        setIsLoading(true);
-        
-        // Ensure user is authenticated
-        const currentUser = Parse.User.current();
-        if (!currentUser) {
-          throw new Error('User must be authenticated to upload files');
-        }
-
-        // Create and save the file
-        const parseFile = new Parse.File(`cover-${Date.now()}.jpg`, file);
-        await parseFile.save();
-
-        // Update user with the file object (not URL)
-        const User = Parse.Object.extend("USER");
-        const query = new Parse.Query(User);
-        const user = await query.get(currentUserId);
-        user.set("coverPhoto", parseFile);
-        user.setACL(new Parse.ACL(currentUser));
-        await user.save();
-
-        await loadUserData();
-      } catch (error) {
-        console.error('Failed to upload cover photo:', error);
-        alert(`Failed to upload cover photo: ${error.message}`);
-      } finally {
-        setIsLoading(false);
-      }
-    }
-    // Reset the input value so the same file can be uploaded again
-    if (e.target) {
-      e.target.value = '';
-    }
-  };
-
-  const handleRemoveCoverPhoto = async () => {
-    try {
-      setIsLoading(true);
-      const User = Parse.Object.extend("USER");
-      const query = new Parse.Query(User);
-      const user = await query.get(currentUserId);
-      user.set("coverPhoto", null);
-      await user.save();
-
-      await loadUserData();
-    } catch (error) {
-      console.error('Failed to remove cover photo:', error);
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
   return (
     <CoverContainer>
-      <HiddenFileInput
-        ref={fileInputRef}
-        type="file"
-        accept="image/*"
-        onChange={handleFileChange}
-      />
-      <HiddenFileInput
-        ref={coverInputRef}
-        type="file"
-        accept="image/*"
-        onChange={handleCoverFileChange}
-      />
       <DynamicProfileCover backgroundImage={userData?.coverPhoto || CoverBackground}>
         <CoverOverlay />
 
@@ -328,32 +124,6 @@ const Cover = ({ user }) => {
               onLoad={() => {}}
               onError={handleAvatarError}
             />
-            <CameraIconButton onClick={handleCameraClick}>
-              <CameraIcon />
-            </CameraIconButton>
-
-            {showCameraOptions && (
-              <CameraDropdown ref={dropdownRef}>
-                <CameraDropdownOption
-                  onClick={handleTakePhoto}
-                  disabled={isLoading}
-                >
-                  Take Photo
-                </CameraDropdownOption>
-                <CameraDropdownOption
-                  onClick={handleUploadPhoto}
-                  disabled={isLoading}
-                >
-                  Upload Photo
-                </CameraDropdownOption>
-                <CameraDropdownOption
-                  onClick={handleRemovePhoto}
-                  disabled={isLoading}
-                >
-                  Remove Photo
-                </CameraDropdownOption>
-              </CameraDropdown>
-            )}
           </ProfileAvatarContainer>
 
           <ProfileInfoCard>
@@ -385,26 +155,6 @@ const Cover = ({ user }) => {
                 onChange={(e) => setEditName(e.target.value)}
                 placeholder="Enter your full name"
               />
-            </EditModalField>
-
-            <EditModalField>
-              <EditModalLabel>
-                Cover Photo
-              </EditModalLabel>
-              <EditModalButtonGroup>
-                <EditModalSmallPrimaryButton
-                  onClick={() => coverInputRef.current?.click()}
-                  disabled={isLoading}
-                >
-                  Upload Cover
-                </EditModalSmallPrimaryButton>
-                <EditModalSmallDangerButton
-                  onClick={handleRemoveCoverPhoto}
-                  disabled={isLoading}
-                >
-                  Remove Cover
-                </EditModalSmallDangerButton>
-              </EditModalButtonGroup>
             </EditModalField>
 
             <EditModalActions>
