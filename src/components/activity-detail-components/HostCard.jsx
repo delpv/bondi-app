@@ -19,7 +19,6 @@ import UserIcon from "../../assets/icons_app/user_icon.svg?react";
 import Divider from "../../assets/icons_app/divider.svg?react";
 
 
-
 const HostCard = ({ activitiesHosted }) => {
   const [user, setUser] = useState(null);
   const navigate = useNavigate();

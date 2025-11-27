@@ -1,5 +1,6 @@
 import Parse from "parse"; // use the initialized Parse
 import React, { useState, useEffect } from "react";
+import { useParams } from "react-router";
 
 import NavBar from "../components/feed-components/NavBar.jsx";
 import Footer from "../components/feed-components/Footer.jsx";
@@ -19,27 +20,32 @@ import { CardContainer } from "../components/styled/act-detail-style-comp/Common
 
 const ActivityDetail = () => {
   const [activity, setActivity] = useState(null);
+  const { id } = useParams(); 
+  console.log("useParams id:", id, typeof id);
+  const [loading, setLoading] = useState(true);
 
-  // Manually set the objectId of the activity you want to display
-  const ObjectId = "XNGNoKPR5r";
 
   useEffect(() => {
     const fetchActivity = async () => {
       try {
         const Activity = Parse.Object.extend("Activity");
         const query = new Parse.Query(Activity);
-        const result = await query.get(ObjectId); // fetch from Back4App
-
+        query.include("host_ID"); // match pointer
+        const result = await query.get(id); // id from URL
+        console.log("Fetched activity:", result.toJSON());
         setActivity(result);
       } catch (error) {
         console.error("Error fetching activity:", error);
+      } finally {
+        setLoading(false);
       }
     };
-
+  
     fetchActivity();
-  }, []);
+  }, [id]);
 
-  if (!activity) return <div>Loading...</div>;
+  if (loading) return <div>Loading...</div>;
+  if (!activity) return <div>Activity not found...</div>;
 
   const location = activity.get("location");
   

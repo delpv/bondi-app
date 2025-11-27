@@ -76,10 +76,9 @@ export default function Feed({ userObject }) {
     query.include("category_id");
     setIsLoading(true);
     try {
-      const activitiesArray = await query.find();
       const allActivities = activitiesArray.map((activity) => {
         const json = activity.toJSON();
-        console.log("Single activity structure:", json);
+        console.log("Activity JSON:", json); // ← log each activity object
         return json;
       });
 
@@ -115,21 +114,25 @@ export default function Feed({ userObject }) {
                 <p>No activities found matching your filters.</p>
               )}
               {!isLoading &&
-                filteredActivities?.map((activity, index) => (
-                  <Card
-                    key={`activity-number-${index}`}
-                    userId={userObject.id}
-                    id={activity.objectId}
-                    image={activity.coverPhoto_img}
-                    date={activity.dateStart.iso}
-                    priceLabel={activity.price === 0 ? "Free" : "Paid"}
-                    title={activity.Title}
-                    description={activity.description}
-                    hostId={activity.host_ID.objectId}
-                    maxParticipants={activity.maxCapacity}
-                    location={activity.location}
-                  />
-                ))}
+  filteredActivities?.map((activity, index) => {
+    console.log(`Activity at index ${index}:`, activity.objectId, activity.Title);
+    return (
+      <Card
+        key={`activity-number-${index}`}
+        userId={userObject.id}
+        id={activity.objectId}
+        image={activity.coverPhoto_img}
+        date={activity.dateStart.iso}
+        priceLabel={activity.price === 0 ? "Free" : "Paid"}
+        title={activity.Title}
+        description={activity.description}
+        hostId={activity.host_ID?.objectId}
+        maxParticipants={activity.maxCapacity}
+        location={activity.location}
+        onViewMore={() => navigate(`/activity/${activity.objectId}`)}
+      />
+    );
+  })}
             </GridContainer>
           </div>
         </LayoutGrid>
