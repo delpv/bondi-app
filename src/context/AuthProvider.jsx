@@ -1,8 +1,7 @@
-import React, { createContext, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import Parse from "parse";
 import { useNavigate } from "react-router-dom";
-
-export const AuthContext = createContext();
+import { AuthContext } from "./AuthContext";
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
@@ -42,10 +41,11 @@ export const AuthProvider = ({ children }) => {
       userQuery.equalTo("password", password);
 
       const user = await userQuery.first();
+      const userJson = await user.toJSON();
 
-      if (user) {
-        setUser(user);
-        localStorage.setItem("parseUserId", user.id);
+      if (userJson) {
+        setUser(userJson);
+        localStorage.setItem("parseUserId", userJson.objectId);
         setIsAuthenticated(true);
 
         navigate("/feed");
@@ -79,15 +79,23 @@ export const AuthProvider = ({ children }) => {
       userObj.set("password", password);
 
       const result = await userObj.save();
-      if (result) {
-        setUser(result);
-        localStorage.setItem("parseUserId", result.id);
+      const resultJson = await result.toJSON();
+      if (resultJson) {
+        setUser(resultJson);
+        localStorage.setItem("parseUserId", resultJson.objectId);
         setIsAuthenticated(true);
         navigate("/feed");
       }
     } catch (e) {
       throw e.message;
     }
+  };
+
+  const handleLogout = () => {
+    setUser(null);
+    localStorage.removeItem("parseUserId");
+    setIsAuthenticated(false);
+    navigate("/login");
   };
 
   useEffect(() => {
@@ -103,6 +111,7 @@ export const AuthProvider = ({ children }) => {
         setUser,
         handleLogin,
         handleRegister,
+        handleLogout,
       }}
     >
       {isLoading ? "Loading..." : children}

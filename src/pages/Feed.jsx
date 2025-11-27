@@ -10,7 +10,7 @@ import {
   GridContainer,
 } from "../components/styled/feed-style-comp/Grid.styled.jsx";
 import { SectionHeader } from "../components/styled/feed-style-comp/Feed.styled.jsx";
-import { AuthContext } from "../context/AuthProvider.jsx";
+import { AuthContext } from "../context/AuthContext.jsx";
 
 export default function Feed() {
   const { user } = useContext(AuthContext);

@@ -16,7 +16,7 @@ import {
   BellowText,
   ErrorMessage,
 } from "../styled/login-style-comp/LoginLeft.styled.jsx";
-import { AuthContext } from "../../context/AuthProvider.jsx";
+import { AuthContext } from "../../context/AuthContext.jsx";
 
 const LoginLeft = () => {
   const { handleRegister } = useContext(AuthContext);

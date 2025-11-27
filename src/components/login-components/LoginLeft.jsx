@@ -17,7 +17,7 @@ import {
   ErrorMessage,
 } from "../styled/login-style-comp/LoginLeft.styled.jsx";
 import Parse from "parse";
-import { AuthContext } from "../../context/AuthProvider.jsx";
+import { AuthContext } from "../../context/AuthContext.jsx";
 const LoginLeft = () => {
   const { handleLogin } = useContext(AuthContext);
 
