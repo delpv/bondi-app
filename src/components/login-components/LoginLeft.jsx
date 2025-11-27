@@ -1,6 +1,5 @@
 import React from "react";
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import EyeIcon from "../../assets/icons_app/eye.svg?react";
 import {
@@ -15,33 +14,24 @@ import {
   Row,
   BellowText,
   ButtonLogin,
+  ErrorMessage,
 } from "../styled/login-style-comp/LoginLeft.styled.jsx";
 import Parse from "parse";
-const LoginLeft = ({ onGetUser }) => {
+import { AuthContext } from "../../context/AuthProvider.jsx";
+const LoginLeft = () => {
+  const { handleLogin } = useContext(AuthContext);
+
   const [isLoading, setIsLoading] = useState(false);
   const [showPass, setShowPass] = useState(false);
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
   const [error, setError] = useState("");
-  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
     try {
-      const userQuery = new Parse.Query("USER");
-
-      userQuery.equalTo("email", email);
-      userQuery.equalTo("password", password);
-
-      const user = await userQuery.first();
-
-      if (user) {
-        onGetUser(user);
-        navigate("/feed");
-      } else {
-        setError("Email or password are wrong.");
-      }
+      await handleLogin(email, password);
     } catch (e) {
       setError(e.message);
     } finally {
