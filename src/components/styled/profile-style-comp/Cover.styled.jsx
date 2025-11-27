@@ -22,7 +22,7 @@ import {
   StatBadge
 } from "./ProfileInfo.styled";
 
-// Re-export edit modal components
+// Re-export editProfile components
 export {
   EditModalOverlay,
   EditModalContainer,

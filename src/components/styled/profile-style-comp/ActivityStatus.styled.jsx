@@ -53,7 +53,9 @@ export const SectionTitle = styled.h2`
   text-align: left;
   color: #111318;
   margin: 0;
-`;// Status content container
+`;
+
+// Status content container
 export const StatusContent = styled.div`
   width: 100%;
   height: 92px;

@@ -117,7 +117,7 @@ export const ActivityImage = styled.img`
   transition: transform 0.3s ease;
 `;
 
-// Activity overlay (for text on image if needed)
+// Activity overlay for text on image 
 export const ActivityOverlay = styled.div`
   position: absolute;
   bottom: 16px;

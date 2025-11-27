@@ -26,7 +26,7 @@ const About = ({ user }) => {
 
   useEffect(() => {
     loadUserData();
-  }, [currentUserId]); // Re-load when user changes
+  }, [currentUserId]); 
 
   const loadUserData = async () => {
     try {
@@ -50,7 +50,7 @@ const About = ({ user }) => {
   };
 
   const handleEditClick = () => {
-    if (isEditing) return; // Prevent click when already editing
+    if (isEditing) return; 
     setOriginalText(aboutText);
     setIsEditing(true);
   };
@@ -81,8 +81,6 @@ const About = ({ user }) => {
     setAboutText(originalText);
     setIsEditing(false);
   };
-
- 
 
   return (
     <AboutContainer>
