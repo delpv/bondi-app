@@ -2,27 +2,27 @@ import styled from "styled-components";
 
 // Recent Activities section parent container
 export const RecentActivitiesContainer = styled.section`
-  width: 960px;
-  max-width: 100%;
+  width: 100%;
+  max-width: 960px;
   height: auto;
   min-height: 216px;
   border-radius: 12px;
   padding: 6px 10px;
   background: #FFFFFF;
-  box-shadow: 
+  box-shadow:
     0px 1px 3px 0px rgba(0, 0, 0, 0.3),
     0px 4px 8px 3px rgba(0, 0, 0, 0.15);
   margin: 0 auto;
   box-sizing: border-box;
+  position: relative;
 `;
 
-// Header frame - contains title and view all + edit button
+// Header frame - contains title
 export const HeaderFrame = styled.div`
   width: 100%;
   height: 76px;
   display: flex;
   align-items: center;
-  justify-content: space-between;
   gap: 10px;
   padding: 6px 0;
   box-sizing: border-box;
@@ -50,64 +50,8 @@ export const SectionTitle = styled.h2`
   line-height: 120%;
   letter-spacing: -0.02em;
   text-align: left;
-  color: #000000;
+  color: #111318;
   margin: 0;
-`;
-
-// View all and edit section
-export const ActionsSection = styled.div`
-  width: 152px;
-  height: 44px;
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  gap: 50px;
-  padding: 10px;
-  box-sizing: border-box;
-`;
-
-// View all link
-export const ViewAllLink = styled.a`
-  width: 58px;
-  height: 19px;
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  font-weight: 300;
-  font-size: 0.875rem;
-  line-height: 120%;
-  letter-spacing: 0;
-  text-align: center;
-  color: #3A00E5;
-  text-decoration: none;
-  cursor: pointer;
-  
-  &:hover {
-    text-decoration: underline;
-  }
-`;
-
-// Edit button
-export const EditButton = styled.button`
-  width: 24px;
-  height: 24px;
-  background: none;
-  border: none;
-  cursor: pointer;
-  padding: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 4px;
-  transition: background-color 0.2s ease;
-
-  &:hover {
-    background-color: #f3f4f6;
-  }
-
-  svg, span {
-    width: 24px;
-    height: 24px;
-    color: #6b7280;
-  }
 `;
 
 // Activities content container
@@ -173,7 +117,7 @@ export const ActivityImage = styled.img`
   transition: transform 0.3s ease;
 `;
 
-// Activity overlay (for text on image if needed)
+// Activity overlay for text on image 
 export const ActivityOverlay = styled.div`
   position: absolute;
   bottom: 16px;

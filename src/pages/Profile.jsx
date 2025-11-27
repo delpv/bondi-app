@@ -12,15 +12,15 @@ import {
   ProfileSectionsContainer,
 } from "../components/styled/profile-style-comp/Profile.styled";
 
-export default function Profile() {
+export default function Profile({ userObject }) {
   return (
     <ProfilePageContainer>
       <NavBar />
       <MainContainer>
         <ProfileMainContent>
-          <Cover />
+          <Cover user={userObject} />
           <ProfileSectionsContainer>
-            <About />
+            <About user={userObject} />
             <Interest />
             <RecentActivities />
             <ActivityStatus />

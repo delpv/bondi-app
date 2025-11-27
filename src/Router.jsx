@@ -34,8 +34,8 @@ const Router = () => {
       <Route path="/feed" element={<Feed userObject={userObject} />} />
       <Route path="/activity/:id" element={<ActivityDetail />} />
       <Route path="/create-activity" element={<CreateActivity />} />
-      <Route path="/profile" element={<Profile />} />
-      <Route path="/profile/:username" element={<Profile />} />
+      <Route path="/profile" element={<Profile userObject={userObject} />} />
+      <Route path="/profile/:username" element={<Profile userObject={userObject} />} />
       <Route path="*" element={<NotFound />} />
     </Routes>
   );
