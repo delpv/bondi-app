@@ -88,7 +88,7 @@ export default function Feed() {
       setIsLoading(false);
     }
   };
-  console.log(user);
+
   useEffect(() => {
     getActivities();
   }, []);
