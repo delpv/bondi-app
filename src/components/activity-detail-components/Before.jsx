@@ -6,7 +6,7 @@ const Before = () => {
   const navigate = useNavigate();
 
   const goBackToFeed = () => {
-    navigate("/feed"); // your feed route
+    navigate("/feed"); 
   };
 
   return (

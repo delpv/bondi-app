@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router"; 
 import Parse from "parse";
 import {
   HostCardContainer,
@@ -17,8 +18,11 @@ import {
 import UserIcon from "../../assets/icons_app/user_icon.svg?react";
 import Divider from "../../assets/icons_app/divider.svg?react";
 
+
+
 const HostCard = ({ activitiesHosted }) => {
   const [user, setUser] = useState(null);
+  const navigate = useNavigate();
   const userObjectId = "tN3jRW5vvW";
 
   useEffect(() => {
@@ -46,6 +50,12 @@ const HostCard = ({ activitiesHosted }) => {
   const aboutMe = user.get("aboutMe") || "No description available.";
   const memberSince = user.get("createdAt")?.getFullYear() || "Unknown";
 
+ 
+
+  const goToProfile = () => {
+    navigate("/profile"); 
+  };
+
   return (
     <HostCardContainer>
       <HostTitle>
@@ -68,7 +78,7 @@ const HostCard = ({ activitiesHosted }) => {
         <ActivitiesHostedLabel>
           {activitiesHosted} Activities Hosted
         </ActivitiesHostedLabel>
-        <HostButton>See Profile</HostButton>
+        <HostButton onClick={goToProfile}>See Profile</HostButton>
       </DescriptionContainer>
     </HostCardContainer>
   );
