@@ -42,6 +42,7 @@ const ActivityDetail = () => {
   if (!activity) return <div>Loading...</div>;
 
   const location = activity.get("location");
+  
 
   return (
     <>
@@ -53,9 +54,9 @@ const ActivityDetail = () => {
           <HeaderSection activity={activity} />
           <CardContainer>
             <TitleCard
-              title={activity.get("Title")}
-              description={activity.get("description")}
-              whatToBring={
+              activity={activity} 
+
+                whatToBring={
                 activity.get("whatToBring") || [
                   "Yoga mat",
                   "Water bottle",
@@ -65,9 +66,6 @@ const ActivityDetail = () => {
               }
             />
             <HostCard
-              hostName="Alice Johnson"
-              description="Certified yoga instructor with 8+ years of experience. I love bringing people together through mindful movement and creating a welcoming community for everyone."
-              memberSince="2018"
               activitiesHosted={8}
             />
             <ParticipantsCard
