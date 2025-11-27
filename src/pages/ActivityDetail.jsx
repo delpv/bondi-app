@@ -20,10 +20,9 @@ import { CardContainer } from "../components/styled/act-detail-style-comp/Common
 
 const ActivityDetail = () => {
   const [activity, setActivity] = useState(null);
-  const { id } = useParams(); 
+  const { id } = useParams();
   console.log("useParams id:", id, typeof id);
   const [loading, setLoading] = useState(true);
-
 
   useEffect(() => {
     const fetchActivity = async () => {
@@ -40,7 +39,7 @@ const ActivityDetail = () => {
         setLoading(false);
       }
     };
-  
+
     fetchActivity();
   }, [id]);
 
@@ -48,7 +47,6 @@ const ActivityDetail = () => {
   if (!activity) return <div>Activity not found...</div>;
 
   const location = activity.get("location");
-  
 
   return (
     <>
@@ -60,9 +58,8 @@ const ActivityDetail = () => {
           <HeaderSection activity={activity} />
           <CardContainer>
             <TitleCard
-              activity={activity} 
-
-                whatToBring={
+              activity={activity}
+              whatToBring={
                 activity.get("whatToBring") || [
                   "Yoga mat",
                   "Water bottle",
@@ -71,9 +68,7 @@ const ActivityDetail = () => {
                 ]
               }
             />
-            <HostCard
-              activitiesHosted={8}
-            />
+            <HostCard activitiesHosted={8} />
             <ParticipantsCard
               participantNumber={12}
               hostName="Alice"
