@@ -1,6 +1,6 @@
 import Parse from 'parse';
 import React, { useState, useEffect, useRef } from 'react'
-import Avatar from "/avatar.png";
+import Avatar from "/defaultAvatar.jpg";
 import CoverBackground from "../../assets/images/profile-images/cover_background.jpg";
 import EditProfileIcon from "../../assets/icons_app/edit-profile.svg?react";
 import {
@@ -37,10 +37,7 @@ const Cover = ({ user }) => {
  
   const currentUserId = user?.id || Parse.User.current()?.id;
 
-  // Helper function for handling avatar image load errors
-  const handleAvatarError = (e) => {
-    e.target.src = Avatar;
-  };
+
 
   useEffect(() => {
     loadUserData();
@@ -53,7 +50,6 @@ const Cover = ({ user }) => {
       const query = new Parse.Query(User);
       const user = await query.get(currentUserId);
 
-      const profilePictureFile = user.get("profilePicture");
       const coverPhotoFile = user.get("coverPhoto");
 
       const userData = {
@@ -62,7 +58,6 @@ const Cover = ({ user }) => {
         fullName: user.get("fullName"),
         aboutMe: user.get("aboutMe"),
         email: user.get("email"),
-        profilePicture: profilePictureFile ? profilePictureFile.url() : null,
         coverPhoto: coverPhotoFile ? coverPhotoFile.url() : null,
         createdAt: user.get("createdAt")
       };
@@ -114,11 +109,8 @@ const Cover = ({ user }) => {
         <CoverContent>
           <ProfileAvatarContainer>
             <ProfileAvatar
-              src={userData?.profilePicture ? `${userData.profilePicture}?t=${Date.now()}` : Avatar}
+              src={Avatar}
               alt="User avatar"
-              key={userData?.profilePicture || 'default'}
-              onLoad={() => {}}
-              onError={handleAvatarError}
             />
           </ProfileAvatarContainer>
 
