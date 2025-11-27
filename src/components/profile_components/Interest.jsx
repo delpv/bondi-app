@@ -106,7 +106,11 @@ const Interest = () => {
     ));
   };
 
-  const handleChipTextBlur = () => {
+  const handleChipTextBlur = (chipId) => {
+    const chip = interests.find(interest => interest.id === chipId);
+    if (chip && (!chip.text || chip.text.trim() === '')) {
+      setInterests(interests.filter(interest => interest.id !== chipId));
+    }
     setEditingChip(null);
   };
 
@@ -156,7 +160,7 @@ const Interest = () => {
                 type="text"
                 value={interest.text}
                 onChange={(e) => handleChipTextChange(interest.id, e.target.value)}
-                onBlur={handleChipTextBlur}
+                onBlur={() => handleChipTextBlur(interest.id)}
                 onKeyDown={(e) => handleChipKeyDown(e, interest.id)}
                 autoFocus
                 placeholder="Enter interest..."
@@ -171,7 +175,7 @@ const Interest = () => {
 
       {isRemoveMode && (
         <RemoveModeTooltip>
-          Click on a chip to remove it
+          Click on an interest to remove it
         </RemoveModeTooltip>
       )}
     </InterestContainer>

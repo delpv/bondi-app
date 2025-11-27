@@ -50,10 +50,9 @@ const About = ({ user }) => {
   };
 
   const handleEditClick = () => {
-    if (!isEditing) {
-      setOriginalText(aboutText);
-    }
-    setIsEditing(!isEditing);
+    if (isEditing) return; // Prevent click when already editing
+    setOriginalText(aboutText);
+    setIsEditing(true);
   };
 
   const handleTextChange = (e) => {
@@ -83,11 +82,7 @@ const About = ({ user }) => {
     setIsEditing(false);
   };
 
-  const handleKeyDown = (e) => {
-    if (e.key === 'Escape') {
-      handleDiscard();
-    }
-  }; 
+ 
 
   return (
     <AboutContainer>
@@ -104,7 +99,6 @@ const About = ({ user }) => {
             <AboutTextarea
               value={aboutText}
               onChange={handleTextChange}
-              onKeyDown={handleKeyDown}
               autoFocus
               disabled={isLoading}
               placeholder="Tell people about yourself..."
