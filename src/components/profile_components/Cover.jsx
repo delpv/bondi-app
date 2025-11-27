@@ -5,7 +5,6 @@ import CoverBackground from "../../assets/images/profile-images/cover_background
 import EditProfileIcon from "../../assets/icons_app/edit-profile.svg?react";
 import {
   CoverContainer,
-  ProfileCover,
   CoverOverlay,
   CoverContent,
   ProfileAvatarContainer,
@@ -16,7 +15,6 @@ import {
   StatsContainer,
   StatBadge,
   ActionButtons,
-  ActionButton,
   EditProfileButton,
   EditModalOverlay,
   EditModalContainer,
@@ -43,8 +41,6 @@ const Cover = ({ user }) => {
   const handleAvatarError = (e) => {
     e.target.src = Avatar;
   };
-
-  
 
   useEffect(() => {
     loadUserData();

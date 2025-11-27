@@ -76,7 +76,6 @@ export const InterestChipsContainer = styled.div`
   box-sizing: border-box;
 `;
 
-// Individual interest chip
 // Base interest chip styles
 const BaseInterestChip = styled.div`
   width: 100%;
