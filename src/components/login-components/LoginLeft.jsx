@@ -15,6 +15,7 @@ import {
   Row,
   BellowText,
   ButtonLogin,
+  ErrorMessage,
 } from "../styled/login-style-comp/LoginLeft.styled.jsx";
 import Parse from "parse";
 const LoginLeft = ({ onGetUser }) => {
