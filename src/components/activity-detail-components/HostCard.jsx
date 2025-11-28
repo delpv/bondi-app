@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router"; 
+import { useNavigate } from "react-router";
 import Parse from "parse";
 import {
   HostCardContainer,
@@ -18,41 +18,22 @@ import {
 import UserIcon from "../../assets/icons_app/user_icon.svg?react";
 import Divider from "../../assets/icons_app/divider.svg?react";
 
-
-const HostCard = ({ activitiesHosted }) => {
-  const [user, setUser] = useState(null);
+const HostCard = ({ host, activitiesHosted }) => {
   const navigate = useNavigate();
-  const userObjectId = "tN3jRW5vvW";
 
-  useEffect(() => {
-    const fetchUser = async () => {
-      try {
-        const User = Parse.Object.extend("USER");
-        const query = new Parse.Query(User);
-        const result = await query.get(userObjectId);
-        setUser(result);
-      } catch (error) {
-        console.error("Error fetching user:", error);
-      }
-    };
+  if (!host) return <div>No host data</div>;
 
-    fetchUser();
-  }, []);
-
-  if (!user) return <div>Loading...</div>;
-
-  const profilePictureFile = user.get("profilePicture");
+  const profilePictureFile = host.get("profilePicture");
   const profilePictureUrl = profilePictureFile
     ? profilePictureFile.url()
     : null;
-  const hostName = user.get("username") || "Unknown host";
-  const aboutMe = user.get("aboutMe") || "No description available.";
-  const memberSince = user.get("createdAt")?.getFullYear() || "Unknown";
+  const hostName = host.get("username") || "Unknown host";
+  const aboutMe = host.get("aboutMe") || "No description available.";
+  const memberSince = host.get("createdAt")?.getFullYear() || "Unknown";
 
- 
-
+  //navigation
   const goToProfile = () => {
-    navigate("/profile"); 
+    navigate("/profile");
   };
 
   return (

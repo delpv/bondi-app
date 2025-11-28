@@ -73,14 +73,14 @@ const HeaderSection = ({ activity }) => {
   const dateStart = activity?.get("dateStart");
   const dateEnd = activity?.get("dateEnd");
 
-  const formattedStart = dateStart ? dateStart.toLocaleString() : "Loading...";
-  const formattedEnd = dateEnd ? dateEnd.toLocaleString() : "Loading...";
+  const formattedStart = dateStart ? dateStart.toLocaleString() : "TBD";
+  const formattedEnd = dateEnd ? dateEnd.toLocaleString() : "TBD";
 
-  const title = activity?.get("Title") || "Loading...";
-  const location = activity?.get("location") || "Loading...";
-  const categoryName = category?.get("name") || "Loading...";
+  const title = activity?.get("Title") || "TBD";
+  const location = activity?.get("location") || "Location to be decided";
+  const categoryName = category?.get("name") || "Any ideas?";
 
-  const image = activity?.get("coverPhoto_img")?.url() || "";
+  const image = activity?.get("coverPhoto_img")?.url() || "No image";
 
   return (
     <HeaderSectionContainer>

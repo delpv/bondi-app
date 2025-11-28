@@ -1,4 +1,4 @@
-import Parse from "parse"; // use the initialized Parse
+import Parse from "parse";
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router";
 
@@ -9,7 +9,6 @@ import {
   MainContainer,
   ContentWrapper,
 } from "../components/styled/MiddleSection/Middle.styled.jsx";
-//import Before from "../components/activity-detail-components/Before.jsx";
 import HeaderSection from "../components/activity-detail-components/HeaderSection.jsx";
 import TitleCard from "../components/activity-detail-components/TitleCard.jsx";
 import HostCard from "../components/activity-detail-components/HostCard.jsx";
@@ -33,8 +32,8 @@ const ActivityDetail = () => {
       try {
         const Activity = Parse.Object.extend("Activity");
         const query = new Parse.Query(Activity);
-        query.include("host_ID"); // match pointer
-        const result = await query.get(id); // id from URL
+        query.include("host_ID");
+        const result = await query.get(id);
         console.log("Fetched activity:", result.toJSON());
         setActivity(result);
       } catch (error) {
@@ -50,6 +49,7 @@ const ActivityDetail = () => {
   if (loading) return <div>Loading...</div>;
   if (!activity) return <div>Activity not found...</div>;
 
+  const host = activity.get("host_ID");
   const location = activity.get("location");
 
   const goBackToFeed = () => {
@@ -78,10 +78,10 @@ const ActivityDetail = () => {
                 ]
               }
             />
-            <HostCard activitiesHosted={8} />
+            <HostCard host={activity.get("host_ID")} activitiesHosted={8} />
             <ParticipantsCard
               participantNumber={12}
-              hostName="Alice"
+              //hostName="Alice"
               participants={["John", "Alice", "Kelly", "Nikolas", "Patrick"]}
               participantImage="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTnFW7ZDLxu41lI2gB6ExZT7vczi163BrA9WA&s"
             />
