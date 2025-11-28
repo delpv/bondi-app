@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Parse from "parse";
 import NavBar from "../components/feed-components/NavBar.jsx";
 import Footer from "../components/feed-components/Footer.jsx";
@@ -10,9 +10,11 @@ import {
   GridContainer,
 } from "../components/styled/feed-style-comp/Grid.styled.jsx";
 import { SectionHeader } from "../components/styled/feed-style-comp/Feed.styled.jsx";
-import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../context/AuthContext.jsx";
 
-export default function Feed({ userObject }) {
+export default function Feed() {
+  const { user } = useContext(AuthContext);
+
   const [activities, setActivites] = useState(undefined);
   const [filteredActivities, setFilteredActivities] = useState(undefined);
   const [isLoading, setIsLoading] = useState(false);
@@ -65,12 +67,6 @@ export default function Feed({ userObject }) {
     setFilteredActivities(activities || []);
   };
 
-  const navigate = useNavigate();
-
-  if (!userObject) {
-    navigate("/login");
-  }
-
   const getActivities = async () => {
     const query = new Parse.Query("Activity");
     query.include("category_id");
@@ -118,7 +114,7 @@ export default function Feed({ userObject }) {
                 filteredActivities?.map((activity, index) => (
                   <Card
                     key={`activity-number-${index}`}
-                    userId={userObject.id}
+                    userId={user.objectId}
                     id={activity.objectId}
                     image={activity.coverPhoto_img}
                     date={activity.dateStart.iso}

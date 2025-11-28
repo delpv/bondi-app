@@ -1,5 +1,5 @@
-import Parse from 'parse';
-import React, { useState, useEffect } from 'react';
+import Parse from "parse";
+import React, { useState, useEffect } from "react";
 import EditIcon from "../../assets/icons_app/edit.svg?react";
 import {
   AboutContainer,
@@ -11,22 +11,20 @@ import {
   AboutTextarea,
   AboutEditActions,
   AboutDiscardButton,
-  AboutSaveButton
+  AboutSaveButton,
 } from "../styled/profile-style-comp/About.styled";
 
 const About = ({ user }) => {
   const [isEditing, setIsEditing] = useState(false);
-  const [aboutText, setAboutText] = useState('');
-  const [originalText, setOriginalText] = useState('');
+  const [aboutText, setAboutText] = useState("");
+  const [originalText, setOriginalText] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const [userData, setUserData] = useState(null);
 
-  
-  const currentUserId = user?.id || Parse.User.current()?.id;
+  const currentUserId = user?.objectId;
 
   useEffect(() => {
     loadUserData();
-  }, [currentUserId]); 
+  }, [currentUserId]);
 
   const loadUserData = async () => {
     try {
@@ -35,22 +33,18 @@ const About = ({ user }) => {
       const query = new Parse.Query(User);
       const user = await query.get(currentUserId);
 
-      const aboutMe = user.get("aboutMe") || '';
+      const aboutMe = user.get("aboutMe") || "";
       setAboutText(aboutMe);
       setOriginalText(aboutMe);
-      setUserData({
-        id: user.id,
-        aboutMe: aboutMe
-      });
     } catch (error) {
-      console.error('Failed to load user data:', error);
+      console.error("Failed to load user data:", error);
     } finally {
       setIsLoading(false);
     }
   };
 
   const handleEditClick = () => {
-    if (isEditing) return; 
+    if (isEditing) return;
     setOriginalText(aboutText);
     setIsEditing(true);
   };
@@ -71,7 +65,7 @@ const About = ({ user }) => {
       setOriginalText(aboutText);
       setIsEditing(false);
     } catch (error) {
-      console.error('Failed to save about text:', error);
+      console.error("Failed to save about text:", error);
     } finally {
       setIsLoading(false);
     }
@@ -102,23 +96,19 @@ const About = ({ user }) => {
               placeholder="Tell people about yourself..."
             />
             <AboutEditActions>
-              <AboutDiscardButton
-                onClick={handleDiscard}
-                disabled={isLoading}
-              >
+              <AboutDiscardButton onClick={handleDiscard} disabled={isLoading}>
                 Discard
               </AboutDiscardButton>
-              <AboutSaveButton
-                onClick={handleSave}
-                disabled={isLoading}
-              >
-                {isLoading ? 'Saving...' : 'Save'}
+              <AboutSaveButton onClick={handleSave} disabled={isLoading}>
+                {isLoading ? "Saving..." : "Save"}
               </AboutSaveButton>
             </AboutEditActions>
           </div>
         ) : (
           <AboutText>
-            {isLoading ? 'Loading...' : (aboutText || 'No about information added yet.')}
+            {isLoading
+              ? "Loading..."
+              : aboutText || "No about information added yet."}
           </AboutText>
         )}
       </AboutTextContainer>

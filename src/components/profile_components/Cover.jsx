@@ -1,5 +1,5 @@
-import Parse from "parse";
 import React, { useState, useEffect } from "react";
+import Parse from "parse";
 import Avatar from "/defaultAvatar.jpg";
 import CoverBackground from "../../assets/images/profile-images/cover_background.jpg";
 import EditProfileIcon from "../../assets/icons_app/edit-profile.svg?react";
@@ -34,7 +34,7 @@ const Cover = ({ user }) => {
   const [showEditModal, setShowEditModal] = useState(false);
   const [editName, setEditName] = useState("");
 
-  const currentUserId = user?.id || Parse.User.current()?.id;
+  const currentUserId = user?.objectId;
 
   useEffect(() => {
     loadUserData();

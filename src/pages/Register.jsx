@@ -6,11 +6,11 @@ import {
 import RegisterLeft from "../components/login-components/RegisterLeft.jsx";
 import LoginRight from "../components/login-components/LoginRight.jsx";
 
-const Register = ({ onRegister }) => {
+const Register = () => {
   return (
     <PageWrap>
       <Split>
-        <RegisterLeft onGetUser={(localUser) => onRegister(localUser)} />
+        <RegisterLeft />
         <LoginRight />
       </Split>
     </PageWrap>
