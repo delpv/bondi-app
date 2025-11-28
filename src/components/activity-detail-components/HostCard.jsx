@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import Parse from "parse";
 import {
   HostCardContainer,
@@ -16,10 +16,12 @@ import {
 } from "../styled/act-detail-style-comp/HostCard.styled.jsx";
 import UserIcon from "../../assets/icons_app/user_icon.svg?react";
 import Divider from "../../assets/icons_app/divider.svg?react";
+import { AuthContext } from "../../context/AuthContext.jsx";
 
 const HostCard = ({ activitiesHosted }) => {
+  const { user: authUser } = useContext(AuthContext);
   const [user, setUser] = useState(null);
-  const userObjectId = "tN3jRW5vvW";
+  const userObjectId = authUser.objectId;
 
   useEffect(() => {
     const fetchUser = async () => {

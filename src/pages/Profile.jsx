@@ -11,16 +11,20 @@ import {
   ProfileMainContent,
   ProfileSectionsContainer,
 } from "../components/styled/profile-style-comp/Profile.styled";
+import { useContext } from "react";
+import { AuthContext } from "../context/AuthContext";
 
-export default function Profile({ userObject }) {
+export default function Profile() {
+  const { user } = useContext(AuthContext);
+
   return (
     <ProfilePageContainer>
       <NavBar />
       <MainContainer>
         <ProfileMainContent>
-          <Cover user={userObject} />
+          <Cover user={user} />
           <ProfileSectionsContainer>
-            <About user={userObject} />
+            <About user={user} />
             <Interest />
             <RecentActivities />
             <ActivityStatus />

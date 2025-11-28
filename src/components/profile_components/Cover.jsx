@@ -1,5 +1,5 @@
-import Parse from 'parse';
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect } from "react";
+import Parse from "parse";
 import Avatar from "/defaultAvatar.jpg";
 import CoverBackground from "../../assets/images/profile-images/cover_background.jpg";
 import EditProfileIcon from "../../assets/icons_app/edit-profile.svg?react";
@@ -25,19 +25,16 @@ import {
   EditModalActions,
   EditModalSecondaryButton,
   EditModalSuccessButton,
-  DynamicProfileCover
+  DynamicProfileCover,
 } from "../styled/profile-style-comp/Cover.styled";
 
 const Cover = ({ user }) => {
   const [userData, setUserData] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
-  const [editName, setEditName] = useState('');
+  const [editName, setEditName] = useState("");
 
- 
-  const currentUserId = user?.id || Parse.User.current()?.id;
-
-
+  const currentUserId = user?.objectId;
 
   useEffect(() => {
     loadUserData();
@@ -59,14 +56,14 @@ const Cover = ({ user }) => {
         aboutMe: user.get("aboutMe"),
         email: user.get("email"),
         coverPhoto: coverPhotoFile ? coverPhotoFile.url() : null,
-        createdAt: user.get("createdAt")
+        createdAt: user.get("createdAt"),
       };
 
       setUserData(userData);
     } catch (error) {
-      console.error('Database error details:', error);
-      console.error('Error message:', error.message);
-      console.error('Error code:', error.code);
+      console.error("Database error details:", error);
+      console.error("Error message:", error.message);
+      console.error("Error code:", error.code);
       alert(`Database Error: ${error.message}. Check console for details.`);
     } finally {
       setIsLoading(false);
@@ -85,7 +82,7 @@ const Cover = ({ user }) => {
       await loadUserData();
       setShowEditModal(false);
     } catch (error) {
-      console.error('Failed to update name:', error);
+      console.error("Failed to update name:", error);
     } finally {
       setIsLoading(false);
     }
@@ -93,30 +90,39 @@ const Cover = ({ user }) => {
 
   return (
     <CoverContainer>
-      <DynamicProfileCover backgroundImage={userData?.coverPhoto || CoverBackground}>
+      <DynamicProfileCover
+        backgroundImage={userData?.coverPhoto || CoverBackground}
+      >
         <CoverOverlay />
 
         {/* Action buttons */}
         <ActionButtons>
-          <EditProfileButton onClick={() => {
-            setEditName(userData?.fullName || '');
-            setShowEditModal(true);
-          }}>
+          <EditProfileButton
+            onClick={() => {
+              setEditName(userData?.fullName || "");
+              setShowEditModal(true);
+            }}
+          >
             <EditProfileIcon />
           </EditProfileButton>
         </ActionButtons>
 
         <CoverContent>
           <ProfileAvatarContainer>
-            <ProfileAvatar
-              src={Avatar}
-              alt="User avatar"
-            />
+            <ProfileAvatar src={Avatar} alt="User avatar" />
           </ProfileAvatarContainer>
 
           <ProfileInfoCard>
-            <ProfileName>{userData?.fullName || 'Loading...'}</ProfileName>
-            <MemberSince>Member since {userData?.createdAt ? new Date(userData.createdAt).toLocaleDateString('en-US', { month: 'long', year: 'numeric' }) : 'Loading...'}</MemberSince>
+            <ProfileName>{userData?.fullName || "Loading..."}</ProfileName>
+            <MemberSince>
+              Member since{" "}
+              {userData?.createdAt
+                ? new Date(userData.createdAt).toLocaleDateString("en-US", {
+                    month: "long",
+                    year: "numeric",
+                  })
+                : "Loading..."}
+            </MemberSince>
           </ProfileInfoCard>
 
           <StatsContainer>
@@ -129,14 +135,10 @@ const Cover = ({ user }) => {
       {showEditModal && (
         <EditModalOverlay>
           <EditModalContainer>
-            <EditModalTitle>
-              Edit Profile
-            </EditModalTitle>
+            <EditModalTitle>Edit Profile</EditModalTitle>
 
             <EditModalField>
-              <EditModalLabel>
-                Full Name
-              </EditModalLabel>
+              <EditModalLabel>Full Name</EditModalLabel>
               <EditModalInput
                 type="text"
                 value={editName}
@@ -156,14 +158,14 @@ const Cover = ({ user }) => {
                 onClick={handleSaveName}
                 disabled={isLoading || !editName.trim()}
               >
-                {isLoading ? 'Saving...' : 'Save Changes'}
+                {isLoading ? "Saving..." : "Save Changes"}
               </EditModalSuccessButton>
             </EditModalActions>
           </EditModalContainer>
         </EditModalOverlay>
       )}
     </CoverContainer>
-  )
-}
+  );
+};
 
-export default Cover
+export default Cover;

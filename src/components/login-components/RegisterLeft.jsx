@@ -1,9 +1,7 @@
 import React from "react";
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import EyeIcon from "../../assets/icons_app/eye.svg?react";
-import Parse from "parse";
 import {
   Left,
   H1,
@@ -18,8 +16,11 @@ import {
   BellowText,
   ErrorMessage,
 } from "../styled/login-style-comp/LoginLeft.styled.jsx";
+import { AuthContext } from "../../context/AuthContext.jsx";
 
-const LoginLeft = ({ onGetUser }) => {
+const LoginLeft = () => {
+  const { handleRegister } = useContext(AuthContext);
+
   const [showPass, setShowPass] = useState(false);
   const [showRepeatPass, setShowRepeatPass] = useState(false);
 
@@ -29,7 +30,6 @@ const LoginLeft = ({ onGetUser }) => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [error, setError] = useState("");
-  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -40,31 +40,7 @@ const LoginLeft = ({ onGetUser }) => {
     }
 
     try {
-      const userQuery1 = new Parse.Query("USER");
-      const userQuery2 = new Parse.Query("USER");
-
-      userQuery1.equalTo("email", email);
-      userQuery2.equalTo("username", username);
-
-      const user = await Parse.Query.or(userQuery1, userQuery2).first();
-
-      if (user) {
-        setError("Email or username already exists");
-        return;
-      }
-
-      const userObj = new Parse.Object("USER");
-
-      userObj.set("email", email);
-      userObj.set("fullName", fullName);
-      userObj.set("username", username);
-      userObj.set("password", password);
-
-      const result = await userObj.save();
-      if (result) {
-        onGetUser(result);
-        navigate("/feed");
-      }
+      await handleRegister(email, fullName, username, password);
     } catch (e) {
       setError(e.message);
     }
