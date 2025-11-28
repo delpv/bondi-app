@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { slugify } from "../utils/slugify";
+import Parse from "parse";
 
 import NavBar from "../components/feed-components/NavBar.jsx";
 import Footer from "../components/feed-components/Footer.jsx";
@@ -48,17 +50,51 @@ export default function CreateActivity() {
     setData((d) => ({ ...d, imageFile: file, imagePreview: preview }));
   };
 
-  const onSubmit = (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault();
 
-    const formData = new FormData();
-    Object.entries(data).forEach(([k, v]) => {
-      if (k === "imageFile") {
-        if (v) formData.append("image", v);
-      } else if (k !== "imagePreview") {
-        formData.append(k, v);
+    try {
+      const Activity = Parse.Object.extend("Activity");
+      const activity = new Activity();
+
+      activity.set("Title", data.title);
+      activity.set("description", data.description);
+      activity.set("location", data.location);
+      activity.set("time", data.time);
+      activity.set("maxCapacity", data.max ? Number(data.max) : 0);
+      activity.set(
+        "price",
+        data.priceLabel === "Free" ? 0 : Number(data.priceLabel || 0)
+      );
+
+      //activity.set("category_id", data.category); // Note: this should be a pointer, see below
+
+      // Combine date + time into dateStart (ISO string or Date object)
+      if (data.date && data.time) {
+        const dateTime = new Date(`${data.date}T${data.time}:00`);
+        activity.set("dateStart", dateTime);
       }
-    });
+
+      if (data.date && data.time) {
+        const dateTime = new Date(`${data.date}T${data.time}:00`);
+        activity.set("dateStart", dateTime);
+        activity.set("dateEnd", dateTime); // satisfy required field
+      }
+
+      // Set host_ID (you'll need to set this from current user)
+      const currentUser = Parse.User.current();
+      if (currentUser) {
+        activity.set("host_ID", currentUser);
+      }
+
+      //slug
+      const slug = slugify(data.title);
+      activity.set("slug", slug);
+
+      await activity.save();
+    } catch (err) {
+      console.error("Error creating activity:", err);
+    }
 
     console.log("Create Activity (demo payload):", data);
     alert("Activity saved (demo). Check console for payload.");

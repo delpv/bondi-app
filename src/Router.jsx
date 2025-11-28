@@ -32,7 +32,7 @@ const Router = () => {
 
       {/* Main App */}
       <Route path="/feed" element={<Feed userObject={userObject} />} />
-      <Route path="/activity/:id" element={<ActivityDetail />} />
+      <Route path="/activity/:slug" element={<ActivityDetail />} />
       <Route path="/create-activity" element={<CreateActivity />} />
       <Route path="/profile" element={<Profile />} />
       <Route path="/profile/:username" element={<Profile />} />

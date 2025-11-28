@@ -21,9 +21,8 @@ import {
 } from "../components/styled/act-detail-style-comp/Common.jsx";
 
 const ActivityDetail = () => {
+  const { slug } = useParams();
   const [activity, setActivity] = useState(null);
-  const { id } = useParams();
-  console.log("useParams id:", id, typeof id);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
@@ -33,8 +32,8 @@ const ActivityDetail = () => {
         const Activity = Parse.Object.extend("Activity");
         const query = new Parse.Query(Activity);
         query.include("host_ID");
-        const result = await query.get(id);
-        console.log("Fetched activity:", result.toJSON());
+        query.equalTo("slug", slug);
+        const result = await query.first();
         setActivity(result);
       } catch (error) {
         console.error("Error fetching activity:", error);
@@ -43,8 +42,8 @@ const ActivityDetail = () => {
       }
     };
 
-    fetchActivity();
-  }, [id]);
+    if (slug) fetchActivity();
+  }, [slug]);
 
   if (loading) return <div>Loading...</div>;
   if (!activity) return <div>Activity not found...</div>;

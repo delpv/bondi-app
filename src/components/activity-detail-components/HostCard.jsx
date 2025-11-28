@@ -31,7 +31,6 @@ const HostCard = ({ host, activitiesHosted }) => {
   const aboutMe = host.get("aboutMe") || "No description available.";
   const memberSince = host.get("createdAt")?.getFullYear() || "Unknown";
 
-  //navigation
   const goToProfile = () => {
     navigate("/profile");
   };

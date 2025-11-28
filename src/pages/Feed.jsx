@@ -11,6 +11,7 @@ import {
 } from "../components/styled/feed-style-comp/Grid.styled.jsx";
 import { SectionHeader } from "../components/styled/feed-style-comp/Feed.styled.jsx";
 import { useNavigate } from "react-router-dom";
+import { slugify } from "../utils/slugify";
 
 export default function Feed({ userObject }) {
   const [activities, setActivites] = useState(undefined);
@@ -114,25 +115,32 @@ export default function Feed({ userObject }) {
                 <p>No activities found matching your filters.</p>
               )}
               {!isLoading &&
-  filteredActivities?.map((activity, index) => {
-    console.log(`Activity at index ${index}:`, activity.objectId, activity.Title);
-    return (
-      <Card
-        key={`activity-number-${index}`}
-        userId={userObject.id}
-        id={activity.objectId}
-        image={activity.coverPhoto_img}
-        date={activity.dateStart.iso}
-        priceLabel={activity.price === 0 ? "Free" : "Paid"}
-        title={activity.Title}
-        description={activity.description}
-        hostId={activity.host_ID?.objectId}
-        maxParticipants={activity.maxCapacity}
-        location={activity.location}
-        onViewMore={() => navigate(`/activity/${activity.objectId}`)}
-      />
-    );
-  })}
+                filteredActivities?.map((activity, index) => {
+                  console.log(
+                    `Activity at index ${index}:`,
+                    activity.objectId,
+                    activity.Title
+                  );
+                  return (
+                    <Card
+                      key={`activity-number-${index}`}
+                      userId={userObject.id}
+                      id={activity.objectId}
+                      image={activity.coverPhoto_img}
+                      date={activity.dateStart.iso}
+                      priceLabel={activity.price === 0 ? "Free" : "Paid"}
+                      title={activity.Title}
+                      description={activity.description}
+                      hostId={activity.host_ID?.objectId}
+                      maxParticipants={activity.maxCapacity}
+                      location={activity.location}
+                      onViewMore={() => {
+                        const slug = activity.slug || slugify(activity.Title);
+                        navigate(`/activity/${slug}`);
+                      }}
+                    />
+                  );
+                })}
             </GridContainer>
           </div>
         </LayoutGrid>
