@@ -10,11 +10,10 @@ import {
   ProfileMainContent,
   ProfileSectionsContainer,
 } from "../components/styled/profile-style-comp/Profile.styled";
-import { useContext } from "react";
-import { AuthContext } from "../context/AuthContext";
+import Parse from "parse";
 
 export default function Profile() {
-  const { user } = useContext(AuthContext);
+  const user = Parse.User.current();
 
   return (
     <ProfilePageContainer>

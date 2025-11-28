@@ -27,7 +27,6 @@ const LoginLeft = () => {
   const [password, setPassword] = useState("");
   const [repeatPassword, setRepeatPassword] = useState("");
   const [fullName, setFullName] = useState("");
-  const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [error, setError] = useState("");
 
@@ -38,10 +37,10 @@ const LoginLeft = () => {
       setError("Password and repeat password do not match");
       return;
     }
-
     try {
-      await handleRegister(email, fullName, username, password);
+      await handleRegister(email, fullName, password);
     } catch (e) {
+      console.error(e);
       setError(e.message);
     }
   };
@@ -73,17 +72,6 @@ const LoginLeft = () => {
             placeholder="Enter full name"
             required
             onChange={(e) => setFullName(e.target.value)}
-          />
-        </Field>
-
-        <Field>
-          <Label htmlFor="username">Username</Label>
-          <Input
-            id="username"
-            type="text"
-            placeholder="Enter your username"
-            onChange={(e) => setUsername(e.target.value)}
-            required
           />
         </Field>
 

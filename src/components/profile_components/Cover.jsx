@@ -34,7 +34,7 @@ const Cover = ({ user }) => {
   const [showEditModal, setShowEditModal] = useState(false);
   const [editName, setEditName] = useState("");
 
-  const currentUserId = user?.objectId;
+  const currentUserId = user?.id;
 
   useEffect(() => {
     loadUserData();
@@ -44,7 +44,7 @@ const Cover = ({ user }) => {
     if (!currentUserId) return; //to prevent error
     try {
       setIsLoading(true);
-      const User = Parse.Object.extend("USER");
+      const User = Parse.Object.extend("_User");
       const query = new Parse.Query(User);
       const user = await query.get(currentUserId);
 
@@ -55,7 +55,6 @@ const Cover = ({ user }) => {
         username: user.get("username"),
         fullName: user.get("fullName"),
         aboutMe: user.get("aboutMe"),
-        email: user.get("email"),
         coverPhoto: coverPhotoFile ? coverPhotoFile.url() : null,
         createdAt: user.get("createdAt"),
       };
@@ -74,7 +73,7 @@ const Cover = ({ user }) => {
   const handleSaveName = async () => {
     try {
       setIsLoading(true);
-      const User = Parse.Object.extend("USER");
+      const User = Parse.Object.extend("_User");
       const query = new Parse.Query(User);
       const user = await query.get(currentUserId);
       user.set("fullName", editName);
@@ -88,7 +87,7 @@ const Cover = ({ user }) => {
       setIsLoading(false);
     }
   };
-
+  console.log(userData);
   return (
     <CoverContainer>
       <DynamicProfileCover

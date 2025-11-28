@@ -20,7 +20,7 @@ const About = ({ user }) => {
   const [originalText, setOriginalText] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
-  const currentUserId = user?.objectId;
+  const currentUserId = user?.id;
 
   useEffect(() => {
     loadUserData();
@@ -29,9 +29,6 @@ const About = ({ user }) => {
   const loadUserData = async () => {
     try {
       setIsLoading(true);
-      const User = Parse.Object.extend("USER");
-      const query = new Parse.Query(User);
-      const user = await query.get(currentUserId);
 
       const aboutMe = user.get("aboutMe") || "";
       setAboutText(aboutMe);
@@ -56,7 +53,7 @@ const About = ({ user }) => {
   const handleSave = async () => {
     try {
       setIsLoading(true);
-      const User = Parse.Object.extend("USER");
+      const User = Parse.Object.extend("_User");
       const query = new Parse.Query(User);
       const user = await query.get(currentUserId);
       user.set("aboutMe", aboutText);

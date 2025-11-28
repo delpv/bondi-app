@@ -4,48 +4,16 @@ import { useNavigate } from "react-router-dom";
 import { AuthContext } from "./AuthContext";
 
 export const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState(null);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
   const navigate = useNavigate();
 
-  const hadleUser = async () => {
-    setIsLoading(true);
-    try {
-      const storageUserid = localStorage.getItem("parseUserId");
-      if (storageUserid) {
-        const userQuery = new Parse.Query("USER");
-
-        const userGet = await userQuery.get(storageUserid);
-        const hostJson = await userGet.toJSON();
-
-        if (hostJson) {
-          setUser(hostJson);
-          setIsAuthenticated(true);
-          navigate("/feed");
-        }
-      }
-    } catch (e) {
-      console.log(e.message);
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
   const handleLogin = async (email, password) => {
     try {
-      const userQuery = new Parse.Query("USER");
+      const user = await Parse.User.logIn(email, password);
 
-      userQuery.equalTo("email", email);
-      userQuery.equalTo("password", password);
-
-      const user = await userQuery.first();
-      const userJson = await user.toJSON();
-
-      if (userJson) {
-        setUser(userJson);
-        localStorage.setItem("parseUserId", userJson.objectId);
+      if (user) {
         setIsAuthenticated(true);
 
         navigate("/feed");
@@ -57,32 +25,28 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  const handleRegister = async (email, fullname, username, password) => {
+  const handleRegister = async (email, fullname, password) => {
     try {
-      const userQuery1 = new Parse.Query("USER");
-      const userQuery2 = new Parse.Query("USER");
+      const userQuery2 = new Parse.Query("_User");
 
-      userQuery1.equalTo("email", email);
-      userQuery2.equalTo("username", username);
+      userQuery2.equalTo("username", email);
 
-      const user = await Parse.Query.or(userQuery1, userQuery2).first();
+      const userExists = await userQuery2.first();
 
-      if (user) {
-        throw "Email or username already exists";
+      if (userExists) {
+        throw { message: "Email already exists" };
       }
 
-      const userObj = new Parse.Object("USER");
+      const user = new Parse.User();
 
-      userObj.set("email", email);
-      userObj.set("fullName", fullname);
-      userObj.set("username", username);
-      userObj.set("password", password);
+      user.set("username", email);
+      user.set("password", password);
+      user.set("fullName", fullname);
+      user.set("profilePiture", "defaultAvatar.jpg");
 
-      const result = await userObj.save();
-      const resultJson = await result.toJSON();
-      if (resultJson) {
-        setUser(resultJson);
-        localStorage.setItem("parseUserId", resultJson.objectId);
+      const result = await user.signUp();
+
+      if (result) {
         setIsAuthenticated(true);
         navigate("/feed");
       }
@@ -91,24 +55,42 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  const handleLogout = () => {
-    setUser(null);
-    localStorage.removeItem("parseUserId");
-    setIsAuthenticated(false);
-    navigate("/login");
+  const handleLogout = async () => {
+    try {
+      await Parse.User.logOut();
+      setIsAuthenticated(false);
+      navigate("/login");
+    } catch (e) {
+      console.error("Error logging out:", e);
+      setIsAuthenticated(false);
+      navigate("/login");
+    }
   };
 
   useEffect(() => {
+    const hadleUser = async () => {
+      setIsLoading(true);
+      try {
+        const currentUser = await Parse.User.currentAsync();
+        if (currentUser) {
+          setIsAuthenticated(true);
+          navigate("/feed");
+        }
+      } catch (e) {
+        console.log(e.message);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
     hadleUser();
   }, []);
 
   return (
     <AuthContext.Provider
       value={{
-        user,
         isAuthenticated,
         isLoading,
-        setUser,
         handleLogin,
         handleRegister,
         handleLogout,
