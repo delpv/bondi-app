@@ -1,6 +1,6 @@
 import Parse from "parse"; // use the initialized Parse
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router";
+import { useParams, useNavigate } from "react-router";
 
 import NavBar from "../components/feed-components/NavBar.jsx";
 import Footer from "../components/feed-components/Footer.jsx";
@@ -9,20 +9,24 @@ import {
   MainContainer,
   ContentWrapper,
 } from "../components/styled/MiddleSection/Middle.styled.jsx";
-import Before from "../components/activity-detail-components/Before.jsx";
+//import Before from "../components/activity-detail-components/Before.jsx";
 import HeaderSection from "../components/activity-detail-components/HeaderSection.jsx";
 import TitleCard from "../components/activity-detail-components/TitleCard.jsx";
 import HostCard from "../components/activity-detail-components/HostCard.jsx";
 import ParticipantsCard from "../components/activity-detail-components/ParticipantCard.jsx";
 import LocationCard from "../components/activity-detail-components/LocationCard.jsx";
 
-import { CardContainer } from "../components/styled/act-detail-style-comp/Common.jsx";
+import {
+  CardContainer,
+  BeforeContainer,
+} from "../components/styled/act-detail-style-comp/Common.jsx";
 
 const ActivityDetail = () => {
   const [activity, setActivity] = useState(null);
   const { id } = useParams();
   console.log("useParams id:", id, typeof id);
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchActivity = async () => {
@@ -48,12 +52,18 @@ const ActivityDetail = () => {
 
   const location = activity.get("location");
 
+  const goBackToFeed = () => {
+    navigate(-1);
+  };
+
   return (
     <>
       <NavBar />
       <MainContainer>
         <ContentWrapper>
-          <Before />
+          <BeforeContainer onClick={goBackToFeed}>
+            <p>← Back to activities</p>
+          </BeforeContainer>
 
           <HeaderSection activity={activity} />
           <CardContainer>
