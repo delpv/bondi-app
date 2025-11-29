@@ -34,6 +34,7 @@ const LoginLeft = () => {
       await handleLogin(email, password);
     } catch (e) {
       setError(e.message);
+      console.log(e);
     } finally {
       setIsLoading(false);
     }

@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Parse from "parse";
 import NavBar from "../components/feed-components/NavBar.jsx";
 import Footer from "../components/feed-components/Footer.jsx";
@@ -13,7 +13,7 @@ import { SectionHeader } from "../components/styled/feed-style-comp/Feed.styled.
 import { AuthContext } from "../context/AuthContext.jsx";
 
 export default function Feed() {
-  const { user } = useContext(AuthContext);
+  const user = Parse.User.current();
 
   const [activities, setActivites] = useState(undefined);
   const [filteredActivities, setFilteredActivities] = useState(undefined);
@@ -70,6 +70,7 @@ export default function Feed() {
   const getActivities = async () => {
     const query = new Parse.Query("Activity");
     query.include("category_id");
+
     setIsLoading(true);
     try {
       const activitiesArray = await query.find();
@@ -92,6 +93,7 @@ export default function Feed() {
   useEffect(() => {
     getActivities();
   }, []);
+
   return (
     <>
       <NavBar />
@@ -114,7 +116,7 @@ export default function Feed() {
                 filteredActivities?.map((activity, index) => (
                   <Card
                     key={`activity-number-${index}`}
-                    userId={user.objectId}
+                    userId={user?.id}
                     id={activity.objectId}
                     image={activity.coverPhoto_img}
                     date={activity.dateStart.iso}

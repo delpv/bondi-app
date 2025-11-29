@@ -24,7 +24,9 @@ import {
 
 import AddImage from "../components/create-activity-components/AddImage.jsx";
 
-export default function CreateActivity({ userObject }) {
+export default function CreateActivity() {
+  const user = Parse.User.current();
+
   const [data, setData] = useState({
     title: "",
     description: "",
@@ -40,14 +42,14 @@ export default function CreateActivity({ userObject }) {
   });
 
   const [isSaving, setIsSaving] = useState(false);
-  
+
   const [categories, setCategories] = useState([]);
   const [isLoadingCategories, setIsLoadingCategories] = useState(true);
-  
+
   const navigate = useNavigate();
 
   useEffect(() => {
-  // load categories from back4app
+    // load categories from back4app
     const fetchCategories = async () => {
       try {
         const Category = Parse.Object.extend("Category");
@@ -89,9 +91,7 @@ export default function CreateActivity({ userObject }) {
     const lower = rawPrice.trim().toLowerCase();
     if (lower === "free") return 0;
 
-    const numericPart = rawPrice
-      .replace(/[^\d.,]/g, "") 
-      .replace(",", ".");      
+    const numericPart = rawPrice.replace(/[^\d.,]/g, "").replace(",", ".");
 
     const num = parseFloat(numericPart);
     if (isNaN(num)) return 0;
@@ -102,11 +102,9 @@ export default function CreateActivity({ userObject }) {
   const onSubmit = async (e) => {
     e.preventDefault();
 
-    const currentUser = Parse.User.current() || userObject;
-    
-    if (!currentUser) {
+    if (!user) {
       alert("You need to be logged in to create an activity.");
-      navigate("/login");
+
       return;
     }
 
@@ -123,7 +121,7 @@ export default function CreateActivity({ userObject }) {
       const Activity = Parse.Object.extend("Activity");
       const activity = new Activity();
 
-      activity.set("Title", data.title.trim());           
+      activity.set("Title", data.title.trim());
       activity.set("description", data.description.trim());
       activity.set("location", data.location.trim());
       activity.set("time", data.time);
@@ -143,7 +141,7 @@ export default function CreateActivity({ userObject }) {
 
       activity.set("participantCount", 0);
 
-      activity.set("host_ID", currentUser);
+      activity.set("host_ID", user);
 
       if (data.categoryId) {
         const Category = Parse.Object.extend("Category");
@@ -153,10 +151,7 @@ export default function CreateActivity({ userObject }) {
       }
 
       if (data.imageFile) {
-        const parseFile = new Parse.File(
-          data.imageFile.name,
-          data.imageFile
-        );
+        const parseFile = new Parse.File(data.imageFile.name, data.imageFile);
         await parseFile.save();
         activity.set("coverPhoto_img", parseFile);
       }
@@ -255,20 +250,20 @@ export default function CreateActivity({ userObject }) {
                 onChange={onChange}
               />
 
-            {/* Price */}
-            <TextField
-              id="priceLabel"
-              name="priceLabel"
-              label="Price"
-              placeholder="e.g., Free, €10, Donation"
-              value={data.priceLabel}
-              onChange={onChange}
-            />
+              {/* Price */}
+              <TextField
+                id="priceLabel"
+                name="priceLabel"
+                label="Price"
+                placeholder="e.g., Free, €10, Donation"
+                value={data.priceLabel}
+                onChange={onChange}
+              />
             </FieldRow>
 
             {/* Category */}
             <FieldRow>
-            <SelectField
+              <SelectField
                 id="category"
                 name="categoryId"
                 label="Category"
@@ -286,15 +281,15 @@ export default function CreateActivity({ userObject }) {
                   </option>
                 ))}
               </SelectField>
-              
-            {/* Public or Private */}
-            <CheckboxField
-              id="isPublic"
-              name="isPublic"
-              label="Public Activity"
-              checked={data.isPublic}
-              onChange={onChange}
-            />
+
+              {/* Public or Private */}
+              <CheckboxField
+                id="isPublic"
+                name="isPublic"
+                label="Public Activity"
+                checked={data.isPublic}
+                onChange={onChange}
+              />
             </FieldRow>
 
             {/* Buttons */}

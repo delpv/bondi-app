@@ -168,7 +168,7 @@ export const JoinButton = styled.button`
   padding: 10px 18px;
   border-radius: 18px;
   font-weight: 600;
-  cursor: pointer;
+  cursor: ${(p) => (p.disabled ? "cursor" : "pointer")};
   box-shadow: ${(p) =>
     p.joined
       ? "0 8px 18px rgba(22,102,56,0.18)"

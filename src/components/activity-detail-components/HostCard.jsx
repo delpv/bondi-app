@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React from "react";
 import Parse from "parse";
 import {
   HostCardContainer,
@@ -19,24 +19,7 @@ import Divider from "../../assets/icons_app/divider.svg?react";
 import { AuthContext } from "../../context/AuthContext.jsx";
 
 const HostCard = ({ activitiesHosted }) => {
-  const { user: authUser } = useContext(AuthContext);
-  const [user, setUser] = useState(null);
-  const userObjectId = authUser.objectId;
-
-  useEffect(() => {
-    const fetchUser = async () => {
-      try {
-        const User = Parse.Object.extend("USER");
-        const query = new Parse.Query(User);
-        const result = await query.get(userObjectId);
-        setUser(result);
-      } catch (error) {
-        console.error("Error fetching user:", error);
-      }
-    };
-
-    fetchUser();
-  }, []);
+  const user = Parse.User.current();
 
   if (!user) return <div>Loading...</div>;
 
