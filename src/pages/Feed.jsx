@@ -73,9 +73,11 @@ export default function Feed() {
 
     setIsLoading(true);
     try {
+      const activitiesArray = await query.find();
+
       const allActivities = activitiesArray.map((activity) => {
         const json = activity.toJSON();
-        console.log("Activity JSON:", json); // ← log each activity object
+        console.log("Activity JSON:", json);
         return json;
       });
 
