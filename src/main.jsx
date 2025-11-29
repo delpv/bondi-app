@@ -13,8 +13,7 @@ const root = document.getElementById("root");
 ReactDOM.createRoot(root).render(
   <React.StrictMode>
     <BrowserRouter>
-    <ScrollToTop />
-      <Router />
+      <ScrollToTop />
       <AuthProvider>
         <Router />
       </AuthProvider>
