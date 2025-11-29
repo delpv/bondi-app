@@ -10,10 +10,11 @@ import {
   GridContainer,
 } from "../components/styled/feed-style-comp/Grid.styled.jsx";
 import { SectionHeader } from "../components/styled/feed-style-comp/Feed.styled.jsx";
-import { useNavigate } from "react-router-dom";
-import { slugify } from "../utils/slugify";
+import { AuthContext } from "../context/AuthContext.jsx";
 
-export default function Feed({ userObject }) {
+export default function Feed() {
+  const user = Parse.User.current();
+
   const [activities, setActivites] = useState(undefined);
   const [filteredActivities, setFilteredActivities] = useState(undefined);
   const [isLoading, setIsLoading] = useState(false);
@@ -66,15 +67,10 @@ export default function Feed({ userObject }) {
     setFilteredActivities(activities || []);
   };
 
-  const navigate = useNavigate();
-
-  if (!userObject) {
-    navigate("/login");
-  }
-
   const getActivities = async () => {
     const query = new Parse.Query("Activity");
     query.include("category_id");
+
     setIsLoading(true);
     try {
       const allActivities = activitiesArray.map((activity) => {
@@ -96,6 +92,7 @@ export default function Feed({ userObject }) {
   useEffect(() => {
     getActivities();
   }, []);
+
   return (
     <>
       <NavBar />
@@ -115,32 +112,21 @@ export default function Feed({ userObject }) {
                 <p>No activities found matching your filters.</p>
               )}
               {!isLoading &&
-                filteredActivities?.map((activity, index) => {
-                  console.log(
-                    `Activity at index ${index}:`,
-                    activity.objectId,
-                    activity.Title
-                  );
-                  return (
-                    <Card
-                      key={`activity-number-${index}`}
-                      userId={userObject.id}
-                      id={activity.objectId}
-                      image={activity.coverPhoto_img}
-                      date={activity.dateStart.iso}
-                      priceLabel={activity.price === 0 ? "Free" : "Paid"}
-                      title={activity.Title}
-                      description={activity.description}
-                      hostId={activity.host_ID?.objectId}
-                      maxParticipants={activity.maxCapacity}
-                      location={activity.location}
-                      onViewMore={() => {
-                        const slug = activity.slug || slugify(activity.Title);
-                        navigate(`/activity/${slug}`);
-                      }}
-                    />
-                  );
-                })}
+                filteredActivities?.map((activity, index) => (
+                  <Card
+                    key={`activity-number-${index}`}
+                    userId={user?.id}
+                    id={activity.objectId}
+                    image={activity.coverPhoto_img}
+                    date={activity.dateStart.iso}
+                    priceLabel={activity.price === 0 ? "Free" : "Paid"}
+                    title={activity.Title}
+                    description={activity.description}
+                    hostId={activity.host_ID.objectId}
+                    maxParticipants={activity.maxCapacity}
+                    location={activity.location}
+                  />
+                ))}
             </GridContainer>
           </div>
         </LayoutGrid>

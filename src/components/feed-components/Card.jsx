@@ -45,6 +45,7 @@ export default function Card({
   const [joined, setJoined] = useState(false);
   const [partNumber, setPartNumber] = useState(undefined);
   const navigate = useNavigate();
+  const imHosting = hostObject?.objectId === userId;
 
   const goToDetail = () => {
     if (!id) return;
@@ -52,13 +53,18 @@ export default function Card({
   };
 
   const getHost = async () => {
-    const hostQuery = new Parse.Query("USER");
+    if (!hostId) {
+      console.log("No hostId provided");
+      return;
+    }
+
     // setIsLoading(true);
     try {
-      const hoestedBy = await hostQuery.get(hostId);
-      const hostJson = await hoestedBy.toJSON();
+      const hostJson = await await Parse.Cloud.run("getUserById", {
+        userId: hostId,
+      });
 
-      setHostObject(hostJson);
+      setHostObject(hostJson.user.toJSON());
     } catch (e) {
       console.log(e);
       // } finally {
@@ -79,7 +85,8 @@ export default function Card({
 
       const participants = allParticipants.map((part) => {
         const partJson = part.toJSON();
-        if (partJson.UserID.objectId === userId) {
+
+        if (partJson.UserId.objectId === userId) {
           setJoined(true);
         }
 
@@ -110,8 +117,6 @@ export default function Card({
   const handleToggleJoin = async (e) => {
     e.stopPropagation();
     setIsJoining(true);
-    const userQuery = new Parse.Query("USER");
-    const currentUser = await userQuery.get(userId);
 
     const activityQuery = new Parse.Query("Activity");
     const currentActivity = await activityQuery.get(id);
@@ -120,7 +125,7 @@ export default function Card({
       if (!joined && partNumber < maxParticipants) {
         const participationObj = new Parse.Object("Participation");
 
-        participationObj.set("UserID", currentUser);
+        participationObj.set("UserId", Parse.User.current());
         participationObj.set("activity_id", currentActivity);
 
         const result = await participationObj.save();
@@ -132,7 +137,7 @@ export default function Card({
       } else {
         const participationQuery = new Parse.Query("Participation");
 
-        participationQuery.equalTo("UserID", currentUser);
+        participationQuery.equalTo("UserId", Parse.User.current());
         participationQuery.equalTo("activity_id", currentActivity);
 
         const currentParticipation = await participationQuery.first();
@@ -148,6 +153,29 @@ export default function Card({
       setIsJoining(false);
     }
   };
+
+  const getJoinedStatus = () => {
+    if (imHosting) {
+      return "I'm hosting";
+    }
+
+    if (isJoining) {
+      if (joined) {
+        return "Cancelling...";
+      } else {
+        return "Joining...";
+      }
+    } else {
+      if (joined) {
+        return "Cancel";
+      } else if (partNumber === maxParticipants) {
+        return "Full";
+      }
+    }
+
+    return "Join";
+  };
+
   return (
     <Container
       onClick={goToDetail}
@@ -202,21 +230,17 @@ export default function Card({
           </LocationInfo>
 
           <JoinButton
-            disabled={isJoining || (!joined && partNumber === maxParticipants)}
+            disabled={
+              isJoining ||
+              imHosting ||
+              (!joined && partNumber === maxParticipants)
+            }
             joined={joined ? 1 : 0}
             onClick={handleToggleJoin}
             aria-pressed={joined}
             aria-label={joined ? "Cancel participation" : "Join activity"}
           >
-            {isJoining
-              ? joined
-                ? "Canceling..."
-                : "Joining..."
-              : joined
-                ? "Cancel"
-                : partNumber === maxParticipants
-                  ? "Full"
-                  : "Join"}
+            {getJoinedStatus()}
           </JoinButton>
         </LocationRow>
       </Content>

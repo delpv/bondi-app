@@ -3,7 +3,6 @@ import NavBar from "../components/feed-components/NavBar";
 import Cover from "../components/profile_components/Cover";
 import About from "../components/profile_components/About";
 import Interest from "../components/profile_components/Interest";
-import RecentActivities from "../components/profile_components/RecentActivities";
 import ActivityStatus from "../components/profile_components/ActivityStatus";
 import { MainContainer } from "../components/styled/activity-detail-comp/Middle.styled";
 import {
@@ -11,18 +10,20 @@ import {
   ProfileMainContent,
   ProfileSectionsContainer,
 } from "../components/styled/profile-style-comp/Profile.styled";
+import Parse from "parse";
 
 export default function Profile() {
+  const user = Parse.User.current();
+
   return (
     <ProfilePageContainer>
       <NavBar />
       <MainContainer>
         <ProfileMainContent>
-          <Cover />
+          <Cover user={user} />
           <ProfileSectionsContainer>
-            <About />
+            <About user={user} />
             <Interest />
-            <RecentActivities />
             <ActivityStatus />
           </ProfileSectionsContainer>
         </ProfileMainContent>

@@ -17,6 +17,7 @@ import {
 } from "../styled/act-detail-style-comp/HostCard.styled.jsx";
 import UserIcon from "../../assets/icons_app/user_icon.svg?react";
 import Divider from "../../assets/icons_app/divider.svg?react";
+import { AuthContext } from "../../context/AuthContext.jsx";
 
 const HostCard = ({ host, activitiesHosted }) => {
   const navigate = useNavigate();

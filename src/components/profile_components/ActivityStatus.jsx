@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import {
   ActivityStatusContainer,
   HeaderFrame,
@@ -9,7 +9,7 @@ import {
   NumberContainer,
   StatusNumber,
   TextContainer,
-  StatusText
+  StatusText,
 } from "../styled/profile-style-comp/ActivityStatus.styled";
 
 const ActivityStatus = () => {
@@ -17,19 +17,14 @@ const ActivityStatus = () => {
   const statusData = [
     {
       id: 1,
-      number: "15",
-      text: "Activities Joined"
+      number: "0",
+      text: "Activities Joined",
     },
     {
       id: 2,
-      number: "2",
-      text: "Activities Hosted"
+      number: "0",
+      text: "Activities Hosted",
     },
-    {
-      id: 3,
-      number: "47",
-      text: "Connections made"
-    }
   ];
 
   return (
@@ -39,7 +34,7 @@ const ActivityStatus = () => {
           <SectionTitle>Activity Status</SectionTitle>
         </TitleSection>
       </HeaderFrame>
-      
+
       <StatusContent>
         {statusData.map((status) => (
           <StatusItem key={status.id}>

@@ -1,29 +1,113 @@
-import React from 'react';
+import Parse from "parse";
+import React, { useState, useEffect } from "react";
+import EditIcon from "../../assets/icons_app/edit.svg?react";
 import {
   AboutContainer,
   AboutFrame,
   AboutTitle,
   EditButton,
   AboutTextContainer,
-  AboutText
+  AboutText,
+  AboutTextarea,
+  AboutEditActions,
+  AboutDiscardButton,
+  AboutSaveButton,
 } from "../styled/profile-style-comp/About.styled";
 
-const About = () => {
+const About = ({ user }) => {
+  const [isEditing, setIsEditing] = useState(false);
+  const [aboutText, setAboutText] = useState("");
+  const [originalText, setOriginalText] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+
+  const currentUserId = user?.id;
+
+  useEffect(() => {
+    loadUserData();
+  }, [currentUserId]);
+
+  const loadUserData = async () => {
+    try {
+      setIsLoading(true);
+
+      const aboutMe = user.get("aboutMe") || "";
+      setAboutText(aboutMe);
+      setOriginalText(aboutMe);
+    } catch (error) {
+      console.error("Failed to load user data:", error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleEditClick = () => {
+    if (isEditing) return;
+    setOriginalText(aboutText);
+    setIsEditing(true);
+  };
+
+  const handleTextChange = (e) => {
+    setAboutText(e.target.value);
+  };
+
+  const handleSave = async () => {
+    try {
+      setIsLoading(true);
+      const User = Parse.Object.extend("_User");
+      const query = new Parse.Query(User);
+      const user = await query.get(currentUserId);
+      user.set("aboutMe", aboutText);
+      await user.save();
+
+      setOriginalText(aboutText);
+      setIsEditing(false);
+    } catch (error) {
+      console.error("Failed to save about text:", error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleDiscard = () => {
+    setAboutText(originalText);
+    setIsEditing(false);
+  };
+
   return (
     <AboutContainer>
       <AboutFrame>
         <AboutTitle>About</AboutTitle>
-        <EditButton>
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/>
-          </svg>
+        <EditButton onClick={handleEditClick}>
+          <EditIcon />
         </EditButton>
       </AboutFrame>
-      
+
       <AboutTextContainer>
-        <AboutText>
-          Love exploring new places and meeting new people! Always up for outdoor adventures, coffee chats, and trying new restaurants. Looking forward to connecting with like-minded people in Copenhagen.
-        </AboutText>
+        {isEditing ? (
+          <div>
+            <AboutTextarea
+              value={aboutText}
+              onChange={handleTextChange}
+              autoFocus
+              disabled={isLoading}
+              placeholder="Tell people about yourself..."
+            />
+            <AboutEditActions>
+              <AboutDiscardButton onClick={handleDiscard} disabled={isLoading}>
+                Discard
+              </AboutDiscardButton>
+              <AboutSaveButton onClick={handleSave} disabled={isLoading}>
+                {isLoading ? "Saving..." : "Save"}
+              </AboutSaveButton>
+            </AboutEditActions>
+          </div>
+        ) : (
+          <AboutText>
+            {isLoading
+              ? "Loading..."
+              : aboutText || "No about information added yet."}
+          </AboutText>
+        )}
       </AboutTextContainer>
     </AboutContainer>
   );

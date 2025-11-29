@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useNavigate, Link, NavLink } from "react-router-dom";
 import BondiLogo from "../../assets/icons_app/logo-Bondi.svg?react";
 import Settings from "../../assets/icons_app/settings.svg?react";
@@ -14,10 +14,12 @@ import {
   BrandName,
   BrandLogo,
 } from "../styled/feed-style-comp/NavBar.styled";
+import { AuthContext } from "../../context/AuthContext";
 
 function NavBar() {
+  const { handleLogout } = useContext(AuthContext);
   const navigate = useNavigate();
-  const handleLogout = () => navigate("/login");
+
   const Avatar = "/defaultAvatar.jpg";
   return (
     <NavBarContainer>

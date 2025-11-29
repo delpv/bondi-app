@@ -1,4 +1,49 @@
 import styled from "styled-components";
+// Import edit modal 
+import {
+  EditModalOverlay,
+  EditModalContainer,
+  EditModalTitle,
+  EditModalField,
+  EditModalLabel,
+  EditModalInput,
+  EditModalActions,
+  EditProfileButton,
+  EditModalSecondaryButton,
+  EditModalSuccessButton
+} from "./EditProfile.styled";
+
+// Import profile info 
+import {
+  ProfileInfoCard,
+  ProfileName,
+  MemberSince,
+  StatsContainer,
+  StatBadge
+} from "./ProfileInfo.styled";
+
+// Re-export editProfile components
+export {
+  EditModalOverlay,
+  EditModalContainer,
+  EditModalTitle,
+  EditModalField,
+  EditModalLabel,
+  EditModalInput,
+  EditModalActions,
+  EditProfileButton,
+  EditModalSecondaryButton,
+  EditModalSuccessButton
+};
+
+// Re-export profile info 
+export {
+  ProfileInfoCard,
+  ProfileName,
+  MemberSince,
+  StatsContainer,
+  StatBadge
+};
 
 // Color variables for consistency
 const border = "#61646B";
@@ -7,9 +52,8 @@ const shadowColor = "rgba(0, 0, 0, 0.4)";
 // Main cover container - entire cover area (cover frame)
 export const CoverContainer = styled.div`
   width: 100%;
-  max-width: 1440px;
-  height: clamp(300px, 30vw, 424px);
-  padding: clamp(20px, 2.5vw, 35px) clamp(20px, 5vw, 70px);
+  height: 400px;        /* default height */
+  padding: 30px 0;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -17,24 +61,31 @@ export const CoverContainer = styled.div`
   background: transparent;
   margin: 0 auto;
 
+  /* Tablet */
   @media (max-width: 768px) {
-    height: clamp(280px, 40vw, 350px);
-    padding: 16px 20px;
+    height: 320px;
+    padding: 20px 0;
   }
 
+  /* Mobile */
   @media (max-width: 480px) {
-    height: 280px;
-    padding: 12px 16px;
+    height: 260px;
+    padding: 15px 0;
   }
 `;
+
 
 // Profile cover - inner container with the actual cover content
 export const ProfileCover = styled.div`
   display: flex;
-  height: 354px;
-  padding: 10px 0;
-  justify-content: center;
+  width: 100%;
+  max-width: 1440px;
+  flex-direction: column;
   align-items: center;
+  gap: clamp(12px, 2vw, 20px);
+  height: 354px;
+  padding: clamp(16px, 2vw, 24px) 20px;
+  justify-content: center;
   align-self: stretch;
   border-radius: 16px;
   border: 1px solid ${border};
@@ -44,10 +95,36 @@ export const ProfileCover = styled.div`
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  flex-direction: column;
+  margin: 0 auto;
+  box-sizing: border-box;
+
+  @media (max-width: 1520px) {
+    width: calc(100% - 80px);
+  }
+
+  @media (max-width: 768px) {
+    width: calc(100% - 72px);
+    gap: clamp(10px, 1.5vw, 16px);
+    padding: clamp(14px, 1.5vw, 20px) 16px;
+  }
+
+  @media (max-width: 580px) {
+    height: auto;
+    min-height: 300px;
+    padding: 12px 12px 16px 12px;
+    gap: clamp(8px, 1vw, 12px);
+  }
+
+  @media (max-width: 480px) {
+    width: calc(100% - 48px);
+    height: auto;
+    min-height: 280px;
+    padding: 10px 12px 14px 12px;
+    gap: clamp(6px, 0.8vw, 10px);
+  }
 `;
 
-// Overlay for better text readability on background image
+// Overlay 
 export const CoverOverlay = styled.div`
   position: absolute;
   top: 0;
@@ -81,56 +158,6 @@ export const ActionButtons = styled.div`
   }
 `;
 
-export const ActionButton = styled.button`
-  width: clamp(36px, 4vw, 44px);
-  height: clamp(36px, 4vw, 44px);
-  border-radius: 50%;
-  background: white;
-  border: none;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-  transition: all 0.2s ease;
-  color: #374151;
-
-  svg {
-    width: clamp(16px, 1.8vw, 20px);
-    height: clamp(16px, 1.8vw, 20px);
-  }
-
-  @media (max-width: 768px) {
-    width: 40px;
-    height: 40px;
-
-    svg {
-      width: 18px;
-      height: 18px;
-    }
-  }
-
-  @media (max-width: 480px) {
-    width: 36px;
-    height: 36px;
-
-    svg {
-      width: 16px;
-      height: 16px;
-    }
-  }
-
-  &:hover {
-    transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-    background: #f9fafb;
-  }
-
-  &:active {
-    transform: translateY(0);
-  }
-`;
-
 // Content container that sits above the overlay
 export const CoverContent = styled.div`
   position: relative;
@@ -138,11 +165,19 @@ export const CoverContent = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 16px;
+  gap: clamp(12px, 1.5vw, 14px);
   color: white;
+  width: 100%;
+  max-width: calc(100% - 20px);
+  margin: 0 auto;
+
+  @media (max-width: 480px) {
+    gap: clamp(8px, 1vw, 10px);
+    max-width: calc(100% - 16px);
+  }
 `;
 
-// Profile avatar container to position camera icon
+
 export const ProfileAvatarContainer = styled.div`
   position: relative;
   display: inline-block;
@@ -150,177 +185,34 @@ export const ProfileAvatarContainer = styled.div`
 
 // Profile avatar styling
 export const ProfileAvatar = styled.img`
-  width: clamp(80px, 8vw, 120px);
-  height: clamp(80px, 8vw, 120px);
+  width: clamp(130px, 12vw, 180px);
+  height: clamp(130px, 12vw, 180px);
   border-radius: 50%;
   border: clamp(2px, 0.3vw, 4px) solid #4A90E2;
   object-fit: cover;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  flex-shrink: 0;
 
   @media (max-width: 768px) {
-    width: 100px;
-    height: 100px;
+    width: 150px;
+    height: 150px;
     border-width: 3px;
   }
 
+  @media (max-width: 580px) {
+    width: clamp(100px, 20vw, 130px);
+    height: clamp(100px, 20vw, 130px);
+    border-width: 2px;
+  }
+
   @media (max-width: 480px) {
-    width: 80px;
-    height: 80px;
+    width: clamp(90px, 18vw, 110px);
+    height: clamp(90px, 18vw, 110px);
     border-width: 2px;
   }
 `;
 
-// Camera icon button positioned at bottom-right of avatar
-export const CameraIconButton = styled.button`
-  position: absolute;
-  bottom: clamp(4px, 0.5vw, 8px);
-  right: clamp(4px, 0.5vw, 8px);
-  width: clamp(24px, 2.5vw, 32px);
-  height: clamp(24px, 2.5vw, 32px);
-  border-radius: 50%;
-  background: #4A90E2;
-  border: 2px solid white;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-  transition: all 0.2s ease;
-  color: white;
-
-  svg {
-    width: clamp(12px, 1.2vw, 16px);
-    height: clamp(12px, 1.2vw, 16px);
-  }
-
-  @media (max-width: 768px) {
-    width: 28px;
-    height: 28px;
-    bottom: 6px;
-    right: 6px;
-
-    svg {
-      width: 14px;
-      height: 14px;
-    }
-  }
-
-  @media (max-width: 480px) {
-    width: 24px;
-    height: 24px;
-    bottom: 4px;
-    right: 4px;
-
-    svg {
-      width: 12px;
-      height: 12px;
-    }
-  }
-
-  &:hover {
-    transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-    background: #3A7BD5;
-  }
-
-  &:active {
-    transform: translateY(0);
-  }
-`;
-
-// Profile info card (white background)
-export const ProfileInfoCard = styled.div`
-  background: white;
-  border-radius: clamp(8px, 1vw, 12px);
-  padding: clamp(12px, 1.5vw, 16px) clamp(16px, 2vw, 24px);
-  text-align: center;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  margin-top: clamp(4px, 0.5vw, 8px);
-  max-width: 90vw;
-
-  @media (max-width: 768px) {
-    padding: 14px 20px;
-    border-radius: 10px;
-  }
-
-  @media (max-width: 480px) {
-    padding: 12px 16px;
-    border-radius: 8px;
-  }
-`;
-
-// Profile name styling
-export const ProfileName = styled.h2`
-  font-size: clamp(1.2rem, 3vw, 1.5rem);
-  font-weight: 600;
-  margin: 0 0 4px 0;
-  color: #111318;
-
-  @media (max-width: 768px) {
-    font-size: 1.3rem;
-  }
-
-  @media (max-width: 480px) {
-    font-size: 1.2rem;
-  }
-`;
-
-// Member since text
-export const MemberSince = styled.p`
-  font-size: clamp(0.8rem, 2vw, 0.9rem);
-  color: #6B7280;
-  margin: 0;
-
-  @media (max-width: 768px) {
-    font-size: 0.85rem;
-  }
-
-  @media (max-width: 480px) {
-    font-size: 0.8rem;
-  }
-`;
-
-// Stats container
-export const StatsContainer = styled.div`
-  display: flex;
-  gap: clamp(8px, 1.5vw, 16px);
-  margin-top: clamp(12px, 1.5vw, 16px);
-  flex-wrap: wrap;
-  justify-content: center;
-
-  @media (max-width: 768px) {
-    gap: 12px;
-    margin-top: 14px;
-  }
-
-  @media (max-width: 480px) {
-    gap: 8px;
-    margin-top: 12px;
-    flex-direction: column;
-    align-items: center;
-  }
-`;
-
-// Individual stat badge
-export const StatBadge = styled.div`
-  background: white;
-  border-radius: clamp(16px, 2vw, 20px);
-  padding: clamp(6px, 0.8vw, 8px) clamp(12px, 1.5vw, 16px);
-  font-size: clamp(0.75rem, 1.8vw, 0.875rem);
-  color: #374151;
-  font-weight: 500;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-  white-space: nowrap;
-  text-align: center;
-
-  @media (max-width: 768px) {
-    padding: 7px 14px;
-    font-size: 0.8rem;
-  }
-
-  @media (max-width: 480px) {
-    padding: 6px 12px;
-    font-size: 0.75rem;
-    width: fit-content;
-  }
+// Dynamic ProfileCover that accepts backgroundImage prop
+export const DynamicProfileCover = styled(ProfileCover)`
+  background-image: url(${props => props.backgroundImage});
 `;
