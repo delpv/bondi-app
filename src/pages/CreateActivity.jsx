@@ -33,6 +33,7 @@ export default function CreateActivity() {
     location: "",
     date: "",
     time: "",
+    endTime: "",
     max: "",
     isPublic: true,
     priceLabel: "Free",
@@ -49,7 +50,6 @@ export default function CreateActivity() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    // load categories from back4app
     const fetchCategories = async () => {
       try {
         const Category = Parse.Object.extend("Category");
@@ -84,7 +84,6 @@ export default function CreateActivity() {
     setData((d) => ({ ...d, imageFile: file, imagePreview: preview }));
   };
 
-  // convert user typed price to number for back4app match
   const parsePrice = (rawPrice) => {
     if (!rawPrice) return 0;
 
@@ -98,7 +97,6 @@ export default function CreateActivity() {
     return num;
   };
 
-  // now saves to back4app
   const onSubmit = async (e) => {
     e.preventDefault();
 
@@ -108,27 +106,36 @@ export default function CreateActivity() {
       return;
     }
 
-    // required fields check
-    if (!data.title || !data.description || !data.date || !data.time) {
-      alert("Please fill in title, description, date and time.");
+    console.log("DATA BEFORE SUBMIT:", data);
+    if (!data.title || !data.description || !data.date || !data.time || !data.endTime) {
+      alert("Please fill in title, description, date, start time and end time.");
+      return;
+    }
+
+    const startDate = new Date(`${data.date}T${data.time}`);
+    const endDate = new Date(`${data.date}T${data.endTime}`);
+
+    if (endDate <= startDate) {
+      alert("End time must be after start time.");
       return;
     }
 
     setIsSaving(true);
 
     try {
-      // create Activity object
       const Activity = Parse.Object.extend("Activity");
       const activity = new Activity();
 
       activity.set("Title", data.title.trim());
       activity.set("description", data.description.trim());
       activity.set("location", data.location.trim());
-      activity.set("time", data.time);
+      activity.set(
+        "time",
+        `${data.time}-${data.endTime}`
+      );
 
-      const startDate = new Date(`${data.date}T${data.time}`);
       activity.set("dateStart", startDate);
-      activity.set("dateEnd", startDate);
+      activity.set("dateEnd", endDate);
 
       const priceNumber = parsePrice(data.priceLabel);
       activity.set("price", priceNumber);
@@ -231,11 +238,19 @@ export default function CreateActivity() {
                 id="time"
                 name="time"
                 type="time"
-                label="Time"
+                label="Start time"
                 value={data.time}
                 onChange={onChange}
               />
-            </FieldRow>
+              <TextField
+                id="endTime"
+                name="endTime"
+                type="time"
+                label="End time"
+                value={data.endTime}
+                onChange={onChange}
+              />
+            </FieldRow>  
 
             {/* Participants */}
             <FieldRow>
