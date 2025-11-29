@@ -106,7 +106,8 @@ export default function CreateActivity() {
       return;
     }
 
-    if (!data.title || !data.description || !data.date || !data.time || data.endTime) {
+    console.log("DATA BEFORE SUBMIT:", data);
+    if (!data.title || !data.description || !data.date || !data.time || !data.endTime) {
       alert("Please fill in title, description, date, start time and end time.");
       return;
     }
