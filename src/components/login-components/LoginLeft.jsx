@@ -1,5 +1,5 @@
-import React from "react";
-import { useState, useContext } from "react";
+import React, { useState, useContext } from "react";
+import { AuthContext } from "../../context/AuthContext";
 import { Link } from "react-router-dom";
 import EyeIcon from "../../assets/icons_app/eye.svg?react";
 import {
@@ -17,10 +17,14 @@ import {
   ErrorMessage,
 } from "../styled/login-style-comp/LoginLeft.styled.jsx";
 import Parse from "parse";
-import { AuthContext } from "../../context/AuthContext.jsx";
-const LoginLeft = () => {
-  const { handleLogin } = useContext(AuthContext);
 
+const LoginLeft = () => {
+  const ctx = useContext(AuthContext);
+  console.log("AuthContext in LoginLeft:", ctx);
+
+  if (!ctx) return <div>No auth context</div>;
+
+  const { handleLogin } = ctx;
   const [isLoading, setIsLoading] = useState(false);
   const [showPass, setShowPass] = useState(false);
   const [password, setPassword] = useState("");
