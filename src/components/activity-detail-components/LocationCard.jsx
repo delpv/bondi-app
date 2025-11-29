@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import {
   LocationCardContainer,
   LocationTitle,
@@ -13,6 +13,12 @@ import Icon from "../../assets/icons_app/icon_icon.svg?react";
 const LocationCard = ({ location, locationImage }) => {
   if (!location) return <div>Loading...</div>;
 
+  const openGoogleMaps = () => {
+    const destination = encodeURIComponent(location);
+    const url = `https://www.google.com/maps/dir/?api=1&destination=${destination}`;
+    window.open(url, "_blank");
+  };
+
   return (
     <LocationCardContainer>
       <LocationTitle>
@@ -22,7 +28,7 @@ const LocationCard = ({ location, locationImage }) => {
       <LocationContent>
         <LocationImage src={locationImage} alt="Location" />
         <p>{location}</p>
-        <DirectionButton>
+        <DirectionButton onClick={openGoogleMaps}>
           <Walker />
           Get directions
         </DirectionButton>

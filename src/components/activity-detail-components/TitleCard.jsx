@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import Parse from "parse";
 import {
   TitleCardContainer,
   CardTitle,
@@ -12,12 +13,16 @@ import Info from "../../assets/icons_app/info.svg?react";
 import Divider from "../../assets/icons_app/divider.svg?react";
 import List from "../../assets/icons_app/list.svg?react";
 
-const TitleCard = ({ title, description, whatToBring }) => (
+const TitleCard = ({activity, whatToBring }) => {
+  const title = activity.get("Title");
+  const description=activity.get("description");
+
+return(
   <TitleCardContainer>
     <CardTitle>
       <Info /> {title}
     </CardTitle>
-    <CardDescription>{description}</CardDescription>
+    <CardDescription> {description}</CardDescription>
     <Divider />
     {whatToBring && (
       <CardWhatToBring>
@@ -34,5 +39,6 @@ const TitleCard = ({ title, description, whatToBring }) => (
     )}
   </TitleCardContainer>
 );
+};
 
 export default TitleCard;

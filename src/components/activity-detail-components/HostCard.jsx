@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router";
 import Parse from "parse";
 import {
   HostCardContainer,
@@ -18,18 +19,22 @@ import UserIcon from "../../assets/icons_app/user_icon.svg?react";
 import Divider from "../../assets/icons_app/divider.svg?react";
 import { AuthContext } from "../../context/AuthContext.jsx";
 
-const HostCard = ({ activitiesHosted }) => {
-  const user = Parse.User.current();
+const HostCard = ({ host, activitiesHosted }) => {
+  const navigate = useNavigate();
 
-  if (!user) return <div>Loading...</div>;
+  if (!host) return <div>No host data</div>;
 
-  const profilePictureFile = user.get("profilePicture");
+  const profilePictureFile = host.get("profilePicture");
   const profilePictureUrl = profilePictureFile
     ? profilePictureFile.url()
     : null;
-  const hostName = user.get("username") || "Unknown host";
-  const aboutMe = user.get("aboutMe") || "No description available.";
-  const memberSince = user.get("createdAt")?.getFullYear() || "Unknown";
+  const hostName = host.get("username") || "Unknown host";
+  const aboutMe = host.get("aboutMe") || "No description available.";
+  const memberSince = host.get("createdAt")?.getFullYear() || "Unknown";
+
+  const goToProfile = () => {
+    navigate("/profile");
+  };
 
   return (
     <HostCardContainer>
@@ -53,7 +58,7 @@ const HostCard = ({ activitiesHosted }) => {
         <ActivitiesHostedLabel>
           {activitiesHosted} Activities Hosted
         </ActivitiesHostedLabel>
-        <HostButton>See Profile</HostButton>
+        <HostButton onClick={goToProfile}>See Profile</HostButton>
       </DescriptionContainer>
     </HostCardContainer>
   );

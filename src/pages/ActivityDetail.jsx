@@ -1,5 +1,6 @@
-import Parse from "parse"; // use the initialized Parse
+import Parse from "parse";
 import React, { useState, useEffect } from "react";
+import { useParams, useNavigate } from "react-router";
 
 import NavBar from "../components/feed-components/NavBar.jsx";
 import Footer from "../components/feed-components/Footer.jsx";
@@ -8,53 +9,65 @@ import {
   MainContainer,
   ContentWrapper,
 } from "../components/styled/MiddleSection/Middle.styled.jsx";
-import Before from "../components/activity-detail-components/Before.jsx";
 import HeaderSection from "../components/activity-detail-components/HeaderSection.jsx";
 import TitleCard from "../components/activity-detail-components/TitleCard.jsx";
 import HostCard from "../components/activity-detail-components/HostCard.jsx";
 import ParticipantsCard from "../components/activity-detail-components/ParticipantCard.jsx";
 import LocationCard from "../components/activity-detail-components/LocationCard.jsx";
 
-import { CardContainer } from "../components/styled/act-detail-style-comp/Common.jsx";
+import {
+  CardContainer,
+  BeforeContainer,
+} from "../components/styled/act-detail-style-comp/Common.jsx";
 
 const ActivityDetail = () => {
+  const { slug } = useParams();
   const [activity, setActivity] = useState(null);
-
-  // Manually set the objectId of the activity you want to display
-  const ObjectId = "XNGNoKPR5r";
+  const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchActivity = async () => {
       try {
         const Activity = Parse.Object.extend("Activity");
         const query = new Parse.Query(Activity);
-        const result = await query.get(ObjectId); // fetch from Back4App
-
+        query.include("host_ID");
+        query.equalTo("slug", slug);
+        const result = await query.first();
         setActivity(result);
       } catch (error) {
         console.error("Error fetching activity:", error);
+      } finally {
+        setLoading(false);
       }
     };
 
-    fetchActivity();
-  }, []);
+    if (slug) fetchActivity();
+  }, [slug]);
 
-  if (!activity) return <div>Loading...</div>;
+  if (loading) return <div>Loading...</div>;
+  if (!activity) return <div>Activity not found...</div>;
 
+  const host = activity.get("host_ID");
   const location = activity.get("location");
+
+  const goBackToFeed = () => {
+    navigate(-1);
+  };
 
   return (
     <>
       <NavBar />
       <MainContainer>
         <ContentWrapper>
-          <Before />
+          <BeforeContainer onClick={goBackToFeed}>
+            <p>← Back to activities</p>
+          </BeforeContainer>
 
           <HeaderSection activity={activity} />
           <CardContainer>
             <TitleCard
-              title={activity.get("Title")}
-              description={activity.get("description")}
+              activity={activity}
               whatToBring={
                 activity.get("whatToBring") || [
                   "Yoga mat",
@@ -64,15 +77,10 @@ const ActivityDetail = () => {
                 ]
               }
             />
-            <HostCard
-              hostName="Alice Johnson"
-              description="Certified yoga instructor with 8+ years of experience. I love bringing people together through mindful movement and creating a welcoming community for everyone."
-              memberSince="2018"
-              activitiesHosted={8}
-            />
+            <HostCard host={activity.get("host_ID")} activitiesHosted={8} />
             <ParticipantsCard
               participantNumber={12}
-              hostName="Alice"
+              //hostName="Alice"
               participants={["John", "Alice", "Kelly", "Nikolas", "Patrick"]}
               participantImage="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTnFW7ZDLxu41lI2gB6ExZT7vczi163BrA9WA&s"
             />
