@@ -41,15 +41,6 @@ const Router = () => {
         path="/profile/:username"
         element={<ProtectedComponent originalRoute={<Profile />} />}
       />
-<<<<<<< HEAD
-=======
-      {/* Main App */}
-      <Route path="/feed" element={<Feed userObject={userObject} />} />
-      <Route path="/activity/:slug" element={<ActivityDetail />} />
-      <Route path="/create-activity" element={<CreateActivity />} />
-      <Route path="/profile" element={<Profile />} />
-      <Route path="/profile/:username" element={<Profile />} />
->>>>>>> 0a1be3c (fixed conflict in Main, HostCard)
       <Route path="*" element={<NotFound />} />
     </Routes>
   );
