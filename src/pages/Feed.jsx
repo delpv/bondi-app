@@ -73,9 +73,10 @@ export default function Feed() {
 
     setIsLoading(true);
     try {
+      const activitiesArray = await query.find(); // ← fetch from Parse
+
       const allActivities = activitiesArray.map((activity) => {
         const json = activity.toJSON();
-        console.log("Activity JSON:", json); // ← log each activity object
         return json;
       });
 

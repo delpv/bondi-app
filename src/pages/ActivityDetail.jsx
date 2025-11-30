@@ -21,7 +21,7 @@ import {
 } from "../components/styled/act-detail-style-comp/Common.jsx";
 
 const ActivityDetail = () => {
-  const { slug } = useParams();
+  const { id } = useParams();
   const [activity, setActivity] = useState(null);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
@@ -32,8 +32,7 @@ const ActivityDetail = () => {
         const Activity = Parse.Object.extend("Activity");
         const query = new Parse.Query(Activity);
         query.include("host_ID");
-        query.equalTo("slug", slug);
-        const result = await query.first();
+        const result = await query.get(id); // get by objectId
         setActivity(result);
       } catch (error) {
         console.error("Error fetching activity:", error);
@@ -42,8 +41,8 @@ const ActivityDetail = () => {
       }
     };
 
-    if (slug) fetchActivity();
-  }, [slug]);
+    if (id) fetchActivity();
+  }, [id]);
 
   if (loading) return <div>Loading...</div>;
   if (!activity) return <div>Activity not found...</div>;
@@ -77,7 +76,7 @@ const ActivityDetail = () => {
                 ]
               }
             />
-            <HostCard host={activity.get("host_ID")} activitiesHosted={8} />
+            <HostCard host={host} activitiesHosted={8} />
             <ParticipantsCard
               participantNumber={12}
               //hostName="Alice"
