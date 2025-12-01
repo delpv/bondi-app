@@ -1,16 +1,22 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import "./main.css";
+import ScrollToTop from "./pages/ScrollToTop";
 
 import { BrowserRouter, Routes } from "react-router-dom";
 import Router from "./Router.jsx";
+import "./utils/parseConfig.js";
+import { AuthProvider } from "./context/AuthProvider.jsx";
 
 const root = document.getElementById("root");
 
 ReactDOM.createRoot(root).render(
   <React.StrictMode>
     <BrowserRouter>
-      <Router />
+      <ScrollToTop />
+      <AuthProvider>
+        <Router />
+      </AuthProvider>
     </BrowserRouter>
   </React.StrictMode>
 );
