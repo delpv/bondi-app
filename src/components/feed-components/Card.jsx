@@ -182,7 +182,7 @@ export default function Card({
       onKeyDown={onKeyGoToDetail}
       role="button"
       tabIndex={0}
-      isClickable
+      $isClickable
       aria-label={`Open details for ${title}`}
     >
       <Hero>
@@ -192,7 +192,7 @@ export default function Card({
             dateStyle: "short",
           }).format(new Date(date))}
         </CornerChips>
-        <CornerChips variant="right">{priceLabel}</CornerChips>
+        <CornerChips $variant="right">{priceLabel}</CornerChips>
       </Hero>
 
       <Content>
@@ -226,7 +226,7 @@ export default function Card({
         <LocationRow>
           <LocationInfo>
             <LocationIcon size={18} aria-hidden />
-            <ElypsisText withIcon>{location}</ElypsisText>
+            <ElypsisText $withIcon>{location}</ElypsisText>
           </LocationInfo>
 
           <JoinButton
@@ -235,7 +235,7 @@ export default function Card({
               imHosting ||
               (!joined && partNumber === maxParticipants)
             }
-            joined={joined ? 1 : 0}
+            $joined={joined ? 1 : 0}
             onClick={handleToggleJoin}
             aria-pressed={joined}
             aria-label={joined ? "Cancel participation" : "Join activity"}
