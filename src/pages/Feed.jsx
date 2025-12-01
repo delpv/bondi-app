@@ -74,14 +74,10 @@ export default function Feed() {
     setIsLoading(true);
     try {
       const activitiesArray = await query.find();
+      const allActivities = activitiesArray.map((activity) =>
+        activity.toJSON()
+      );
 
-      const allActivities = activitiesArray.map((activity) => {
-        const json = activity.toJSON();
-        console.log("Activity JSON:", json);
-        return json;
-      });
-
-      console.log("Activities with categories:", allActivities);
       setActivites(allActivities);
       setFilteredActivities(allActivities);
     } catch (e) {

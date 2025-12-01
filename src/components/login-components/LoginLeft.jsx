@@ -19,12 +19,7 @@ import {
 import Parse from "parse";
 
 const LoginLeft = () => {
-  const ctx = useContext(AuthContext);
-  console.log("AuthContext in LoginLeft:", ctx);
-
-  if (!ctx) return <div>No auth context</div>;
-
-  const { handleLogin } = ctx;
+  const { handleLogin } = useContext(AuthContext);
   const [isLoading, setIsLoading] = useState(false);
   const [showPass, setShowPass] = useState(false);
   const [password, setPassword] = useState("");
