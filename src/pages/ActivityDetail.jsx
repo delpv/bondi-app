@@ -23,27 +23,29 @@ import {
 const ActivityDetail = () => {
   const { id } = useParams();
   const [activity, setActivity] = useState(null);
-  const [loading, setLoading] = useState(true);
   const [host, setHost] = useState(null);
   const [hostInfo, setHostInfo] = useState(null);
+  const [category, setCategory] = useState(null);
+  const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
   useEffect(() => {
     const fetchActivityAndHost = async () => {
       try {
-        const res = await Parse.Cloud.run("getActivityWithHost", {
+        const result = await Parse.Cloud.run("getActivityWithHost", {
           activityId: id,
         });
-        setActivity(res.activity); // JSON
-        setHost(res.host); // JSON or null
-        setHostInfo(res.hostInfo); // JSON or null (if you return it)
+        console.log("result from cloud:", result);
+        setActivity(result.activity);
+        setHost(result.host);
+        setHostInfo(result.hostInfo);
+        setCategory(result.category);
       } catch (error) {
         console.error("Error fetching activity+host:", error);
       } finally {
         setLoading(false);
       }
     };
-
     if (id) fetchActivityAndHost();
   }, [id]);
 
@@ -68,7 +70,7 @@ const ActivityDetail = () => {
             <p>←</p>
           </BeforeContainer>
 
-          <HeaderSection activity={activity} />
+          <HeaderSection activity={activity} category={category} />
           <CardContainer>
             <TitleCard activity={activity} />
 

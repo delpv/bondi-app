@@ -24,12 +24,12 @@ import Calendar from "../../assets/icons_app/calendar.svg?react";
 // import Clock from "../../assets/Icons/clock.svg?react";
 import Location from "../../assets/icons_app/location.svg?react";
 
-const HeaderSection = ({ activity }) => {
+const HeaderSection = ({ activity, category }) => {
   const [hasJoined, setHasJoined] = useState(false);
   const [joinedCount, setJoinedCount] = useState(0);
   const [waitingList, setWaitingList] = useState(false);
 
-  const [category, setCategory] = useState(null);
+  if (!activity) return <div>Loading...</div>;
 
   const maxCapacity = activity.maxCapacity || 0;
 
@@ -48,21 +48,21 @@ const HeaderSection = ({ activity }) => {
     }
   };
 
-  const dateStart = activity.dateStart;
-  const dateEnd = activity.dateEnd;
+  const dateStart = activity.dateStart ? new Date(activity.dateStart) : null;
+  const dateEnd = activity.dateEnd ? new Date(activity.dateEnd) : null;
 
   const formattedStart = dateStart ? dateStart.toLocaleString() : "TBD";
   const formattedEnd = dateEnd ? dateEnd.toLocaleString() : "TBD";
 
   const title = activity.Title || "TBD";
   const location = activity.location || "Location to be decided";
-  const categoryName = activity.category?.name || "Any ideas?";
+  const categoryName = category?.name || "Any ideas?";
 
   const image = activity.coverPhoto_img?.url() || "No image";
 
   return (
     <HeaderSectionContainer>
-      <HeaderImage src={image} alt="Yoga" />
+      <HeaderImage src={image} alt="Activity" />
       <HeaderText>{title}</HeaderText>
       <CardRow>
         <CardLeft>
