@@ -31,14 +31,12 @@ const HeaderSection = ({ activity }) => {
 
   const [category, setCategory] = useState(null);
 
-  // Manually set the objectId of the activity you want to display
-
   useEffect(() => {
     if (!activity) return;
 
     const fetchCategory = async () => {
       try {
-        const categoryRef = activity.get("category");
+        const categoryRef = activity.get("category_id");
         if (categoryRef) {
           const categoryObj = await categoryRef.fetch();
           setCategory(categoryObj);
