@@ -32,6 +32,7 @@ const ActivityDetail = () => {
         const Activity = Parse.Object.extend("Activity");
         const query = new Parse.Query(Activity);
         query.include("host_ID");
+        query.include("host_ID.user_Info");
         query.include("category_id");
         const result = await query.get(id); // get by objectId
         setActivity(result);
@@ -49,6 +50,7 @@ const ActivityDetail = () => {
   if (!activity) return <div>Activity not found...</div>;
 
   const host = activity.get("host_ID");
+  const hostInfo = host.get("user_info");
   const category = activity.get("category_id");
   const location = activity.get("location");
 
@@ -78,7 +80,7 @@ const ActivityDetail = () => {
                 ]
               }
             />
-            <HostCard host={host} activitiesHosted={8} />
+            <HostCard host={host} hostInfo={hostInfo} activitiesHosted={8} />
             <ParticipantsCard
               participantNumber={12}
               //hostName="Alice"

@@ -19,17 +19,17 @@ import UserIcon from "../../assets/icons_app/user_icon.svg?react";
 import Divider from "../../assets/icons_app/divider.svg?react";
 import { AuthContext } from "../../context/AuthContext.jsx";
 
-const HostCard = ({ host, activitiesHosted }) => {
+const HostCard = ({ host, hostInfo, activitiesHosted }) => {
   const navigate = useNavigate();
 
   if (!host) return <div>No host data</div>;
 
-  const profilePictureFile = host.get("profilePicture");
+  const profilePictureFile = hostInfo?.get("profilePicture");
   const profilePictureUrl = profilePictureFile
     ? profilePictureFile.url()
     : null;
-  const hostName = host.get("username") || "Unknown host";
-  const aboutMe = host.get("aboutMe") || "No description available.";
+  const hostName = host.get("fullName") || "Unknown host";
+  const aboutMe = hostInfo?.get("aboutMe") || "No description available.";
   const memberSince = host.get("createdAt")?.getFullYear() || "Unknown";
 
   const goToProfile = () => {
