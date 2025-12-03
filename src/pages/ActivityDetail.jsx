@@ -24,46 +24,36 @@ const ActivityDetail = () => {
   const { id } = useParams();
   const [activity, setActivity] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [host, setHost] = useState(null);
   const [hostInfo, setHostInfo] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
-    const fetchActivity = async () => {
+    const fetchActivityAndHost = async () => {
       try {
-        const Activity = Parse.Object.extend("Activity");
-        const query = new Parse.Query(Activity);
-        query.include("host_ID");
-        //query.include("host_ID.user_Info");
-        query.include("category_id");
-        const result = await query.get(id); // get by objectId
-        setActivity(result);
+        const res = await Parse.Cloud.run("getActivityWithHost", {
+          activityId: id,
+        });
+        setActivity(res.activity); // JSON
+        setHost(res.host); // JSON or null
+        setHostInfo(res.hostInfo); // JSON or null (if you return it)
       } catch (error) {
-        console.error("Error fetching activity:", error);
+        console.error("Error fetching activity+host:", error);
       } finally {
         setLoading(false);
       }
     };
 
-    if (id) fetchActivity();
+    if (id) fetchActivityAndHost();
   }, [id]);
-
-  useEffect(() => {
-    const loadHostInfo = async () => {
-      const host = activity?.get("host_ID");
-      if (!host) return;
-      const infoPtr = host.get("user_Info"); // pointer object, may be unfetched
-      if (!infoPtr) return;
-      const info = infoPtr.fetch ? await infoPtr.fetch() : infoPtr;
-      setHostInfo(info);
-    };
-    loadHostInfo();
-  }, [activity]);
 
   if (loading) return <div>Loading...</div>;
   if (!activity) return <div>Activity not found...</div>;
 
-  const host = activity.get("host_ID");
-  const location = activity.get("location");
+  const hostValue = host;
+
+  const capacity = activity.maxCapacity;
+  const location = activity.location;
 
   const goBackToFeed = () => {
     navigate(-1);
@@ -81,15 +71,24 @@ const ActivityDetail = () => {
           <HeaderSection activity={activity} />
           <CardContainer>
             <TitleCard activity={activity} />
-            <HostCard host={host} hostInfo={hostInfo} activitiesHosted={8} />
+
+            {hostValue ? (
+              <HostCard
+                host={hostValue}
+                hostInfo={hostInfo}
+                activitiesHosted={8}
+              />
+            ) : (
+              <p>No host data</p>
+            )}
             <ParticipantsCard
-              participantNumber={12}
+              participantNumber={capacity}
               //hostName="Alice"
               participants={["John", "Alice", "Kelly", "Nikolas", "Patrick"]}
               participantImage="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTnFW7ZDLxu41lI2gB6ExZT7vczi163BrA9WA&s"
             />
             <LocationCard
-              location={activity.get("location")}
+              location={location}
               locationImage="https://upload.wikimedia.org/wikipedia/commons/5/5b/Palm_House%2C_Copenhagen_Botanical_Garden.jpg"
             />
           </CardContainer>

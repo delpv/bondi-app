@@ -141,7 +141,8 @@ export default function CreateActivity() {
 
       activity.set("participantCount", 0);
 
-      activity.set("host_ID", user);
+      activity.set("host_ID", Parse.User.current());
+      activity.set("createdBy", Parse.User.current());
 
       if (data.categoryId) {
         const Category = Parse.Object.extend("Category");

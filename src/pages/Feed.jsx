@@ -80,7 +80,6 @@ export default function Feed() {
         return json;
       });
 
-      console.log("Activities with categories:", allActivities);
       setActivites(allActivities);
       setFilteredActivities(allActivities);
     } catch (e) {

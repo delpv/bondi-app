@@ -31,27 +31,7 @@ const HeaderSection = ({ activity }) => {
 
   const [category, setCategory] = useState(null);
 
-  useEffect(() => {
-    if (!activity) return;
-
-    const fetchCategory = async () => {
-      try {
-        const categoryRef = activity.get("category_id");
-        if (categoryRef) {
-          const categoryObj = await categoryRef.fetch();
-          setCategory(categoryObj);
-        }
-      } catch (error) {
-        console.error("Error fetching category:", error);
-      }
-    };
-
-    fetchCategory();
-  }, [activity]);
-
-  if (!activity) return <div>Loading...</div>;
-
-  const maxCapacity = activity?.get("maxCapacity") || 0;
+  const maxCapacity = activity.maxCapacity || 0;
 
   const handleJoin = () => {
     if (hasJoined) {
@@ -68,17 +48,17 @@ const HeaderSection = ({ activity }) => {
     }
   };
 
-  const dateStart = activity?.get("dateStart");
-  const dateEnd = activity?.get("dateEnd");
+  const dateStart = activity.dateStart;
+  const dateEnd = activity.dateEnd;
 
   const formattedStart = dateStart ? dateStart.toLocaleString() : "TBD";
   const formattedEnd = dateEnd ? dateEnd.toLocaleString() : "TBD";
 
-  const title = activity?.get("Title") || "TBD";
-  const location = activity?.get("location") || "Location to be decided";
-  const categoryName = category?.get("name") || "Any ideas?";
+  const title = activity.Title || "TBD";
+  const location = activity.location || "Location to be decided";
+  const categoryName = activity.category?.name || "Any ideas?";
 
-  const image = activity?.get("coverPhoto_img")?.url() || "No image";
+  const image = activity.coverPhoto_img?.url() || "No image";
 
   return (
     <HeaderSectionContainer>

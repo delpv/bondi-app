@@ -194,7 +194,7 @@ export default function Card({
             dateStyle: "short",
           }).format(new Date(date))}
         </CornerChips>
-        <CornerChips variant="right">{priceLabel}</CornerChips>
+        <CornerChips $variant="right">{priceLabel}</CornerChips>
       </Hero>
 
       <Content>

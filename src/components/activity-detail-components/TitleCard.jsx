@@ -9,8 +9,8 @@ import {
 import Info from "../../assets/icons_app/info.svg?react";
 
 const TitleCard = ({ activity }) => {
-  const title = activity.get("Title");
-  const description = activity.get("description");
+  const title = activity.Title;
+  const description = activity.description;
 
   return (
     <TitleCardContainer>

@@ -24,13 +24,18 @@ const HostCard = ({ host, hostInfo, activitiesHosted }) => {
 
   if (!host) return <div>No host data</div>;
 
-  const profilePictureFile = hostInfo?.get("profilePicture");
+  const profilePictureFile = hostInfo?.profilePicture;
   const profilePictureUrl = profilePictureFile
     ? profilePictureFile.url()
     : null;
-  const hostName = host.get("fullName") || "Unknown host";
-  const aboutMe = hostInfo?.get("aboutMe") || "No description available.";
-  const memberSince = host.get("createdAt")?.getFullYear() || "Unknown";
+  const hostName = host.fullName || "Unknown host";
+  const aboutMe = hostInfo?.aboutMe || "No description available.";
+  let memberSince = "Unknown";
+
+  if (host?.createdAt) {
+    const date = new Date(host.createdAt);
+    memberSince = date.getFullYear();
+  }
 
   const goToProfile = () => {
     navigate("/profile");
