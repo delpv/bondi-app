@@ -72,10 +72,9 @@ const ActivityDetail = () => {
               <p>No host data</p>
             )}
             <ParticipantsCard
-              participantNumber={capacity}
-              //hostName="Alice"
-              participants={["John", "Alice", "Kelly", "Nikolas", "Patrick"]}
+              activityId={activity.objectId}
               participantImage="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTnFW7ZDLxu41lI2gB6ExZT7vczi163BrA9WA&s"
+              hostName={host?.fullName || host?.username}
             />
             <LocationCard
               location={location}
