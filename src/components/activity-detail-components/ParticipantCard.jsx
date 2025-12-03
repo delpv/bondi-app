@@ -1,4 +1,3 @@
-// src/Components/activity-detail-components/ParticipantsCard.jsx
 import React, { useState } from "react";
 import {
   ParticipantsCardContainer,

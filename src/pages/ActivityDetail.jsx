@@ -51,7 +51,6 @@ const ActivityDetail = () => {
 
   const host = activity.get("host_ID");
   const hostInfo = host.get("user_info");
-  const category = activity.get("category_id");
   const location = activity.get("location");
 
   const goBackToFeed = () => {
@@ -64,7 +63,7 @@ const ActivityDetail = () => {
       <MainContainer>
         <ContentWrapper>
           <BeforeContainer onClick={goBackToFeed}>
-            <p>← Back to activities</p>
+            <p>←</p>
           </BeforeContainer>
 
           <HeaderSection activity={activity} />
