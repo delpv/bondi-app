@@ -15,10 +15,7 @@ import HostCard from "../components/activity-detail-components/HostCard.jsx";
 import ParticipantsCard from "../components/activity-detail-components/ParticipantCard.jsx";
 import LocationCard from "../components/activity-detail-components/LocationCard.jsx";
 
-import {
-  CardContainer,
-  BeforeContainer,
-} from "../components/styled/act-detail-style-comp/Common.jsx";
+import { CardContainer } from "../components/styled/act-detail-style-comp/Common.jsx";
 
 const ActivityDetail = () => {
   const { id } = useParams();
@@ -27,7 +24,6 @@ const ActivityDetail = () => {
   const [hostInfo, setHostInfo] = useState(null);
   const [category, setCategory] = useState(null);
   const [loading, setLoading] = useState(true);
-  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchActivityAndHost = async () => {
@@ -57,19 +53,11 @@ const ActivityDetail = () => {
   const capacity = activity.maxCapacity;
   const location = activity.location;
 
-  const goBackToFeed = () => {
-    navigate(-1);
-  };
-
   return (
     <>
       <NavBar />
       <MainContainer>
         <ContentWrapper>
-          <BeforeContainer onClick={goBackToFeed}>
-            <p>←</p>
-          </BeforeContainer>
-
           <HeaderSection activity={activity} category={category} />
           <CardContainer>
             <TitleCard activity={activity} />
