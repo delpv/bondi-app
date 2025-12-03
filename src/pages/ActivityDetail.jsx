@@ -69,17 +69,7 @@ const ActivityDetail = () => {
 
           <HeaderSection activity={activity} />
           <CardContainer>
-            <TitleCard
-              activity={activity}
-              whatToBring={
-                activity.get("whatToBring") || [
-                  "Yoga mat",
-                  "Water bottle",
-                  "Good energy",
-                  "Sunshine",
-                ]
-              }
-            />
+            <TitleCard activity={activity} />
             <HostCard host={host} hostInfo={hostInfo} activitiesHosted={8} />
             <ParticipantsCard
               participantNumber={12}
