@@ -7,7 +7,6 @@ import {
 } from "../styled/act-detail-style-comp/TitleCard.styled";
 
 import Info from "../../assets/icons_app/info.svg?react";
-import Divider from "../../assets/icons_app/divider.svg?react";
 
 const TitleCard = ({ activity }) => {
   const title = activity.get("Title");
@@ -19,7 +18,6 @@ const TitleCard = ({ activity }) => {
         <Info /> {title}
       </CardTitle>
       <CardDescription> {description}</CardDescription>
-      <Divider />
     </TitleCardContainer>
   );
 };
