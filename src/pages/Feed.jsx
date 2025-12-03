@@ -123,7 +123,7 @@ export default function Feed() {
                     priceLabel={activity.price === 0 ? "Free" : "Paid"}
                     title={activity.Title}
                     description={activity.description}
-                    hostId={activity.host_ID.objectId}
+                    hostId={activity.host_ID ? activity.host_ID.objectId : null}
                     maxParticipants={activity.maxCapacity}
                     location={activity.location}
                   />

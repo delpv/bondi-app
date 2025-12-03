@@ -24,6 +24,7 @@ const ActivityDetail = () => {
   const { id } = useParams();
   const [activity, setActivity] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [hostInfo, setHostInfo] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -32,7 +33,7 @@ const ActivityDetail = () => {
         const Activity = Parse.Object.extend("Activity");
         const query = new Parse.Query(Activity);
         query.include("host_ID");
-        query.include("host_ID.user_Info");
+        //query.include("host_ID.user_Info");
         query.include("category_id");
         const result = await query.get(id); // get by objectId
         setActivity(result);
@@ -46,11 +47,22 @@ const ActivityDetail = () => {
     if (id) fetchActivity();
   }, [id]);
 
+  useEffect(() => {
+    const loadHostInfo = async () => {
+      const host = activity?.get("host_ID");
+      if (!host) return;
+      const infoPtr = host.get("user_Info"); // pointer object, may be unfetched
+      if (!infoPtr) return;
+      const info = infoPtr.fetch ? await infoPtr.fetch() : infoPtr;
+      setHostInfo(info);
+    };
+    loadHostInfo();
+  }, [activity]);
+
   if (loading) return <div>Loading...</div>;
   if (!activity) return <div>Activity not found...</div>;
 
   const host = activity.get("host_ID");
-  const hostInfo = host.get("user_info");
   const location = activity.get("location");
 
   const goBackToFeed = () => {

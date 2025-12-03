@@ -35,7 +35,7 @@ const ParticipantsCard = ({
 
       <ParticipantList>
         {visibleParticipants.map((p, idx) => (
-          <ParticipantBadge key={idx} isHost={p === hostName}>
+          <ParticipantBadge key={idx} $isHost={p === hostName}>
             <ParticipantImage src={participantImage} alt={p} />
             <ParticipantInfo>
               <span>{p}</span>
