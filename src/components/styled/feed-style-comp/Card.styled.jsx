@@ -16,7 +16,7 @@ export const Container = styled.nav`
   box-shadow: 0 10px 30px rgba(18, 22, 25, 0.08);
   display: flex;
   flex-direction: column;
-  cursor: ${(p) => (p.isClickable ? "pointer" : "default")};
+  cursor: ${(p) => (p.$isClickable ? "pointer" : "default")};
 `;
 
 // this is the top image
@@ -195,5 +195,5 @@ export const ElypsisText = styled.span`
   flex: 1;
   min-width: 0;
   display: block;
-  margin-left: ${(p) => (p.withIcon ? "6px" : "0")};
+  margin-left: ${(p) => (p.$withIcon ? "6px" : "0")};
 `;
