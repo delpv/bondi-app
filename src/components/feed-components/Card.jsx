@@ -237,7 +237,7 @@ export default function Card({
               imHosting ||
               (!joined && partNumber === maxParticipants)
             }
-            joined={joined ? 1 : 0}
+            $joined={joined ? 1 : 0}
             onClick={handleToggleJoin}
             aria-pressed={joined}
             aria-label={joined ? "Cancel participation" : "Join activity"}

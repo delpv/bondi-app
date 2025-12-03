@@ -29,10 +29,11 @@ const LoginLeft = () => {
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [error, setError] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    setIsLoading(true);
     if (password !== repeatPassword) {
       setError("Password and repeat password do not match");
       return;
@@ -42,6 +43,8 @@ const LoginLeft = () => {
     } catch (e) {
       console.error(e);
       setError(e.message);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -120,7 +123,9 @@ const LoginLeft = () => {
           </Row>
         </Field>
 
-        <ButtonLogin type="submit">Sign up</ButtonLogin>
+        <ButtonLogin disabled={isLoading} type="submit">
+          {isLoading ? "Loading..." : "Sign up"}
+        </ButtonLogin>
       </FormCard>
 
       <BellowText>
