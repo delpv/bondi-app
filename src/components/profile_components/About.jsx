@@ -30,7 +30,14 @@ const About = ({ user }) => {
     try {
       setIsLoading(true);
 
-      const aboutMe = user.get("aboutMe") || "";
+      const userInfo = user?.get("user_Info");
+      if (!userInfo) {
+        setAboutText("");
+        setOriginalText("");
+        return;
+      }
+      const info = userInfo.fetch ? await userInfo.fetch() : userInfo;
+      const aboutMe = info.get("aboutMe") || "";
       setAboutText(aboutMe);
       setOriginalText(aboutMe);
     } catch (error) {
@@ -53,11 +60,15 @@ const About = ({ user }) => {
   const handleSave = async () => {
     try {
       setIsLoading(true);
-      const User = Parse.Object.extend("_User");
-      const query = new Parse.Query(User);
-      const user = await query.get(currentUserId);
-      user.set("aboutMe", aboutText);
-      await user.save();
+
+      const userInfoPtr = user?.get("user_Info");
+      if (!userInfoPtr) return;
+
+      const userInfo = userInfoPtr.fetch
+        ? await userInfoPtr.fetch()
+        : userInfoPtr;
+      userInfo.set("aboutMe", aboutText);
+      await userInfo.save();
 
       setOriginalText(aboutText);
       setIsEditing(false);
