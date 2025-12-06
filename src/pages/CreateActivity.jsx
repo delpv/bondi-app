@@ -107,8 +107,16 @@ export default function CreateActivity() {
     }
 
     console.log("DATA BEFORE SUBMIT:", data);
-    if (!data.title || !data.description || !data.date || !data.time || !data.endTime) {
-      alert("Please fill in title, description, date, start time and end time.");
+    if (
+      !data.title ||
+      !data.description ||
+      !data.date ||
+      !data.time ||
+      !data.endTime
+    ) {
+      alert(
+        "Please fill in title, description, date, start time and end time."
+      );
       return;
     }
 
@@ -129,10 +137,7 @@ export default function CreateActivity() {
       activity.set("Title", data.title.trim());
       activity.set("description", data.description.trim());
       activity.set("location", data.location.trim());
-      activity.set(
-        "time",
-        `${data.time}-${data.endTime}`
-      );
+      activity.set("time", `${data.time}-${data.endTime}`);
 
       activity.set("dateStart", startDate);
       activity.set("dateEnd", endDate);
@@ -251,7 +256,7 @@ export default function CreateActivity() {
                 value={data.endTime}
                 onChange={onChange}
               />
-            </FieldRow>  
+            </FieldRow>
 
             {/* Participants */}
             <FieldRow>

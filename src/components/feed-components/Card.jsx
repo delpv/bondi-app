@@ -37,7 +37,6 @@ export default function Card({
   maxParticipants,
   location,
   userId,
-  onViewMore,
 }) {
   const [hostObject, setHostObject] = useState(undefined);
   // const [isLoading, setIsLoading] = useState(false);

@@ -10,7 +10,8 @@ import {
   GridContainer,
 } from "../components/styled/feed-style-comp/Grid.styled.jsx";
 import { SectionHeader } from "../components/styled/feed-style-comp/Feed.styled.jsx";
-import { AuthContext } from "../context/AuthContext.jsx";
+import { fetchActivities } from "../services/parseService.js";
+import { filterActivities } from "../services/filterService.js";
 
 export default function Feed() {
   const user = Parse.User.current();
@@ -21,45 +22,7 @@ export default function Feed() {
 
   const handleApply = (filters) => {
     console.log("Applied Filters:", filters);
-
-    if (!activities) return;
-
-    let filtered = [...activities];
-
-    // Filter by search query (title)
-    if (filters.query && filters.query.trim() !== "") {
-      filtered = filtered.filter((activity) =>
-        activity.Title.toLowerCase().includes(filters.query.toLowerCase())
-      );
-    }
-
-    // Filter by category
-    if (filters.category && filters.category.trim() !== "") {
-      filtered = filtered.filter((activity) => {
-        const categoryName =
-          activity.category_id?.name || activity.category?.name || "";
-        return categoryName.toLowerCase() === filters.category.toLowerCase();
-      });
-    }
-
-    // Filter by location
-    if (filters.location && filters.location.trim() !== "") {
-      filtered = filtered.filter((activity) =>
-        activity.location
-          ?.toLowerCase()
-          .includes(filters.location.toLowerCase())
-      );
-    }
-
-    // Filter by price
-    if (filters.priceType) {
-      if (filters.priceType === "free") {
-        filtered = filtered.filter((activity) => activity.price === 0);
-      } else if (filters.priceType === "paid") {
-        filtered = filtered.filter((activity) => activity.price > 0);
-      }
-    }
-
+    const filtered = filterActivities(activities, filters);
     setFilteredActivities(filtered);
   };
 
@@ -67,28 +30,21 @@ export default function Feed() {
     setFilteredActivities(activities || []);
   };
 
-  const getActivities = async () => {
-    const query = new Parse.Query("Activity");
-    query.include("category_id");
-
+  const loadActivities = async () => {
     setIsLoading(true);
     try {
-      const activitiesArray = await query.find();
-      const allActivities = activitiesArray.map((activity) =>
-        activity.toJSON()
-      );
-
+      const allActivities = await fetchActivities();
       setActivites(allActivities);
       setFilteredActivities(allActivities);
-    } catch (e) {
-      console.log(e);
+    } catch (error) {
+      console.error("Failed to load activities:", error);
     } finally {
       setIsLoading(false);
     }
   };
 
   useEffect(() => {
-    getActivities();
+    loadActivities();
   }, []);
 
   return (
