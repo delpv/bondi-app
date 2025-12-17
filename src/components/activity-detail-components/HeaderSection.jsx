@@ -23,8 +23,8 @@ import Calendar from "../../assets/icons_app/calendar.svg?react";
 // import Clock from "../../assets/Icons/clock.svg?react";
 import Location from "../../assets/icons_app/location.svg?react";
 
-const HeaderSection = ({ activity, category, host }) => {
-  const [hasJoined, setHasJoined] = useState(false);
+const HeaderSection = ({ activity, category, host, initialHasJoined }) => {
+  const [hasJoined, setHasJoined] = useState(initialHasJoined || false);
   const [joinedCount, setJoinedCount] = useState(0);
   const [waitingList, setWaitingList] = useState(false);
   const [isHost, setIsHost] = useState(false);
@@ -75,6 +75,10 @@ const HeaderSection = ({ activity, category, host }) => {
     }
   };
 
+  useEffect(() => {
+    setHasJoined(initialHasJoined || false);
+  }, [initialHasJoined]);
+
   const dateStart = activity.dateStart ? new Date(activity.dateStart) : null;
   const dateEnd = activity.dateEnd ? new Date(activity.dateEnd) : null;
 
@@ -109,7 +113,7 @@ const HeaderSection = ({ activity, category, host }) => {
           <JoinButton
             $joined={hasJoined || isHost}
             onClick={handleJoin}
-            disabled={isHost} // optional: host cannot (un)join
+            disabled={isHost}
           >
             {isHost
               ? "I am hosting"

@@ -24,6 +24,7 @@ const ActivityDetail = () => {
   const [hostInfo, setHostInfo] = useState(null);
   const [category, setCategory] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [hasJoined, setHasJoined] = useState(false);
 
   useEffect(() => {
     const fetchActivityAndHost = async () => {
@@ -45,6 +46,29 @@ const ActivityDetail = () => {
     if (id) fetchActivityAndHost();
   }, [id]);
 
+  useEffect(() => {
+    const checkJoined = async () => {
+      const currentUser = Parse.User.current();
+      if (!currentUser || !activity) return;
+
+      try {
+        const activityQuery = new Parse.Query("Activity");
+        const currentActivity = await activityQuery.get(activity.objectId);
+
+        const participationQuery = new Parse.Query("Participation");
+        participationQuery.equalTo("activity_id", currentActivity);
+        participationQuery.equalTo("UserId", currentUser);
+
+        const existing = await participationQuery.first();
+        setHasJoined(!!existing);
+      } catch (err) {
+        console.error("Error checking joined status:", err);
+      }
+    };
+
+    checkJoined();
+  }, [activity]);
+
   if (loading) return <div>Loading...</div>;
   if (!activity) return <div>Activity not found...</div>;
 
@@ -58,7 +82,12 @@ const ActivityDetail = () => {
       <NavBar />
       <MainContainer>
         <ContentWrapper>
-          <HeaderSection activity={activity} category={category} host={host} />
+          <HeaderSection
+            activity={activity}
+            category={category}
+            host={host}
+            initialHasJoined={hasJoined}
+          />
           <CardContainer>
             <TitleCard activity={activity} />
 
