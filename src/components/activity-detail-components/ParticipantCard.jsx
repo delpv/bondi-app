@@ -18,6 +18,7 @@ const ParticipantsCard = ({ activityId, participantImage, hostName }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [participants, setParticipants] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [maxCapacity, setMaxCapacity] = useState(null);
 
   useEffect(() => {
     if (!activityId) return;
@@ -25,16 +26,21 @@ const ParticipantsCard = ({ activityId, participantImage, hostName }) => {
     const fetchParticipants = async () => {
       setIsLoading(true);
       try {
+        // 1) Get the Activity object (with maxCapacity)
         const Activity = Parse.Object.extend("Activity");
-        const activityPtr = Activity.createWithoutData(activityId);
+        const activityQuery = new Parse.Query(Activity);
+        const activity = await activityQuery.get(activityId);
 
-        const query = new Parse.Query("Participation");
-        query.equalTo("activity_id", activityPtr);
-        query.include("user_id"); // if you have a user pointer
+        // save maxCapacity from Activity
+        setMaxCapacity(activity.get("maxCapacity"));
 
-        const results = await query.find();
+        // 2) Query Participation for this activity
+        const participationQuery = new Parse.Query("Participation");
+        participationQuery.equalTo("activity_id", activity); // pointer
+        participationQuery.include("user_id");
 
-        // adapt this to your Participation schema:
+        const results = await participationQuery.find();
+
         const names = results.map((p) => {
           const user = p.get("user_id");
           return user
@@ -60,7 +66,7 @@ const ParticipantsCard = ({ activityId, participantImage, hostName }) => {
     <ParticipantsCardContainer>
       <ParticipantTitle>
         <Participant />
-        Participants ({count})
+        Participants ({participants.length}/{maxCapacity})
       </ParticipantTitle>
 
       <Divider />
