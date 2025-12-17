@@ -58,7 +58,7 @@ const ActivityDetail = () => {
       <NavBar />
       <MainContainer>
         <ContentWrapper>
-          <HeaderSection activity={activity} category={category} />
+          <HeaderSection activity={activity} category={category} host={host} />
           <CardContainer>
             <TitleCard activity={activity} />
 

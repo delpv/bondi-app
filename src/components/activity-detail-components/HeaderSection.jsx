@@ -1,7 +1,6 @@
-// Styled imports
 import React, { useState, useEffect } from "react";
+import { getCurrentUser } from "../../utils/getCurrentUser";
 
-// Styled imports
 import {
   HeaderSectionContainer,
   HeaderImage,
@@ -24,16 +23,44 @@ import Calendar from "../../assets/icons_app/calendar.svg?react";
 // import Clock from "../../assets/Icons/clock.svg?react";
 import Location from "../../assets/icons_app/location.svg?react";
 
-const HeaderSection = ({ activity, category }) => {
+const HeaderSection = ({ activity, category, host }) => {
   const [hasJoined, setHasJoined] = useState(false);
   const [joinedCount, setJoinedCount] = useState(0);
   const [waitingList, setWaitingList] = useState(false);
+  const [isHost, setIsHost] = useState(false);
 
   if (!activity) return <div>Loading...</div>;
 
   const maxCapacity = activity.maxCapacity || 0;
 
+  useEffect(() => {
+    const checkHost = async () => {
+      const currentUser = await getCurrentUser();
+      if (!currentUser || !host) return;
+
+      const hostId =
+        host.id ||
+        host.objectId ||
+        (typeof host.get === "function" ? host.get("objectId") : undefined);
+
+      const currentUserId =
+        currentUser.id ||
+        (typeof currentUser.get === "function"
+          ? currentUser.get("objectId")
+          : undefined);
+
+      console.log("hostId =", hostId);
+      console.log("currentUserId =", currentUserId);
+
+      setIsHost(currentUserId && hostId && currentUserId === hostId);
+    };
+
+    checkHost();
+  }, [host]);
+
   const handleJoin = () => {
+    if (isHost) return;
+
     if (hasJoined) {
       setHasJoined(false);
       setJoinedCount((prev) => prev - 1);
@@ -79,12 +106,18 @@ const HeaderSection = ({ activity, category }) => {
           <Label type="green">{categoryName}</Label>
         </CardLeft>
         <CardRight>
-          <JoinButton $joined={hasJoined} onClick={handleJoin}>
-            {waitingList
-              ? "Join Waiting List"
-              : hasJoined
-                ? "Joined"
-                : "Join Activity"}
+          <JoinButton
+            $joined={hasJoined || isHost}
+            onClick={handleJoin}
+            disabled={isHost} // optional: host cannot (un)join
+          >
+            {isHost
+              ? "I am hosting"
+              : waitingList
+                ? "Join Waiting List"
+                : hasJoined
+                  ? "Joined"
+                  : "Join Activity"}
           </JoinButton>
 
           <CountLabel>
@@ -94,7 +127,7 @@ const HeaderSection = ({ activity, category }) => {
             people joined
           </CountLabel>
 
-          {joinedCount >= maxCapacity && (
+          {joinedCount >= maxCapacity && !isHost && (
             <WaitingList>
               <p>Activity is full — you’re on the waiting list.</p>
             </WaitingList>
