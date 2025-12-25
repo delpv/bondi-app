@@ -205,7 +205,7 @@ export default function Card({
           {hostObject && (
             <HostInfo>
               <HostAvatar
-                src={avatarUrl ? "public/" + avatarUrl : "fallback.jpg"}
+                src={avatarUrl || "/defaultAvatar.jpg"}
                 alt={hostObject?.fullName || hostObject?.username}
               />
               <HostMeta>
