@@ -1,5 +1,5 @@
 import React from "react";
-import Navbar from "../components/feed-components/Navbar";
+import Navbar from "../components/feed-components/NavBar";
 import Footer from "../components/feed-components/Footer";
 import {
   AboutUsWrapper,
@@ -19,13 +19,13 @@ function AboutUs() {
 
           <Paragraph>
             Bondi is a warm, welcoming social app designed to bring people
-            together through shared interests and real-life activities — right
+            together through shared interests and real-life activities, right
             here in Copenhagen.
           </Paragraph>
 
           <Paragraph>
             Moving to a new city or country can feel overwhelming. New culture,
-            new routines, new people — and no clear place to start. Whether
+            new routines, new people, and no clear place to start. Whether
             you're a newcomer, an expat, someone feeling a bit lonely, or a
             local looking to expand your circle, Bondi makes it easier to find
             your people and feel at home.
@@ -40,7 +40,7 @@ function AboutUs() {
           </Paragraph>
 
           <Paragraph>
-            Bondi is all about meaningful moments — grabbing a coffee with
+            Bondi is all about meaningful moments, grabbing a coffee with
             someone new, joining a group walk, exploring the city together, or
             discovering a shared passion you didn't know you had. It's not about
             endless scrolling or awkward small talk. It's about bonding,
@@ -51,7 +51,7 @@ function AboutUs() {
             At its core, Bondi believes that no one should feel alone in a city
             full of life. By keeping things simple, organized, and intuitive,
             the app removes the uncertainty of where to go, who to meet, and how
-            to begin. Bondi opens the door — you just have to step outside.
+            to begin. Bondi opens the door, you just have to step outside.
           </Paragraph>
 
           <Tagline>Bondi. Less screen time. More real connections.</Tagline>

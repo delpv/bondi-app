@@ -47,9 +47,13 @@ function Footer() {
                 veko@itu.dk
               </FooterLink>
             </ContactSection>
-            <FooterLink as={Link} to="/about">
+            <ContactSection>
               <strong>About Us</strong>
-            </FooterLink>
+
+              <FooterLink as={Link} to="/about">
+                Read more
+              </FooterLink>
+            </ContactSection>
           </TopLinks>
         </CenterBlock>
 
