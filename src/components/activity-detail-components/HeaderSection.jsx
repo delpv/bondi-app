@@ -19,7 +19,7 @@ import {
 import Calendar from "../../assets/icons_app/calendar.svg?react";
 import Location from "../../assets/icons_app/location.svg?react";
 
-import { useActivityJoin } from "../../hooks/activityJoin.js";
+import { useActivityJoin } from "../../hooks/useActivityJoin.js";
 import { formatActivityDate } from "../../services/dateService";
 
 const HeaderSection = ({ activity, category }) => {

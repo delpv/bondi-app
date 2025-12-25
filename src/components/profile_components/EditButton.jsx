@@ -7,13 +7,19 @@ import {
   EditDropdownOption,
 } from "../styled/profile-style-comp/Interest.styled";
 
-const EditDropdown = ({ isOpen, onToggle, onAddNew, onRemove }) => {
+const EditDropdown = ({
+  isOpen,
+  onClickEditButton,
+  setShowEditOptions,
+  onAddNew,
+  onRemove,
+}) => {
   const dropdownRef = useRef(null);
 
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-        onToggle(false);
+        setShowEditOptions(false);
       }
     };
 
@@ -24,11 +30,11 @@ const EditDropdown = ({ isOpen, onToggle, onAddNew, onRemove }) => {
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, [isOpen, onToggle]);
+  }, [isOpen, setShowEditOptions]);
 
   return (
     <EditDropdownContainer>
-      <EditButton onClick={() => onToggle(!isOpen)}>
+      <EditButton onClick={() => onClickEditButton(!isOpen)}>
         <EditIcon />
       </EditButton>
 

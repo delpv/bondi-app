@@ -82,7 +82,8 @@ const Interest = () => {
         <InterestTitle>Interests</InterestTitle>
         <EditDropdown
           isOpen={showEditOptions}
-          onToggle={handleDropdownToggle}
+          onClickEditButton={handleDropdownToggle}
+          setShowEditOptions={setShowEditOptions}
           onAddNew={handleAddNew}
           onRemove={handleRemove}
         />
