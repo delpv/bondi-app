@@ -41,7 +41,7 @@ const Cover = ({ user }) => {
   }, [currentUserId]); // Re-load when user changes
 
   const loadUserData = async () => {
-    if (!currentUserId) return; //to prevent error
+    if (!currentUserId) return;
     try {
       setIsLoading(true);
       const User = Parse.Object.extend("_User");
@@ -95,7 +95,6 @@ const Cover = ({ user }) => {
       >
         <CoverOverlay />
 
-        {/* Action buttons */}
         <ActionButtons>
           <EditProfileButton
             onClick={() => {

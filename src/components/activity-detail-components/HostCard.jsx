@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { useNavigate } from "react-router";
-import Parse from "parse";
 import {
   HostCardContainer,
   HostTitle,
@@ -17,25 +16,18 @@ import {
 } from "../styled/act-detail-style-comp/HostCard.styled.jsx";
 import UserIcon from "../../assets/icons_app/user_icon.svg?react";
 import Divider from "../../assets/icons_app/divider.svg?react";
-import { AuthContext } from "../../context/AuthContext.jsx";
+import { formatMemberSince } from "../../services/dateService";
 
 const HostCard = ({ host, hostInfo, activitiesHosted }) => {
   const navigate = useNavigate();
 
   if (!host) return <div>No host data</div>;
 
-  const profilePictureFile = hostInfo?.profilePicture;
-  const profilePictureUrl = profilePictureFile
-    ? profilePictureFile.url()
-    : null;
+  const profilePictureUrl = hostInfo?.profilePicture?.url() || null;
   const hostName = host.fullName || "Unknown host";
   const aboutMe = hostInfo?.aboutMe || "No description available.";
-  let memberSince = "Unknown";
 
-  if (host?.createdAt) {
-    const date = new Date(host.createdAt);
-    memberSince = date.getFullYear();
-  }
+  const memberSince = formatMemberSince(host?.createdAt);
 
   const goToProfile = () => {
     navigate("/profile");

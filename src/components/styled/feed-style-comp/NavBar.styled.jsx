@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-//created some color variables for easier reuse
+//color variables for easier reuse
 const coral = "#E78F8E";
 const ink = "#111318";
 const border = "#E9ECEF";
@@ -101,7 +101,6 @@ export const NavActions = styled.div`
   gap: 12px;
 `;
 
-//for settings and logout icons
 export const IconButton = styled.button`
   display: inline-grid;
   place-items: center;

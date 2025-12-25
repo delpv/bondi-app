@@ -1,7 +1,4 @@
-// Styled imports
-import React, { useState, useEffect } from "react";
-
-// Styled imports
+import React from "react";
 import {
   HeaderSectionContainer,
   HeaderImage,
@@ -19,45 +16,26 @@ import {
   CountNumber,
 } from "../styled/act-detail-style-comp/Common.jsx";
 
-// Icons
 import Calendar from "../../assets/icons_app/calendar.svg?react";
-// import Clock from "../../assets/Icons/clock.svg?react";
 import Location from "../../assets/icons_app/location.svg?react";
 
+import { useActivityJoin } from "../../hooks/activityJoin.js";
+import { formatActivityDate } from "../../services/dateService";
+
 const HeaderSection = ({ activity, category }) => {
-  const [hasJoined, setHasJoined] = useState(false);
-  const [joinedCount, setJoinedCount] = useState(0);
-  const [waitingList, setWaitingList] = useState(false);
+  const maxCapacity = activity.maxCapacity || 0;
+
+  const { hasJoined, joinedCount, waitingList, isFull, handleJoin } =
+    useActivityJoin(maxCapacity);
 
   if (!activity) return <div>Loading...</div>;
 
-  const maxCapacity = activity.maxCapacity || 0;
-
-  const handleJoin = () => {
-    if (hasJoined) {
-      setHasJoined(false);
-      setJoinedCount((prev) => prev - 1);
-      setWaitingList(false);
-    } else {
-      if (joinedCount < maxCapacity) {
-        setHasJoined(true);
-        setJoinedCount((prev) => prev + 1);
-      } else {
-        setWaitingList(true);
-      }
-    }
-  };
-
-  const dateStart = activity.dateStart ? new Date(activity.dateStart) : null;
-  const dateEnd = activity.dateEnd ? new Date(activity.dateEnd) : null;
-
-  const formattedStart = dateStart ? dateStart.toLocaleString() : "TBD";
-  const formattedEnd = dateEnd ? dateEnd.toLocaleString() : "TBD";
+  const formattedStart = formatActivityDate(activity.dateStart);
+  const formattedEnd = formatActivityDate(activity.dateEnd);
 
   const title = activity.Title || "TBD";
   const location = activity.location || "Location to be decided";
   const categoryName = category?.name || "Any ideas?";
-
   const image = activity.coverPhoto_img?.url() || "No image";
 
   return (
@@ -69,10 +47,6 @@ const HeaderSection = ({ activity, category }) => {
           <Label type="yellow">
             <Calendar /> {formattedStart} - {formattedEnd}
           </Label>
-
-          {/* <Label type="yellow">
-            <Clock /> Time
-          </Label> */}
           <Label type="yellow">
             <Location /> {location}
           </Label>
@@ -94,9 +68,9 @@ const HeaderSection = ({ activity, category }) => {
             people joined
           </CountLabel>
 
-          {joinedCount >= maxCapacity && (
+          {isFull && (
             <WaitingList>
-              <p>Activity is full — you’re on the waiting list.</p>
+              <p>Activity is full — you're on the waiting list.</p>
             </WaitingList>
           )}
         </CardRight>

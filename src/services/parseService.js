@@ -1,7 +1,7 @@
 import Parse from 'parse';
 
 /** 
- * Fetck all activities from Parse 
+ * Fetch all activities from Parse 
  * @returns {Promise<Array>} - A promise that resolves to an array of activities
  */
 

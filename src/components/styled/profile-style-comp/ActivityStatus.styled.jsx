@@ -1,6 +1,5 @@
 import styled from "styled-components";
 
-// Activity Status section parent container
 export const ActivityStatusContainer = styled.section`
   width: 100%;
   max-width: 960px;
@@ -8,7 +7,7 @@ export const ActivityStatusContainer = styled.section`
   min-height: 173px;
   border-radius: 12px;
   padding: 6px 10px;
-  background: #FFFFFF;
+  background: #ffffff;
   box-shadow:
     0px 1px 3px 0px rgba(0, 0, 0, 0.3),
     0px 4px 8px 3px rgba(0, 0, 0, 0.15);
@@ -17,7 +16,6 @@ export const ActivityStatusContainer = styled.section`
   position: relative;
 `;
 
-// Header frame - contains title
 export const HeaderFrame = styled.div`
   width: 190px;
   max-width: 100%;
@@ -29,7 +27,6 @@ export const HeaderFrame = styled.div`
   box-sizing: border-box;
 `;
 
-// Title section
 export const TitleSection = styled.div`
   width: 190px;
   max-width: 100%;
@@ -40,12 +37,16 @@ export const TitleSection = styled.div`
   box-sizing: border-box;
 `;
 
-// Activity Status title
 export const SectionTitle = styled.h2`
   width: 170px;
   max-width: 100%;
   height: 29px;
-  font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-family:
+    "Poppins",
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
   font-weight: 600;
   font-size: 1.5rem;
   line-height: 120%;
@@ -55,7 +56,6 @@ export const SectionTitle = styled.h2`
   margin: 0;
 `;
 
-// Status content container
 export const StatusContent = styled.div`
   width: 100%;
   height: 92px;
@@ -75,7 +75,6 @@ export const StatusContent = styled.div`
   }
 `;
 
-// Individual status item
 export const StatusItem = styled.div`
   width: 200px;
   max-width: 100%;
@@ -85,7 +84,7 @@ export const StatusItem = styled.div`
   align-items: center;
   justify-content: center;
   gap: 20px;
-  background: #FFFFFF;
+  background: #ffffff;
   flex: 1;
   min-width: 0;
 
@@ -98,7 +97,6 @@ export const StatusItem = styled.div`
   }
 `;
 
-// Number container
 export const NumberContainer = styled.div`
   width: 100%;
   max-width: 200px;
@@ -109,19 +107,22 @@ export const NumberContainer = styled.div`
   gap: 10px;
 `;
 
-// Status number
 export const StatusNumber = styled.span`
-  font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-family:
+    "Poppins",
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
   font-weight: 600;
   font-size: 1.5rem;
   line-height: 120%;
   letter-spacing: -0.02em;
   text-align: center;
-  color: #3A00E5;
+  color: #3a00e5;
   margin: 0;
 `;
 
-// Text activity container
 export const TextContainer = styled.div`
   width: 100%;
   max-width: 200px;
@@ -132,12 +133,16 @@ export const TextContainer = styled.div`
   gap: 10px;
 `;
 
-// Status description text
 export const StatusText = styled.span`
   width: 100%;
   max-width: 200px;
   height: 23px;
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-family:
+    "Inter",
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
   font-weight: 300;
   font-size: 0.875rem;
   line-height: 120%;

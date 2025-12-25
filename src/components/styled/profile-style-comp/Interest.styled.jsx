@@ -1,6 +1,5 @@
 import styled from "styled-components";
 
-// Interest section parent container
 export const InterestContainer = styled.section`
   width: 100%;
   max-width: 960px;
@@ -8,7 +7,7 @@ export const InterestContainer = styled.section`
   min-height: 220px;
   border-radius: 12px;
   padding: 6px 10px;
-  background: #FFFFFF;
+  background: #ffffff;
   box-shadow:
     0px 1px 3px 0px rgba(0, 0, 0, 0.3),
     0px 4px 8px 3px rgba(0, 0, 0, 0.15);
@@ -17,7 +16,6 @@ export const InterestContainer = styled.section`
   position: relative;
 `;
 
-// Interest frame - header section with title and edit button
 export const InterestFrame = styled.div`
   width: 100%;
   height: 69px;
@@ -28,16 +26,19 @@ export const InterestFrame = styled.div`
   gap: 10px;
 `;
 
-// Interest title
 export const InterestTitle = styled.h2`
-  font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-family:
+    "Poppins",
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
   font-size: 1.5rem;
   font-weight: 600;
   color: #111318;
   margin: 0;
 `;
 
-// Edit button
 export const EditButton = styled.button`
   width: 32px;
   height: 32px;
@@ -63,7 +64,6 @@ export const EditButton = styled.button`
   }
 `;
 
-// Interest chips container - 2 rows, 4 columns grid
 export const InterestChipsContainer = styled.div`
   width: 100%;
   height: auto;
@@ -76,7 +76,6 @@ export const InterestChipsContainer = styled.div`
   box-sizing: border-box;
 `;
 
-// Base interest chip styles
 const BaseInterestChip = styled.div`
   width: 100%;
   height: 40px;
@@ -86,49 +85,68 @@ const BaseInterestChip = styled.div`
   align-items: center;
   justify-content: center;
   box-sizing: border-box;
-  cursor: ${props => props.isRemoveMode ? 'pointer' : 'default'};
-  opacity: ${props => props.isRemoveMode ? 0.7 : 1};
-  transform: ${props => props.isRemoveMode ? 'scale(0.95)' : 'scale(1)'};
+  cursor: ${(props) => (props.isRemoveMode ? "pointer" : "default")};
+  opacity: ${(props) => (props.isRemoveMode ? 0.7 : 1)};
+  transform: ${(props) => (props.isRemoveMode ? "scale(0.95)" : "scale(1)")};
   transition: all 0.2s ease;
-  border: ${props => props.isRemoveMode ? '2px dashed #ff4444' : 'none'};
+  border: ${(props) => (props.isRemoveMode ? "2px dashed #ff4444" : "none")};
 `;
 
-// Interest chip color variants
 export const InterestChipCoral = styled(BaseInterestChip)`
-  background: linear-gradient(90deg, #F6B4AF 40.39%, rgba(144, 105, 102, 0.5) 100%);
+  background: linear-gradient(
+    90deg,
+    #f6b4af 40.39%,
+    rgba(144, 105, 102, 0.5) 100%
+  );
 `;
 
 export const InterestChipPeach = styled(BaseInterestChip)`
-  background: linear-gradient(90deg, #FAE6C8 46.56%, rgba(144, 105, 102, 0.5) 100%);
+  background: linear-gradient(
+    90deg,
+    #fae6c8 46.56%,
+    rgba(144, 105, 102, 0.5) 100%
+  );
 `;
 
 export const InterestChipMint = styled(BaseInterestChip)`
-  background: linear-gradient(90deg, #D1EEDF 46.56%, rgba(144, 105, 102, 0.5) 100%);
+  background: linear-gradient(
+    90deg,
+    #d1eedf 46.56%,
+    rgba(144, 105, 102, 0.5) 100%
+  );
 `;
 
 export const InterestChipOrange = styled(BaseInterestChip)`
-  background: linear-gradient(90deg, #FFB370 55.77%, rgba(144, 105, 102, 0.5) 100%);
+  background: linear-gradient(
+    90deg,
+    #ffb370 55.77%,
+    rgba(144, 105, 102, 0.5) 100%
+  );
 `;
 
 export const InterestChipBlue = styled(BaseInterestChip)`
-  background: linear-gradient(90deg, #B8DEFF 0%, #437199 99.67%);
+  background: linear-gradient(90deg, #b8deff 0%, #437199 99.67%);
 `;
 
 export const InterestChipPurple = styled(BaseInterestChip)`
-  background: linear-gradient(90deg, #D789E2 38.94%, #437199 99.67%);
+  background: linear-gradient(90deg, #d789e2 38.94%, #437199 99.67%);
 `;
 
 export const InterestChipGreen = styled(BaseInterestChip)`
-  background: linear-gradient(90deg, #ACDD8A 44.23%, #437199 99.67%);
+  background: linear-gradient(90deg, #acdd8a 44.23%, #437199 99.67%);
 `;
 
 export const InterestChipDefault = styled(BaseInterestChip)`
-  background: linear-gradient(90deg, #E5E7EB 0%, #9CA3AF 100%);
+  background: linear-gradient(90deg, #e5e7eb 0%, #9ca3af 100%);
 `;
 
-// Text inside the chip
 export const ChipText = styled.span`
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-family:
+    "Inter",
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
   width: 100%;
   height: 20px;
   font-size: 0.875rem;
@@ -141,12 +159,10 @@ export const ChipText = styled.span`
   white-space: nowrap;
 `;
 
-// Edit dropdown container with relative positioning
 export const EditDropdownContainer = styled.div`
   position: relative;
 `;
 
-// Edit options dropdown
 export const EditDropdown = styled.div`
   position: absolute;
   top: 100%;
@@ -160,7 +176,6 @@ export const EditDropdown = styled.div`
   overflow: hidden;
 `;
 
-// Edit dropdown option button
 export const EditDropdownOption = styled.button`
   width: 100%;
   padding: 12px 16px;
@@ -170,16 +185,20 @@ export const EditDropdownOption = styled.button`
   cursor: pointer;
   font-size: 0.875rem;
   color: #374151;
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-family:
+    "Inter",
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
   border-radius: 0;
   display: block;
 
   &:hover {
-    background: #68B6FF;
+    background: #68b6ff;
   }
 `;
 
-// Chip input for editing
 export const ChipInput = styled.input`
   width: 100%;
   background: transparent;
@@ -189,10 +208,14 @@ export const ChipInput = styled.input`
   font-size: 0.875rem;
   font-weight: 500;
   color: #374151;
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-family:
+    "Inter",
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
 `;
 
-// Remove mode tooltip
 export const RemoveModeTooltip = styled.div`
   position: absolute;
   top: 50%;

@@ -39,7 +39,6 @@ export default function Card({
   userId,
 }) {
   const [hostObject, setHostObject] = useState(undefined);
-  // const [isLoading, setIsLoading] = useState(false);
   const [isJoining, setIsJoining] = useState(false);
   const [joined, setJoined] = useState(false);
   const [partNumber, setPartNumber] = useState(undefined);
@@ -57,7 +56,6 @@ export default function Card({
       return;
     }
 
-    // setIsLoading(true);
     try {
       const hostJson = await await Parse.Cloud.run("getUserById", {
         userId: hostId,
@@ -66,8 +64,6 @@ export default function Card({
       setHostObject(hostJson);
     } catch (e) {
       console.log(e);
-      // } finally {
-      //   setIsLoading(false);
     }
   };
 

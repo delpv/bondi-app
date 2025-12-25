@@ -28,13 +28,13 @@ function Footer() {
         </LeftBlock>
 
         <CenterBlock>
+          <strong>Contact Us</strong>
           <FooterLink as={Link} to="/contact">
-            {" "}
-            Contact Us{" "}
+            bondi-group@gmail.com{" "}
           </FooterLink>
           <FooterLink as={Link} to="/about">
             {" "}
-            About Us{" "}
+            <strong>About Us</strong>{" "}
           </FooterLink>
         </CenterBlock>
 

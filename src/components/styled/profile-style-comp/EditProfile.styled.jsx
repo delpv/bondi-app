@@ -1,6 +1,5 @@
 import styled from "styled-components";
 
-// Edit Profile Button with specific styling
 export const EditProfileButton = styled.button`
   width: 64px;
   height: 64px;
@@ -52,7 +51,6 @@ export const EditProfileButton = styled.button`
   }
 `;
 
-// Edit modal overlay
 export const EditModalOverlay = styled.div`
   position: fixed;
   top: 0;
@@ -66,7 +64,6 @@ export const EditModalOverlay = styled.div`
   z-index: 1000;
 `;
 
-// Edit modal container
 export const EditModalContainer = styled.div`
   background-color: white;
   border-radius: 12px;
@@ -75,19 +72,16 @@ export const EditModalContainer = styled.div`
   max-width: 90vw;
 `;
 
-// Edit modal title
 export const EditModalTitle = styled.h3`
   margin: 0 0 20px 0;
   font-size: 18px;
   font-weight: 600;
 `;
 
-// Edit modal field container
 export const EditModalField = styled.div`
   margin-bottom: 20px;
 `;
 
-// Edit modal label
 export const EditModalLabel = styled.label`
   display: block;
   margin-bottom: 8px;
@@ -95,7 +89,6 @@ export const EditModalLabel = styled.label`
   font-weight: 500;
 `;
 
-// Edit modal input
 export const EditModalInput = styled.input`
   width: 100%;
   padding: 12px;
@@ -104,20 +97,18 @@ export const EditModalInput = styled.input`
   font-size: 14px;
 `;
 
-// Edit modal actions container
 export const EditModalActions = styled.div`
   display: flex;
   gap: 10px;
   justify-content: flex-end;
 `;
 
-// Base edit modal button styles
 const BaseEditModalButton = styled.button`
   border: none;
   border-radius: 6px;
   font-size: 14px;
-  cursor: ${props => props.disabled ? 'not-allowed' : 'pointer'};
-  opacity: ${props => props.disabled ? 0.5 : 1};
+  cursor: ${(props) => (props.disabled ? "not-allowed" : "pointer")};
+  opacity: ${(props) => (props.disabled ? 0.5 : 1)};
 `;
 
 export const EditModalSuccessButton = styled(BaseEditModalButton)`

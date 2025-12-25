@@ -19,7 +19,6 @@ export const Container = styled.nav`
   cursor: ${(p) => (p.$isClickable ? "pointer" : "default")};
 `;
 
-// this is the top image
 export const Hero = styled.header`
   position: relative;
   width: 100%;
@@ -82,7 +81,6 @@ export const Description = styled.p`
   -webkit-box-orient: vertical;
 `;
 
-/* host row with avatar on left and participants on right */
 export const HostRow = styled.div`
   display: flex;
   justify-content: space-between;
