@@ -7,6 +7,7 @@ const border = "#E9ECEF";
 
 export const NavBarContainer = styled.nav`
   width: 100%;
+  position: sticky;
   top: 0px;
   left: 0px;
   background: #fff;

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Parse from "parse";
 import Avatar from "/defaultAvatar.jpg";
-import CoverBackground from "../../assets/images/profile-images/cover_background.jpg";
+import CoverBackground from "/puzzle-background.jpg";
 import EditProfileIcon from "../../assets/icons_app/edit-profile.svg?react";
 import {
   CoverContainer,
