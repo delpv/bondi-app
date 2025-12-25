@@ -10,9 +10,8 @@ export const fetchActivities = async () => {
     query.include("category_id");
 
     try {
-        const activitiesArray = await query.find();
-        const allActivities = activitiesArray.map((activity) => activity.toJSON());
-        return allActivities;
+        const result = await Parse.Cloud.run("getActivitiesWithExtraDetails");
+        return result;
     } catch (error) {
         console.error("Error fetching activities:", error);
         throw error;

@@ -28,43 +28,32 @@ import Parse from "parse";
 
 export default function Card({
   id,
-  image,
+  imageUrl,
   date,
   priceLabel,
   title,
   description,
-  hostId,
+  hostFullName,
   maxParticipants,
   location,
   userId,
+  hostObject,
 }) {
-  const [hostObject, setHostObject] = useState(undefined);
+  const user = Parse.User.current();
+
   const [isJoining, setIsJoining] = useState(false);
   const [joined, setJoined] = useState(false);
   const [partNumber, setPartNumber] = useState(undefined);
   const navigate = useNavigate();
-  const imHosting = hostObject?.objectId === userId;
+  console.log(hostObject, user);
+  const imHosting =
+    hostObject !== undefined &&
+    hostObject !== undefined &&
+    hostObject?.user_ID.id === user?.id;
 
   const goToDetail = () => {
     if (!id) return;
     navigate(`/activity/${id}`);
-  };
-
-  const getHost = async () => {
-    if (!hostId) {
-      console.log("No hostId provided");
-      return;
-    }
-
-    try {
-      const hostJson = await await Parse.Cloud.run("getUserById", {
-        userId: hostId,
-      });
-
-      setHostObject(hostJson);
-    } catch (e) {
-      console.log(e);
-    }
   };
 
   const getTotalParticipants = async () => {
@@ -96,7 +85,6 @@ export default function Card({
 
   useEffect(() => {
     const makeApiCalls = async () => {
-      await getHost();
       await getTotalParticipants();
     };
     makeApiCalls();
@@ -171,7 +159,7 @@ export default function Card({
     return "Join";
   };
 
-  const avatarUrl = hostObject?.user_Info?.profilePictureUrl;
+  const avatarUrl = hostObject?.profilePicture?._url;
 
   return (
     <Container
@@ -183,7 +171,7 @@ export default function Card({
       aria-label={`Open details for ${title}`}
     >
       <Hero>
-        <HeroImage src={image?.url || "default.jpg"} alt={title} />
+        <HeroImage src={imageUrl || "default.jpg"} alt={title} />
         <CornerChips>
           {new Intl.DateTimeFormat("en-GB", {
             dateStyle: "short",
@@ -201,11 +189,11 @@ export default function Card({
             <HostInfo>
               <HostAvatar
                 src={avatarUrl || "/defaultAvatar.jpg"}
-                alt={hostObject?.fullName || hostObject?.username}
+                alt={hostFullName}
               />
               <HostMeta>
                 <HostByLabel>Hosted by</HostByLabel>
-                <HostFullName>{hostObject.fullName}</HostFullName>
+                <HostFullName>{hostFullName}</HostFullName>
               </HostMeta>
             </HostInfo>
           )}

@@ -14,8 +14,6 @@ import { fetchActivities } from "../services/parseService.js";
 import { filterActivities } from "../services/filterService.js";
 
 export default function Feed() {
-  const user = Parse.User.current();
-
   const [activities, setActivites] = useState(undefined);
   const [filteredActivities, setFilteredActivities] = useState(undefined);
   const [isLoading, setIsLoading] = useState(false);
@@ -66,21 +64,25 @@ export default function Feed() {
                 <p>No activities found matching your filters.</p>
               )}
               {!isLoading &&
-                filteredActivities?.map((activity, index) => (
-                  <Card
-                    key={`activity-number-${index}`}
-                    userId={user?.id}
-                    id={activity.objectId}
-                    image={activity.coverPhoto_img}
-                    date={activity.dateStart.iso}
-                    priceLabel={activity.price === 0 ? "Free" : "Paid"}
-                    title={activity.Title}
-                    description={activity.description}
-                    hostId={activity.host_ID ? activity.host_ID.objectId : null}
-                    maxParticipants={activity.maxCapacity}
-                    location={activity.location}
-                  />
-                ))}
+                filteredActivities?.map((activity, index) => {
+                  return (
+                    <Card
+                      key={`activity-number-${index}`}
+                      id={activity?.activity.objectId}
+                      imageUrl={activity?.activity.coverPhoto_img._url}
+                      date={activity?.activity.dateStart}
+                      priceLabel={
+                        activity?.activity.price === 0 ? "Free" : "Paid"
+                      }
+                      title={activity?.activity.Title}
+                      description={activity?.activity.description}
+                      hostObject={activity?.hostInfo}
+                      maxParticipants={activity?.activity.maxCapacity}
+                      location={activity?.activity.location}
+                      hostFullName={activity?.host.fullName}
+                    />
+                  );
+                })}
             </GridContainer>
           </div>
         </LayoutGrid>
