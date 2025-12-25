@@ -9,6 +9,7 @@ import Profile from "./pages/Profile.jsx";
 import NotFound from "./pages/NotFound.jsx";
 import RedirectToLogin from "./pages/RedirectToLogin.jsx";
 import { ProtectedComponent } from "./context/ProtectedComponent";
+import AboutUs from "./pages/AboutUs";
 
 const Router = () => {
   return (
@@ -41,6 +42,7 @@ const Router = () => {
         path="/profile/:username"
         element={<ProtectedComponent originalRoute={<Profile />} />}
       />
+      <Route path="/about" element={<AboutUs />} />
       <Route path="*" element={<NotFound />} />
     </Routes>
   );
