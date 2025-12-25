@@ -61,8 +61,27 @@ export const Tagline = styled.p`
 export const CenterBlock = styled.div`
   font-family: "Inter";
   display: flex;
+  flex-direction: column;
   justify-content: center;
   gap: 18px;
+`;
+
+export const ContactSection = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+`;
+
+export const TopLinks = styled.div`
+  display: flex;
+  align-items: flex-start;
+  gap: 48px;
+
+  @media (max-width: 900px) {
+    flex-direction: column;
+    align-items: center;
+    gap: 18px;
+  }
 `;
 
 export const RightBlock = styled.div`

@@ -10,6 +10,8 @@ import {
   RightBlock,
   FooterLink,
   LogoContainer,
+  ContactSection,
+  TopLinks,
 } from "../styled/feed-style-comp/Footer.styled.jsx";
 
 function Footer() {
@@ -28,14 +30,27 @@ function Footer() {
         </LeftBlock>
 
         <CenterBlock>
-          <strong>Contact Us</strong>
-          <FooterLink as={Link} to="/contact">
-            bondi-group@gmail.com{" "}
-          </FooterLink>
-          <FooterLink as={Link} to="/about">
-            {" "}
-            <strong>About Us</strong>{" "}
-          </FooterLink>
+          <TopLinks>
+            <ContactSection>
+              <strong>Contact Us</strong>
+
+              <FooterLink as="a" href="mailto:cpop@itu.dk">
+                cpop@itu.dk
+              </FooterLink>
+              <FooterLink as="a" href="mailto:ioda@itu.dk">
+                ioda@itu.dk
+              </FooterLink>
+              <FooterLink as="a" href="mailto:suta@itu.dk">
+                suta@itu.dk
+              </FooterLink>
+              <FooterLink as="a" href="mailto:veko@itu.dk">
+                veko@itu.dk
+              </FooterLink>
+            </ContactSection>
+            <FooterLink as={Link} to="/about">
+              <strong>About Us</strong>
+            </FooterLink>
+          </TopLinks>
         </CenterBlock>
 
         <RightBlock>
