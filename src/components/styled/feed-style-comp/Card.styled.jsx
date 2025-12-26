@@ -16,7 +16,7 @@ export const Container = styled.nav`
   box-shadow: 0 10px 30px rgba(18, 22, 25, 0.08);
   display: flex;
   flex-direction: column;
-  cursor: ${(p) => (p.isClickable ? "pointer" : "default")};
+  cursor: ${(p) => (p.$isClickable ? "pointer" : "default")};
 `;
 
 // this is the top image
@@ -45,7 +45,7 @@ export const CornerChips = styled.div`
   font-size: 0.9rem;
   font-weight: 600;
   box-shadow: 0 6px 18px rgba(18, 22, 25, 0.06);
-  ${(p) => (p.variant === "right" ? "right: 16px;" : "left: 16px;")}
+  ${({ $variant }) => ($variant === "right" ? "right: 16px;" : "left: 16px;")}
 `;
 
 // main content below the image
@@ -170,7 +170,7 @@ export const JoinButton = styled.button`
   font-weight: 600;
   cursor: ${(p) => (p.disabled ? "cursor" : "pointer")};
   box-shadow: ${(p) =>
-    p.joined
+    p.$joined
       ? "0 8px 18px rgba(22,102,56,0.18)"
       : "0 8px 18px rgba(47, 133, 90, 0.18)"};
   transition:
@@ -181,10 +181,10 @@ export const JoinButton = styled.button`
   &:hover {
     transform: translateY(-3px);
     box-shadow: ${(p) =>
-      p.joined
+      p.$joined
         ? "0 12px 26px rgba(22,102,56,0.26)"
         : "0 12px 26px rgba(47, 133, 90, 0.22)"};
-    background: ${(p) => (p.joined ? "#125031" : "#2a8e60")};
+    background: ${({ $joined }) => ($joined ? "#125031" : "#2a8e60")};
   }
 `;
 
@@ -195,5 +195,5 @@ export const ElypsisText = styled.span`
   flex: 1;
   min-width: 0;
   display: block;
-  margin-left: ${(p) => (p.withIcon ? "6px" : "0")};
+  margin-left: ${(p) => (p.$withIcon ? "6px" : "0")};
 `;

@@ -15,77 +15,69 @@ import HostCard from "../components/activity-detail-components/HostCard.jsx";
 import ParticipantsCard from "../components/activity-detail-components/ParticipantCard.jsx";
 import LocationCard from "../components/activity-detail-components/LocationCard.jsx";
 
-import {
-  CardContainer,
-  BeforeContainer,
-} from "../components/styled/act-detail-style-comp/Common.jsx";
+import { CardContainer } from "../components/styled/act-detail-style-comp/Common.jsx";
 
 const ActivityDetail = () => {
-  const { slug } = useParams();
+  const { id } = useParams();
   const [activity, setActivity] = useState(null);
+  const [host, setHost] = useState(null);
+  const [hostInfo, setHostInfo] = useState(null);
+  const [category, setCategory] = useState(null);
   const [loading, setLoading] = useState(true);
-  const navigate = useNavigate();
 
   useEffect(() => {
-    const fetchActivity = async () => {
+    const fetchActivityAndHost = async () => {
       try {
-        const Activity = Parse.Object.extend("Activity");
-        const query = new Parse.Query(Activity);
-        query.include("host_ID");
-        query.equalTo("slug", slug);
-        const result = await query.first();
-        setActivity(result);
+        const result = await Parse.Cloud.run("getActivityWithHost", {
+          activityId: id,
+        });
+        console.log("result from cloud:", result);
+        setActivity(result.activity);
+        setHost(result.host);
+        setHostInfo(result.hostInfo);
+        setCategory(result.category);
       } catch (error) {
-        console.error("Error fetching activity:", error);
+        console.error("Error fetching activity+host:", error);
       } finally {
         setLoading(false);
       }
     };
-
-    if (slug) fetchActivity();
-  }, [slug]);
+    if (id) fetchActivityAndHost();
+  }, [id]);
 
   if (loading) return <div>Loading...</div>;
   if (!activity) return <div>Activity not found...</div>;
 
-  const host = activity.get("host_ID");
-  const location = activity.get("location");
+  const hostValue = host;
 
-  const goBackToFeed = () => {
-    navigate(-1);
-  };
+  const capacity = activity.maxCapacity;
+  const location = activity.location;
 
   return (
     <>
       <NavBar />
       <MainContainer>
         <ContentWrapper>
-          <BeforeContainer onClick={goBackToFeed}>
-            <p>← Back to activities</p>
-          </BeforeContainer>
-
-          <HeaderSection activity={activity} />
+          <HeaderSection activity={activity} category={category} />
           <CardContainer>
-            <TitleCard
-              activity={activity}
-              whatToBring={
-                activity.get("whatToBring") || [
-                  "Yoga mat",
-                  "Water bottle",
-                  "Good energy",
-                  "Sunshine",
-                ]
-              }
-            />
-            <HostCard host={activity.get("host_ID")} activitiesHosted={8} />
+            <TitleCard activity={activity} />
+
+            {hostValue ? (
+              <HostCard
+                host={hostValue}
+                hostInfo={hostInfo}
+                activitiesHosted={8}
+              />
+            ) : (
+              <p>No host data</p>
+            )}
             <ParticipantsCard
-              participantNumber={12}
-              //hostName="Alice"
-              participants={["John", "Alice", "Kelly", "Nikolas", "Patrick"]}
+              activityId={activity.objectId}
               participantImage="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTnFW7ZDLxu41lI2gB6ExZT7vczi163BrA9WA&s"
+              hostName={host?.fullName || host?.username}
             />
             <LocationCard
-              location={activity.get("location")}
+              location={location}
               locationImage="https://upload.wikimedia.org/wikipedia/commons/5/5b/Palm_House%2C_Copenhagen_Botanical_Garden.jpg"
             />
           </CardContainer>
