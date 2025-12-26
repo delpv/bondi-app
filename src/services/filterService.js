@@ -25,7 +25,7 @@ export const filterActivities = (activities, filters) => {
   if (filters.category && filters.category.trim() !== "") {
     filtered = filtered.filter((activity) => {
       const categoryName =
-        activity.category_id?.name || activity.category?.name || "";
+        activity.category?.name || activity.category?.name || "";
       return categoryName.toLowerCase() === filters.category.toLowerCase();
     });
   }
@@ -33,16 +33,18 @@ export const filterActivities = (activities, filters) => {
   // Filter by location
   if (filters.location && filters.location.trim() !== "") {
     filtered = filtered.filter((activity) =>
-      activity.location?.toLowerCase().includes(filters.location.toLowerCase())
+      activity.activity.location
+        ?.toLowerCase()
+        .includes(filters.location.toLowerCase())
     );
   }
 
   // Filter by price
   if (filters.priceType) {
     if (filters.priceType === "free") {
-      filtered = filtered.filter((activity) => activity.price === 0);
+      filtered = filtered.filter((activity) => activity.activity.price === 0);
     } else if (filters.priceType === "paid") {
-      filtered = filtered.filter((activity) => activity.price > 0);
+      filtered = filtered.filter((activity) => activity.activity.price > 0);
     }
   }
 

@@ -5,21 +5,27 @@ describe("filterActivities", () => {
   const mockActivities = [
     {
       Title: "Beach Volleyball",
-      location: "Santa Monica Beach",
-      price: 0,
-      category_id: { name: "Sports" },
+      activity: {
+        location: "Santa Monica Beach",
+        price: 0,
+      },
+      category: { name: "Sports" },
     },
     {
       Title: "Yoga Class",
-      location: "Downtown Studio",
-      price: 20,
+      activity: {
+        location: "Downtown Studio",
+        price: 20,
+      },
       category: { name: "Fitness" },
     },
     {
       Title: "Beach Run",
-      location: "Venice Beach",
-      price: 0,
-      category_id: { name: "Community" },
+      activity: {
+        location: "Venice Beach",
+        price: 0,
+      },
+      category: { name: "Community" },
     },
   ];
 
@@ -69,8 +75,8 @@ describe("filterActivities", () => {
       const result = filterActivities(mockActivities, filters);
 
       expect(result).toHaveLength(2);
-      expect(result[0].price).toBe(0);
-      expect(result[1].price).toBe(0);
+      expect(result[0].activity.price).toBe(0);
+      expect(result[1].activity.price).toBe(0);
     });
 
     test("should filter activities by price type (paid)", () => {
@@ -78,8 +84,8 @@ describe("filterActivities", () => {
       const result = filterActivities(mockActivities, filters);
 
       expect(result).toHaveLength(1);
-      expect(result[0].price).toBeGreaterThan(0);
-      expect(result[0].price).toBe(20);
+      expect(result[0].activity.price).toBeGreaterThan(0);
+      expect(result[0].activity.price).toBe(20);
     });
   });
 });

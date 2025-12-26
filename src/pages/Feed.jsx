@@ -20,6 +20,7 @@ export default function Feed() {
 
   const handleApply = (filters) => {
     console.log("Applied Filters:", filters);
+
     const filtered = filterActivities(activities, filters);
     setFilteredActivities(filtered);
   };
@@ -45,7 +46,7 @@ export default function Feed() {
     loadActivities();
   }, []);
 
-  const handleDeteleActivity = (activityId) => {
+  const handleDeleteActivity = (activityId) => {
     const activitiesWithoutActId = activities.filter(
       (activity) => activity?.activity.objectId !== activityId
     );
@@ -95,7 +96,7 @@ export default function Feed() {
                       location={activity?.activity.location}
                       hostFullName={activity?.host.fullName}
                       onDeleteActivity={() =>
-                        handleDeteleActivity(activity?.activity.objectId)
+                        handleDeleteActivity(activity?.activity.objectId)
                       }
                     />
                   );
