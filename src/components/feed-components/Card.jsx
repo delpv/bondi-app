@@ -23,6 +23,8 @@ import {
   ParticipantsCount,
   ParticipantsIcon,
   LocationIcon,
+  DeleteButton,
+  ContainerButton,
 } from "../styled/feed-style-comp/Card.styled.jsx";
 import Parse from "parse";
 
@@ -38,14 +40,17 @@ export default function Card({
   location,
   userId,
   hostObject,
+  onDeleteActivity,
 }) {
   const user = Parse.User.current();
 
   const [isJoining, setIsJoining] = useState(false);
   const [joined, setJoined] = useState(false);
   const [partNumber, setPartNumber] = useState(undefined);
+  const [isLoadingDelete, setIsLoadingDelete] = useState(false);
+
   const navigate = useNavigate();
-  console.log(hostObject, user);
+
   const imHosting =
     hostObject !== undefined &&
     hostObject !== undefined &&
@@ -137,6 +142,21 @@ export default function Card({
     }
   };
 
+  const handleDelete = async (e) => {
+    e.stopPropagation();
+    setIsLoadingDelete(true);
+    try {
+      const activityQuery = new Parse.Query("Activity");
+      const activity = await activityQuery.get(id);
+      await activity.destroy();
+      onDeleteActivity();
+    } catch (e) {
+      console.error(e.message);
+    } finally {
+      setIsLoadingDelete(false);
+    }
+  };
+
   const getJoinedStatus = () => {
     if (imHosting) {
       return "I'm hosting";
@@ -209,24 +229,32 @@ export default function Card({
         </HostRow>
 
         <LocationRow>
-          <LocationInfo>
+          <LocationInfo $isHosting={imHosting}>
             <LocationIcon size={18} aria-hidden />
             <ElypsisText $withIcon>{location}</ElypsisText>
           </LocationInfo>
 
-          <JoinButton
-            disabled={
-              isJoining ||
-              imHosting ||
-              (!joined && partNumber === maxParticipants)
-            }
-            $joined={joined ? 1 : 0}
-            onClick={handleToggleJoin}
-            aria-pressed={joined}
-            aria-label={joined ? "Cancel participation" : "Join activity"}
-          >
-            {getJoinedStatus()}
-          </JoinButton>
+          <ContainerButton>
+            {imHosting && (
+              <DeleteButton disabled={isLoadingDelete} onClick={handleDelete}>
+                Delete
+              </DeleteButton>
+            )}
+
+            <JoinButton
+              disabled={
+                isJoining ||
+                imHosting ||
+                (!joined && partNumber === maxParticipants)
+              }
+              $joined={joined ? 1 : 0}
+              onClick={handleToggleJoin}
+              aria-pressed={joined}
+              aria-label={joined ? "Cancel participation" : "Join activity"}
+            >
+              {getJoinedStatus()}
+            </JoinButton>
+          </ContainerButton>
         </LocationRow>
       </Content>
     </Container>

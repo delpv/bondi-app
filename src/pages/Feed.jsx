@@ -45,6 +45,20 @@ export default function Feed() {
     loadActivities();
   }, []);
 
+  const handleDeteleActivity = (activityId) => {
+    const activitiesWithoutActId = activities.filter(
+      (activity) => activity?.activity.objectId !== activityId
+    );
+
+    setActivites(activitiesWithoutActId);
+
+    const filterActivitiesWithoutActId = filteredActivities.filter(
+      (activity) => activity?.activity.objectId !== activityId
+    );
+
+    setFilteredActivities(filterActivitiesWithoutActId);
+  };
+
   return (
     <>
       <NavBar />
@@ -80,6 +94,9 @@ export default function Feed() {
                       maxParticipants={activity?.activity.maxCapacity}
                       location={activity?.activity.location}
                       hostFullName={activity?.host.fullName}
+                      onDeleteActivity={() =>
+                        handleDeteleActivity(activity?.activity.objectId)
+                      }
                     />
                   );
                 })}
