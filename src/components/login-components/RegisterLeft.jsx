@@ -1,5 +1,4 @@
-import React from "react";
-import { useState, useContext } from "react";
+import React, { useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import EyeIcon from "../../assets/icons_app/eye.svg?react";
 import {
@@ -18,7 +17,7 @@ import {
 } from "../styled/login-style-comp/LoginLeft.styled.jsx";
 import { AuthContext } from "../../context/AuthContext.jsx";
 
-const LoginLeft = () => {
+const RegisterLeft = () => {
   const { handleRegister } = useContext(AuthContext);
 
   const [showPass, setShowPass] = useState(false);
@@ -135,4 +134,4 @@ const LoginLeft = () => {
   );
 };
 
-export default LoginLeft;
+export default RegisterLeft;

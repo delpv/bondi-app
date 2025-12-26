@@ -1,19 +1,16 @@
 import styled from "styled-components";
 
-// Main profile page container
 export const ProfilePageContainer = styled.div`
   min-height: 100vh;
   display: flex;
   flex-direction: column;
 `;
 
-
 export const ProfileMainContent = styled.main`
   flex: 1;
   display: flex;
   flex-direction: column;
 `;
-
 
 export const ProfileSectionsContainer = styled.div`
   display: flex;

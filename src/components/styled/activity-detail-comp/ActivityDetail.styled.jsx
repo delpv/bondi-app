@@ -1,11 +1,9 @@
 import styled from "styled-components";
 
-/* Page and Before */
-
 export const BeforeContainer = styled.div`
   margin-bottom: 20px;
   a {
-    width:227px;
+    width: 227px;
     height: 35px;
     font: Poppins;
     font-size: 24px;
@@ -19,7 +17,8 @@ export const JoinButton = styled.button`
   width: 242px;
   height: 45px;
   padding: 8px 16px;
-  background-color: ${(props) => (props.$joined ? "gray" : "rgba(87, 169, 137, 1)")};
+  background-color: ${(props) =>
+    props.$joined ? "gray" : "rgba(87, 169, 137, 1)"};
   color: white;
   border: none;
   border-radius: 12px;
@@ -32,18 +31,17 @@ export const CountLabel = styled.p`
   padding: 8px 16px;
   background-color: white;
   color: rgba(87, 169, 137, 1);
-  font-size:22px;
+  font-size: 22px;
   border: none;
   border-radius: 12px;
 `;
 
 export const CountNumber = styled.span`
-font-size: 24px;
+  font-size: 24px;
   color: purple;
   font-weight: bold;
 `;
 
-/* Card container */
 export const CardContainer = styled.div`
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -52,7 +50,6 @@ export const CardContainer = styled.div`
   margin: 0 auto;
 `;
 
-/* Generic card */
 export const Card = styled.div`
   border: 1px solid #ccc;
   padding: 20px;
@@ -61,14 +58,12 @@ export const Card = styled.div`
   min-height: 100px;
 `;
 
-/* Header Section */
 export const HeaderSectionContainer = styled.div`
   text-align: left;
   border: 1px solid #ccc;
   margin-bottom: 20px;
   background-color: white;
   border-radius: 20px;
-  
 `;
 
 export const HeaderImage = styled.img`
@@ -85,7 +80,6 @@ export const HeaderText = styled.h1`
   color: black;
 `;
 
-/* Labels */
 export const Label = styled.p`
   display: inline-flex;
   align-items: center;
@@ -99,22 +93,21 @@ export const Label = styled.p`
   max-width: 200px;
   word-wrap: break-word;
   background-color: ${(props) =>
-    props.type === "yellow" ? "rgba(254, 211, 131, 1)" : "rgba(214, 247, 189, 1)"};
+    props.type === "yellow"
+      ? "rgba(254, 211, 131, 1)"
+      : "rgba(214, 247, 189, 1)"};
   color: black;
 
   svg {
     width: 17px;
     height: 17px;
-    display: inline-block; 
+    display: inline-block;
   }
-  
 `;
 
-
-/* Card row */
 export const CardRow = styled.div`
   display: flex;
- justify-content: space-between;
+  justify-content: space-between;
   align-items: center;
 `;
 
@@ -129,7 +122,8 @@ export const CardRight = styled.div`
   text-align: right;
   button {
     padding: 6px 12px;
-    background-color:  ${(props) => (props.joined ? "gray" : "rgba(87, 169, 137, 1)")};
+    background-color: ${(props) =>
+      props.joined ? "gray" : "rgba(87, 169, 137, 1)"};
     color: white;
     border: none;
     border-radius: 5px;
@@ -143,7 +137,6 @@ export const CardRight = styled.div`
   }
 `;
 
-/* Host Card */
 export const HostCardContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -169,25 +162,23 @@ export const HostTextContainer = styled.div`
 `;
 
 export const HostTitle = styled.h3`
-display: inline-flex;
-align-items: center;
-gap: 6px; /* space between icon and text */
-margin: 5px; /* remove default margin */
-border-radius: 10px;
-font-size: 24px;
-font-weight: bold;
-margin-bottom: 5px;  
-text-align: left;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px; /* space between icon and text */
+  margin: 5px; /* remove default margin */
+  border-radius: 10px;
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 5px;
+  text-align: left;
   font-size: 22px;
   font-weight: bold;
   margin-bottom: 15px;
 
-
-
   svg {
     width: 32px;
     height: 32px;
-    display: inline-block; 
+    display: inline-block;
   }
 `;
 
@@ -216,16 +207,16 @@ export const HostDescription = styled.p`
   font-size: 16px;
   font: Inter;
   color: black;
- text-align: left; 
+  text-align: left;
   margin-bottom: 8px;
 `;
 
 export const HostMemberSince = styled.p`
-width:255px;
-height: 44px; 
-background-color: rgba(254, 211, 131, 1);
-text-align: center;
-border-radius: 10px;
+  width: 255px;
+  height: 44px;
+  background-color: rgba(254, 211, 131, 1);
+  text-align: center;
+  border-radius: 10px;
   font-size: 20px;
   fonr: Inter;
   color: black;
@@ -233,7 +224,7 @@ border-radius: 10px;
 `;
 
 export const DescriptionContainer = styled.div`
-border-top: 1px solid grey;
+  border-top: 1px solid grey;
   background-color: white;
   display: flex;
   flex-direction: column;
@@ -245,22 +236,21 @@ border-top: 1px solid grey;
 `;
 
 export const ActivitiesHostedLabel = styled.span`
-width: 255px;
-height: 44px; 
-background-color: rgba(254, 211, 131, 1);
-text-align: center;
-border-radius: 10px;
+  width: 255px;
+  height: 44px;
+  background-color: rgba(254, 211, 131, 1);
+  text-align: center;
+  border-radius: 10px;
   font-size: 20px;
   fonr: Inter;
   color: black;
   margin-bottom: 12px;
-  
 `;
 
 export const HostButton = styled.button`
-width:255px;
-height: 28px; 
-// padding: 8px 16px;
+  width: 255px;
+  height: 28px;
+  // padding: 8px 16px;
   font-size: 22px;
   font: Poppins;
   background-color: white;
@@ -270,7 +260,6 @@ height: 28px;
   cursor: pointer;
 `;
 
-/* Title Card */
 export const TitleCardContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -281,7 +270,7 @@ export const TitleCardContainer = styled.div`
 `;
 
 export const CardTitle = styled.h3`
-display: inline-flex;
+  display: inline-flex;
   align-items: center;
   gap: 6px; /* space between icon and text */
   margin: 5px; /* remove default margin */
@@ -293,7 +282,7 @@ display: inline-flex;
   svg {
     width: 32px;
     height: 32px;
-    display: inline-block; 
+    display: inline-block;
   }
 `;
 
@@ -337,7 +326,6 @@ export const BringBadge = styled.li`
   letter-spacing: 0.5px;
 `;
 
-/* Participants */
 export const ParticipantsCardContainer = styled.div`
   border: 1px solid #ccc;
   border-radius: 10px;
@@ -373,7 +361,6 @@ export const ParticipantImage = styled.img`
   margin-right: 5px;
 `;
 
-/* Location Card */
 export const LocationCardContainer = styled.div`
   border-top: 1px solid darkgrey;
   background-color: white;

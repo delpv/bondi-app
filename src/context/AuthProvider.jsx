@@ -59,6 +59,7 @@ export const AuthProvider = ({ children }) => {
     try {
       await Parse.User.logOut();
       setIsAuthenticated(false);
+      sessionStorage.removeItem("lastVisitedRoute");
       navigate("/login");
     } catch (e) {
       console.error("Error logging out:", e);
@@ -74,7 +75,12 @@ export const AuthProvider = ({ children }) => {
         const currentUser = await Parse.User.currentAsync();
         if (currentUser) {
           setIsAuthenticated(true);
-          navigate("/feed");
+          const lastVisitedRoute = sessionStorage.getItem("lastVisitedRoute");
+          if (lastVisitedRoute) {
+            navigate(lastVisitedRoute);
+          } else {
+            navigate("/feed");
+          }
         }
       } catch (e) {
         console.log(e.message);

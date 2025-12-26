@@ -1,5 +1,5 @@
 import react from "react";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Parse from "parse";
 import SearchIcon from "../../assets/icons_app/search.svg?react";
 import LocationIcon from "../../assets/icons_app/map-pin.svg?react";
@@ -18,28 +18,15 @@ import {
   ApplyButton,
   ResetButton,
 } from "../styled/feed-style-comp/Filter.styled.jsx";
+import { useCategories } from "../../hooks/useCategories";
 
 export default function Filter({ onApply = () => {}, onReset = () => {} }) {
   const [query, setQuery] = react.useState("");
   const [category, setCategory] = useState("");
   const [priceType, setPriceType] = useState("");
   const [location, setLocation] = useState("");
-  const [categories, setCategories] = useState([]);
 
-  const fetchCategories = async () => {
-    try {
-      const query = new Parse.Query("Category");
-      const results = await query.find();
-      const categoryList = results.map((cat) => cat.toJSON());
-      setCategories(categoryList);
-    } catch (error) {
-      console.error("Error fetching categories:", error);
-    }
-  };
-
-  useEffect(() => {
-    fetchCategories();
-  }, []);
+  const { categories } = useCategories();
 
   function handleApply(e) {
     e.preventDefault();
@@ -88,7 +75,7 @@ export default function Filter({ onApply = () => {}, onReset = () => {} }) {
           >
             <option value="">All Categories</option>
             {categories.map((cat) => (
-              <option key={cat.objectId} value={cat.name}>
+              <option key={cat.id} value={cat.name}>
                 {cat.name}
               </option>
             ))}

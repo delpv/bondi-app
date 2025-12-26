@@ -44,10 +44,6 @@ function NavBar() {
             <AvatarImg src={Avatar} alt="User avatar" />
           </Link>
 
-          <IconButton title="Settings" onClick={() => alert("Settings soon!")}>
-            <Settings />
-          </IconButton>
-
           <IconButton title="Logout" onClick={handleLogout}>
             <LogoutIcon />
           </IconButton>
