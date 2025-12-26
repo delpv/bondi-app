@@ -38,10 +38,7 @@ const Router = () => {
         path="/profile"
         element={<ProtectedComponent originalRoute={<Profile />} />}
       />
-      <Route
-        path="/profile/:username"
-        element={<ProtectedComponent originalRoute={<Profile />} />}
-      />
+
       <Route path="/about" element={<AboutUs />} />
       <Route path="*" element={<NotFound />} />
     </Routes>
