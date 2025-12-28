@@ -1,6 +1,5 @@
 import styled from "styled-components";
 
-/* Header */
 export const SectionHeader = styled.header`
   margin-bottom: 24px;
 
@@ -15,8 +14,6 @@ export const SectionHeader = styled.header`
     opacity: 0.8;
   }
 `;
-
-/* Form shell and layout */
 
 export const FormWrapper = styled.div`
   background: #fff;
@@ -39,7 +36,6 @@ export const FieldRow = styled.div`
   }
 `;
 
-/* Buttons */
 export const Actions = styled.div`
   display: flex;
   gap: 12px;
@@ -72,7 +68,6 @@ export const Secondary = styled.button`
   cursor: pointer;
 `;
 
-/* Field wrapper */
 export const Field = styled.div`
   display: flex;
   flex-direction: column;
@@ -108,14 +103,12 @@ export const Field = styled.div`
     border-color: #2d936c;
   }
 
-
   textarea {
     resize: vertical;
     min-height: 100px;
   }
 `;
 
-/* Add Image */
 export const ImagePreview = styled.div`
   margin-top: 8px;
   border: 1px dashed #c9c9c9;
@@ -142,4 +135,3 @@ export const CheckboxLabel = styled.label`
 export const CheckboxInput = styled.input`
   margin-right: 8px;
 `;
-

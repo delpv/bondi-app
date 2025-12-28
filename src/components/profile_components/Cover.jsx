@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Parse from "parse";
 import Avatar from "/defaultAvatar.jpg";
-import CoverBackground from "../../assets/images/profile-images/cover_background.jpg";
+import CoverBackground from "/puzzle-background.jpg";
 import EditProfileIcon from "../../assets/icons_app/edit-profile.svg?react";
 import {
   CoverContainer,
@@ -41,7 +41,7 @@ const Cover = ({ user }) => {
   }, [currentUserId]); // Re-load when user changes
 
   const loadUserData = async () => {
-    if (!currentUserId) return; //to prevent error
+    if (!currentUserId) return;
     try {
       setIsLoading(true);
       const User = Parse.Object.extend("_User");
@@ -95,7 +95,6 @@ const Cover = ({ user }) => {
       >
         <CoverOverlay />
 
-        {/* Action buttons */}
         <ActionButtons>
           <EditProfileButton
             onClick={() => {

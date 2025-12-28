@@ -23,53 +23,42 @@ import {
   ParticipantsCount,
   ParticipantsIcon,
   LocationIcon,
+  DeleteButton,
+  ContainerButton,
 } from "../styled/feed-style-comp/Card.styled.jsx";
 import Parse from "parse";
 
 export default function Card({
   id,
-  image,
+  imageUrl,
   date,
   priceLabel,
   title,
   description,
-  hostId,
+  hostFullName,
   maxParticipants,
   location,
   userId,
-  onViewMore,
+  hostObject,
+  onDeleteActivity,
 }) {
-  const [hostObject, setHostObject] = useState(undefined);
-  // const [isLoading, setIsLoading] = useState(false);
+  const user = Parse.User.current();
+
   const [isJoining, setIsJoining] = useState(false);
   const [joined, setJoined] = useState(false);
   const [partNumber, setPartNumber] = useState(undefined);
+  const [isLoadingDelete, setIsLoadingDelete] = useState(false);
+
   const navigate = useNavigate();
-  const imHosting = hostObject?.objectId === userId;
+
+  const imHosting =
+    hostObject !== undefined &&
+    hostObject !== undefined &&
+    hostObject?.user_ID.id === user?.id;
 
   const goToDetail = () => {
     if (!id) return;
     navigate(`/activity/${id}`);
-  };
-
-  const getHost = async () => {
-    if (!hostId) {
-      console.log("No hostId provided");
-      return;
-    }
-
-    // setIsLoading(true);
-    try {
-      const hostJson = await await Parse.Cloud.run("getUserById", {
-        userId: hostId,
-      });
-
-      setHostObject(hostJson);
-    } catch (e) {
-      console.log(e);
-      // } finally {
-      //   setIsLoading(false);
-    }
   };
 
   const getTotalParticipants = async () => {
@@ -101,7 +90,6 @@ export default function Card({
 
   useEffect(() => {
     const makeApiCalls = async () => {
-      await getHost();
       await getTotalParticipants();
     };
     makeApiCalls();
@@ -154,6 +142,21 @@ export default function Card({
     }
   };
 
+  const handleDelete = async (e) => {
+    e.stopPropagation();
+    setIsLoadingDelete(true);
+    try {
+      const activityQuery = new Parse.Query("Activity");
+      const activity = await activityQuery.get(id);
+      await activity.destroy();
+      onDeleteActivity();
+    } catch (e) {
+      console.error(e.message);
+    } finally {
+      setIsLoadingDelete(false);
+    }
+  };
+
   const getJoinedStatus = () => {
     if (imHosting) {
       return "I'm hosting";
@@ -176,7 +179,7 @@ export default function Card({
     return "Join";
   };
 
-  const avatarUrl = hostObject?.user_Info?.profilePictureUrl;
+  const avatarUrl = hostObject?.profilePicture?._url;
 
   return (
     <Container
@@ -188,7 +191,7 @@ export default function Card({
       aria-label={`Open details for ${title}`}
     >
       <Hero>
-        <HeroImage src={image?.url || "default.jpg"} alt={title} />
+        <HeroImage src={imageUrl || "default.jpg"} alt={title} />
         <CornerChips>
           {new Intl.DateTimeFormat("en-GB", {
             dateStyle: "short",
@@ -205,12 +208,12 @@ export default function Card({
           {hostObject && (
             <HostInfo>
               <HostAvatar
-                src={avatarUrl ? "public/" + avatarUrl : "fallback.jpg"}
-                alt={hostObject?.fullName || hostObject?.username}
+                src={avatarUrl || "/defaultAvatar.jpg"}
+                alt={hostFullName}
               />
               <HostMeta>
                 <HostByLabel>Hosted by</HostByLabel>
-                <HostFullName>{hostObject.fullName}</HostFullName>
+                <HostFullName>{hostFullName}</HostFullName>
               </HostMeta>
             </HostInfo>
           )}
@@ -226,24 +229,32 @@ export default function Card({
         </HostRow>
 
         <LocationRow>
-          <LocationInfo>
+          <LocationInfo $isHosting={imHosting}>
             <LocationIcon size={18} aria-hidden />
             <ElypsisText $withIcon>{location}</ElypsisText>
           </LocationInfo>
 
-          <JoinButton
-            disabled={
-              isJoining ||
-              imHosting ||
-              (!joined && partNumber === maxParticipants)
-            }
-            $joined={joined ? 1 : 0}
-            onClick={handleToggleJoin}
-            aria-pressed={joined}
-            aria-label={joined ? "Cancel participation" : "Join activity"}
-          >
-            {getJoinedStatus()}
-          </JoinButton>
+          <ContainerButton>
+            {imHosting && (
+              <DeleteButton disabled={isLoadingDelete} onClick={handleDelete}>
+                Delete
+              </DeleteButton>
+            )}
+
+            <JoinButton
+              disabled={
+                isJoining ||
+                imHosting ||
+                (!joined && partNumber === maxParticipants)
+              }
+              $joined={joined ? 1 : 0}
+              onClick={handleToggleJoin}
+              aria-pressed={joined}
+              aria-label={joined ? "Cancel participation" : "Join activity"}
+            >
+              {getJoinedStatus()}
+            </JoinButton>
+          </ContainerButton>
         </LocationRow>
       </Content>
     </Container>

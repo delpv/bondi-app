@@ -1,6 +1,6 @@
 import Parse from "parse";
 import React, { useState, useEffect } from "react";
-import { useParams, useNavigate } from "react-router";
+import { useParams } from "react-router";
 
 import NavBar from "../components/feed-components/NavBar.jsx";
 import Footer from "../components/feed-components/Footer.jsx";
@@ -50,7 +50,6 @@ const ActivityDetail = () => {
 
   const hostValue = host;
 
-  const capacity = activity.maxCapacity;
   const location = activity.location;
 
   return (

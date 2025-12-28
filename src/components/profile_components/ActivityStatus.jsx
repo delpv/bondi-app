@@ -13,7 +13,6 @@ import {
 } from "../styled/profile-style-comp/ActivityStatus.styled";
 
 const ActivityStatus = () => {
-  // Sample status data
   const statusData = [
     {
       id: 1,

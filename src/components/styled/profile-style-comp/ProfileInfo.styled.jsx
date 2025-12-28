@@ -1,6 +1,5 @@
 import styled from "styled-components";
 
-// Profile info card (white background)
 export const ProfileInfoCard = styled.div`
   background: white;
   border-radius: clamp(8px, 1vw, 12px);
@@ -34,9 +33,13 @@ export const ProfileInfoCard = styled.div`
   }
 `;
 
-// Profile name styling
 export const ProfileName = styled.h2`
-  font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-family:
+    "Poppins",
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
   font-size: clamp(1.2rem, 3vw, 1.5rem);
   font-weight: 600;
   margin: 0 0 4px 0;
@@ -57,11 +60,15 @@ export const ProfileName = styled.h2`
   }
 `;
 
-// Member since text
 export const MemberSince = styled.p`
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-family:
+    "Inter",
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
   font-size: clamp(0.8rem, 2vw, 0.9rem);
-  color: #6B7280;
+  color: #6b7280;
   margin: 0;
 
   @media (max-width: 768px) {
@@ -77,7 +84,6 @@ export const MemberSince = styled.p`
   }
 `;
 
-// Stats container
 export const StatsContainer = styled.div`
   display: flex;
   gap: clamp(8px, 1.5vw, 12px);
@@ -109,9 +115,13 @@ export const StatsContainer = styled.div`
   }
 `;
 
-// Individual stat badge
 export const StatBadge = styled.div`
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-family:
+    "Inter",
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
   background: white;
   border-radius: clamp(14px, 1.5vw, 18px);
   padding: clamp(5px, 0.6vw, 7px) clamp(10px, 1.2vw, 14px);

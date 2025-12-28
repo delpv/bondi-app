@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const coral = "#E78F8E";
+export const coral = "#E78F8E";
 const bg = "rgba(255,255,255,0.9)";
 const subtle = "#6B7280";
 const border = "rgba(0,0,0,0.06)";

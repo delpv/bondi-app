@@ -1,87 +1,36 @@
-import React, { useState, useRef, useEffect } from 'react';
-import EditIcon from "../../assets/icons_app/edit.svg?react";
+import React, { useState } from "react";
+import InterestChip from "./InterestChip";
+import EditDropdown from "./EditButton";
 import {
   InterestContainer,
   InterestFrame,
   InterestTitle,
-  EditButton,
   InterestChipsContainer,
-  InterestChipCoral,
-  InterestChipPeach,
-  InterestChipMint,
-  InterestChipOrange,
-  InterestChipBlue,
-  InterestChipPurple,
-  InterestChipGreen,
-  InterestChipDefault,
-  ChipText,
-  EditDropdownContainer,
-  EditDropdown,
-  EditDropdownOption,
-  ChipInput,
-  RemoveModeTooltip
+  RemoveModeTooltip,
 } from "../styled/profile-style-comp/Interest.styled";
 
-const Interest = () => {
-  const [interests, setInterests] = useState([
-    { id: 1, text: "Food & Dining", color: "coral" },
-    { id: 2, text: "Dance", color: "peach" },
-    { id: 3, text: "Music", color: "mint" },
-    { id: 4, text: "Travel", color: "orange" },
-    { id: 5, text: "Sports", color: "blue" },
-    { id: 6, text: "Art", color: "purple" },
-    { id: 7, text: "Technology", color: "green" }
-  ]);
+const COLORS = ["coral", "peach", "mint", "orange", "blue", "purple", "green"];
 
+const INITIAL_INTERESTS = [
+  { id: 1, text: "Food & Dining", color: "coral" },
+  { id: 2, text: "Dance", color: "peach" },
+  { id: 3, text: "Music", color: "mint" },
+  { id: 4, text: "Travel", color: "orange" },
+  { id: 5, text: "Sports", color: "blue" },
+  { id: 6, text: "Art", color: "purple" },
+  { id: 7, text: "Technology", color: "green" },
+];
+
+const Interest = () => {
+  const [interests, setInterests] = useState(INITIAL_INTERESTS);
   const [showEditOptions, setShowEditOptions] = useState(false);
   const [isRemoveMode, setIsRemoveMode] = useState(false);
   const [editingChip, setEditingChip] = useState(null);
-  const dropdownRef = useRef(null);
-
-  const colors = ['coral', 'peach', 'mint', 'orange', 'blue', 'purple', 'green'];
-
-  // Helper function to get the correct chip component based on color
-  const getChipComponent = (color) => {
-    switch(color) {
-      case 'coral': return InterestChipCoral;
-      case 'peach': return InterestChipPeach;
-      case 'mint': return InterestChipMint;
-      case 'orange': return InterestChipOrange;
-      case 'blue': return InterestChipBlue;
-      case 'purple': return InterestChipPurple;
-      case 'green': return InterestChipGreen;
-      default: return InterestChipDefault;
-    }
-  };
-
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-        setShowEditOptions(false);
-      }
-    };
-
-    if (showEditOptions) {
-      document.addEventListener('mousedown', handleClickOutside);
-    }
-
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, [showEditOptions]);
-
-  const handleEditClick = () => {
-    setShowEditOptions(!showEditOptions);
-    setIsRemoveMode(false);
-  };
 
   const handleAddNew = () => {
-    const randomColor = colors[Math.floor(Math.random() * colors.length)];
-    const newChip = {
-      id: Date.now(),
-      text: "",
-      color: randomColor
-    };
+    const randomColor = COLORS[Math.floor(Math.random() * COLORS.length)];
+    const newChip = { id: Date.now(), text: "", color: randomColor };
+
     setInterests([...interests, newChip]);
     setEditingChip(newChip.id);
     setShowEditOptions(false);
@@ -95,88 +44,70 @@ const Interest = () => {
 
   const handleChipClick = (chipId) => {
     if (isRemoveMode) {
-      setInterests(interests.filter(interest => interest.id !== chipId));
+      setInterests(interests.filter((interest) => interest.id !== chipId));
       setIsRemoveMode(false);
     }
   };
 
   const handleChipTextChange = (chipId, newText) => {
-    setInterests(interests.map(interest =>
-      interest.id === chipId ? { ...interest, text: newText } : interest
-    ));
+    setInterests(
+      interests.map((interest) =>
+        interest.id === chipId ? { ...interest, text: newText } : interest
+      )
+    );
   };
 
   const handleChipTextBlur = (chipId) => {
-    const chip = interests.find(interest => interest.id === chipId);
-    if (chip && (!chip.text || chip.text.trim() === '')) {
-      setInterests(interests.filter(interest => interest.id !== chipId));
+    const chip = interests.find((interest) => interest.id === chipId);
+    if (chip && !chip.text?.trim()) {
+      setInterests(interests.filter((interest) => interest.id !== chipId));
     }
     setEditingChip(null);
   };
 
-  const handleChipKeyDown = (e, chipId) => {
-    if (e.key === 'Enter') {
+  const handleChipKeyDown = (e) => {
+    if (e.key === "Enter") {
       setEditingChip(null);
     }
+  };
+
+  const handleDropdownToggle = (isOpen) => {
+    setShowEditOptions(isOpen);
+    if (!isOpen) setIsRemoveMode(false);
   };
 
   return (
     <InterestContainer>
       <InterestFrame>
         <InterestTitle>Interests</InterestTitle>
-        <EditDropdownContainer>
-          <EditButton onClick={handleEditClick}>
-            <EditIcon />
-          </EditButton>
-
-          {showEditOptions && (
-            <EditDropdown ref={dropdownRef}>
-              <EditDropdownOption
-                onClick={handleAddNew}
-              >
-                Add new
-              </EditDropdownOption>
-              <EditDropdownOption
-                onClick={handleRemove}
-              >
-                Remove
-              </EditDropdownOption>
-            </EditDropdown>
-          )}
-        </EditDropdownContainer>
+        <EditDropdown
+          isOpen={showEditOptions}
+          onClickEditButton={handleDropdownToggle}
+          setShowEditOptions={setShowEditOptions}
+          onAddNew={handleAddNew}
+          onRemove={handleRemove}
+        />
       </InterestFrame>
 
       <InterestChipsContainer>
-        {interests.map((interest) => {
-          const ChipComponent = getChipComponent(interest.color);
-          return (
-            <ChipComponent
-              key={interest.id}
-              onClick={() => handleChipClick(interest.id)}
-              isRemoveMode={isRemoveMode}
-            >
-            {editingChip === interest.id ? (
-              <ChipInput
-                type="text"
-                value={interest.text}
-                onChange={(e) => handleChipTextChange(interest.id, e.target.value)}
-                onBlur={() => handleChipTextBlur(interest.id)}
-                onKeyDown={(e) => handleChipKeyDown(e, interest.id)}
-                autoFocus
-                placeholder="Enter interest..."
-              />
-            ) : (
-              <ChipText>{interest.text || "New Interest"}</ChipText>
-            )}
-            </ChipComponent>
-          );
-        })}
+        {interests.map((interest) => (
+          <InterestChip
+            key={interest.id}
+            interest={interest}
+            isEditing={editingChip === interest.id}
+            isRemoveMode={isRemoveMode}
+            onClick={() => handleChipClick(interest.id)}
+            onTextChange={(e) =>
+              handleChipTextChange(interest.id, e.target.value)
+            }
+            onTextBlur={() => handleChipTextBlur(interest.id)}
+            onKeyDown={handleChipKeyDown}
+          />
+        ))}
       </InterestChipsContainer>
 
       {isRemoveMode && (
-        <RemoveModeTooltip>
-          Click on an interest to remove it
-        </RemoveModeTooltip>
+        <RemoveModeTooltip>Click on an interest to remove it</RemoveModeTooltip>
       )}
     </InterestContainer>
   );
