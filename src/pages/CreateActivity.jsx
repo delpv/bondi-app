@@ -208,14 +208,6 @@ export default function CreateActivity() {
                   </option>
                 ))}
               </SelectField>
-
-              <CheckboxField
-                id="isPublic"
-                name="isPublic"
-                label="Public Activity"
-                checked={data.isPublic}
-                onChange={onChange}
-              />
             </FieldRow>
 
             <Actions>
