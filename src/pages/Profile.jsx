@@ -2,7 +2,6 @@ import Footer from "../components/feed-components/Footer";
 import NavBar from "../components/feed-components/NavBar";
 import Cover from "../components/profile_components/Cover";
 import About from "../components/profile_components/About";
-import Interest from "../components/profile_components/Interest";
 import ActivityStatus from "../components/profile_components/ActivityStatus";
 import { MainContainer } from "../components/styled/activity-detail-comp/Middle.styled";
 import {
@@ -23,7 +22,6 @@ export default function Profile() {
           <Cover user={user} />
           <ProfileSectionsContainer>
             <About user={user} />
-            <Interest />
             <ActivityStatus />
           </ProfileSectionsContainer>
         </ProfileMainContent>
