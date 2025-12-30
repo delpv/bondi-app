@@ -36,7 +36,7 @@ export const InterestTitle = styled.h2`
   font-size: 1.5rem;
   font-weight: 600;
   color: #111318;
-  margin: 0;
+   margin: 0 0 0 22px;
 `;
 
 export const EditButton = styled.button`

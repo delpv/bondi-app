@@ -84,71 +84,50 @@ export const MemberSince = styled.p`
   }
 `;
 
-export const StatsContainer = styled.div`
-  display: flex;
-  gap: clamp(8px, 1.5vw, 12px);
-  margin-top: clamp(8px, 1vw, 10px);
-  flex-wrap: wrap;
-  justify-content: center;
-  width: 100%;
-  padding: 0 clamp(4px, 1vw, 8px);
-  box-sizing: border-box;
+export const ProfileAddressContainer = styled.div`
+  background: rgba(255, 255, 255, 1);
+  border-radius: 20px;
+  padding: 8px 16px;
+  margin-top: 12px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(4px);
+  flex-shrink: 0;
 
   @media (max-width: 768px) {
-    gap: 10px;
-    margin-top: 8px;
-    padding: 0 4px;
-  }
-
-  @media (max-width: 580px) {
-    gap: clamp(6px, 1vw, 8px);
-    margin-top: clamp(6px, 0.8vw, 8px);
-    padding: 0 2px;
+    padding: 6px 14px;
+    margin-top: 10px;
+    border-radius: 18px;
   }
 
   @media (max-width: 480px) {
-    gap: clamp(5px, 0.8vw, 6px);
-    margin-top: 4px;
-    flex-direction: row;
-    align-items: center;
-    padding: 0;
+    padding: 5px 12px;
+    margin-top: 8px;
+    border-radius: 16px;
   }
 `;
 
-export const StatBadge = styled.div`
+export const ProfileAddressText = styled.p`
   font-family:
     "Inter",
     -apple-system,
     BlinkMacSystemFont,
     "Segoe UI",
     sans-serif;
-  background: white;
-  border-radius: clamp(14px, 1.5vw, 18px);
-  padding: clamp(5px, 0.6vw, 7px) clamp(10px, 1.2vw, 14px);
-  font-size: clamp(0.7rem, 1.6vw, 0.825rem);
+  font-size: clamp(0.75rem, 1.8vw, 0.85rem);
   color: #374151;
+  margin: 0;
   font-weight: 500;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-  white-space: nowrap;
   text-align: center;
-  flex-shrink: 0;
 
   @media (max-width: 768px) {
-    padding: 6px 12px;
-    font-size: 0.75rem;
-    border-radius: 14px;
+    font-size: 0.8rem;
   }
 
   @media (max-width: 580px) {
-    padding: clamp(4px, 0.5vw, 6px) clamp(8px, 1vw, 11px);
-    font-size: clamp(0.65rem, 1.3vw, 0.75rem);
-    border-radius: clamp(12px, 1.2vw, 14px);
+    font-size: clamp(0.7rem, 1.5vw, 0.75rem);
   }
 
   @media (max-width: 480px) {
-    padding: clamp(3px, 0.4vw, 5px) clamp(6px, 0.8vw, 10px);
-    font-size: clamp(0.6rem, 1vw, 0.7rem);
-    width: fit-content;
-    border-radius: clamp(10px, 1vw, 12px);
+    font-size: clamp(0.65rem, 1.3vw, 0.7rem);
   }
 `;
