@@ -12,7 +12,6 @@ import {
   ParticipantInfo,
 } from "../styled/act-detail-style-comp/Participants.styled";
 import Participant from "../../assets/icons_app/participant.svg?react";
-import Divider from "../../assets/icons_app/divider.svg?react";
 
 const ParticipantsCard = ({ activityId, participantImage, hostName }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -69,7 +68,6 @@ const ParticipantsCard = ({ activityId, participantImage, hostName }) => {
         Participants ({participants.length}/{maxCapacity})
       </ParticipantTitle>
 
-      <Divider />
       {isLoading ? (
         <p>Loading participants...</p>
       ) : (

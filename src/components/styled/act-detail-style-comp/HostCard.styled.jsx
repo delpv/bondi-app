@@ -8,7 +8,6 @@ export const HostCardContainer = styled.div`
   padding: 20px;
   border-radius: 12px;
   background-color: white;
-  min-height: 300px;
 `;
 
 export const HostInfoContainer = styled.div`
