@@ -67,7 +67,7 @@ export const EditModalOverlay = styled.div`
 export const EditModalContainer = styled.div`
   background-color: white;
   border-radius: 12px;
-  padding: 24px;
+  padding: 24px 45px 24px 24px;
   min-width: 400px;
   max-width: 90vw;
 `;

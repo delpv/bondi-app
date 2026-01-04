@@ -35,7 +35,7 @@ export const AboutTitle = styled.h2`
   font-size: 1.5rem;
   font-weight: 600;
   color: #111318;
-  margin: 0;
+  margin: 0 0 0 22px;
 `;
 
 export const EditButton = styled.button`
@@ -66,7 +66,7 @@ export const EditButton = styled.button`
 export const AboutTextContainer = styled.div`
   width: 100%;
   min-height: 58px;
-  padding: 10px;
+  padding: 10px 30px 10px 10px;
   gap: 10px;
 `;
 
@@ -80,12 +80,12 @@ export const AboutText = styled.p`
   font-size: 1rem;
   line-height: 1.5;
   color: #374151;
-  margin: 0;
+  margin: 12px 30px 12px 12px;
 `;
 
 export const AboutTextarea = styled.textarea`
-  width: 100%;
-  min-height: 80px;
+  width: 95%;
+  min-height: 120px;
   font-family:
     "Inter",
     -apple-system,
@@ -95,7 +95,7 @@ export const AboutTextarea = styled.textarea`
   font-size: 1rem;
   line-height: 1.5;
   color: #374151;
-  margin: 0 0 12px 0;
+  margin: 8px 12px 12px 12px;
   padding: 8px;
   border: 1px solid #ddd;
   border-radius: 6px;
@@ -123,8 +123,10 @@ const BaseAboutEditButton = styled.button`
 
 export const AboutDiscardButton = styled(BaseAboutEditButton)`
   background-color: #6c757d;
+   margin: 24px 24px 24px -10px;
 `;
 
 export const AboutSaveButton = styled(BaseAboutEditButton)`
   background-color: #28a745;
+   margin: 24px 24px 24px -10px;
 `;

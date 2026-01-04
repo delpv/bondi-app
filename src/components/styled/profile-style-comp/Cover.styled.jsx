@@ -17,8 +17,8 @@ import {
   ProfileInfoCard,
   ProfileName,
   MemberSince,
-  StatsContainer,
-  StatBadge,
+  ProfileAddressContainer,
+  ProfileAddressText,
 } from "./ProfileInfo.styled";
 
 export {
@@ -34,7 +34,7 @@ export {
   EditModalSuccessButton,
 };
 
-export { ProfileInfoCard, ProfileName, MemberSince, StatsContainer, StatBadge };
+export { ProfileInfoCard, ProfileName, MemberSince, ProfileAddressContainer, ProfileAddressText };
 
 const border = "#61646B";
 const shadowColor = "rgba(0, 0, 0, 0.4)";
