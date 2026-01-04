@@ -2,6 +2,7 @@ import styled from "styled-components";
 
 export const HeaderSectionContainer = styled.div`
   text-align: left;
+  max-width: 1600px;
   margin-bottom: 20px;
   background-color: white;
   border-radius: 12px;

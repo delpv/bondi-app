@@ -14,7 +14,7 @@ export const BeforeContainer = styled.div`
 `;
 
 export const JoinButton = styled.button`
-  width: 242px;
+  width: 100%;
   height: 45px;
   padding: 8px 16px;
   background-color: ${(props) =>
@@ -44,10 +44,15 @@ export const CountNumber = styled.span`
 
 export const CardContainer = styled.div`
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+
   gap: 20px;
   max-width: 1024px;
   margin: 0 auto;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+  }
 `;
 
 export const Card = styled.div`

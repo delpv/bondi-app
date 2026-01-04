@@ -15,8 +15,6 @@ import {
   DescriptionContainer,
 } from "../styled/act-detail-style-comp/HostCard.styled.jsx";
 import UserIcon from "../../assets/icons_app/user_icon.svg?react";
-import Divider from "../../assets/icons_app/divider.svg?react";
-import { formatMemberSince } from "../../services/dateService";
 
 const HostCard = ({ host, hostInfo, activitiesHosted }) => {
   const navigate = useNavigate();
@@ -48,7 +46,6 @@ const HostCard = ({ host, hostInfo, activitiesHosted }) => {
       </HostInfoContainer>
 
       <HostDescription>{aboutMe}</HostDescription>
-      <Divider />
 
       <DescriptionContainer>
         <HostMemberSince>Member since: {memberSince}</HostMemberSince>
