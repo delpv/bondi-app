@@ -82,7 +82,7 @@ const Cover = ({ user }) => {
   return (
     <CoverContainer>
       <DynamicProfileCover
-        backgroundImage={userData?.coverPhoto || CoverBackground}
+        $backgroundImage={userData?.coverPhoto || CoverBackground}
       >
         <CoverOverlay />
 

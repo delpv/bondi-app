@@ -199,7 +199,7 @@ export const ProfileAvatar = styled.img`
 `;
 
 export const DynamicProfileCover = styled(ProfileCover)`
-  background-image: url(${(props) => props.backgroundImage});
+  background-image: url(${(props) => props.$backgroundImage});
 `;
 
 // Image Preview Components for Edit Modal
