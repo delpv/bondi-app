@@ -201,3 +201,22 @@ export const ProfileAvatar = styled.img`
 export const DynamicProfileCover = styled(ProfileCover)`
   background-image: url(${(props) => props.backgroundImage});
 `;
+
+// Image Preview Components for Edit Modal
+export const ImagePreviewContainer = styled.div`
+  margin-top: 8px;
+`;
+
+export const ProfilePicturePreview = styled.img`
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 8px;
+`;
+
+export const CoverPhotoPreview = styled.img`
+  width: 120px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 8px;
+`;

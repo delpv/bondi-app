@@ -26,32 +26,21 @@ export const AuthProvider = ({ children }) => {
   };
 
   const handleRegister = async (email, fullname, password) => {
-    try {
-      const userQuery2 = new Parse.Query("_User");
+    const result = await Parse.Cloud.run("signupUser", {
+      username: email,
+      email: email,
+      password: password,
+    });
 
-      userQuery2.equalTo("username", email);
+    if (result) {
+      await Parse.User.logIn(email, password);
 
-      const userExists = await userQuery2.first();
+      const currentUser = Parse.User.current();
+      currentUser.set("fullName", fullname);
+      await currentUser.save();
 
-      if (userExists) {
-        throw { message: "Email already exists" };
-      }
-
-      const user = new Parse.User();
-
-      user.set("username", email);
-      user.set("password", password);
-      user.set("fullName", fullname);
-      user.set("profilePiture", "defaultAvatar.jpg");
-
-      const result = await user.signUp();
-
-      if (result) {
-        setIsAuthenticated(true);
-        navigate("/feed");
-      }
-    } catch (e) {
-      throw e.message;
+      setIsAuthenticated(true);
+      navigate("/feed");
     }
   };
 
