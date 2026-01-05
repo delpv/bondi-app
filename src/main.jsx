@@ -18,7 +18,7 @@ ReactDOM.createRoot(root).render(
       <ScrollToTop />
       <AuthProvider>
         <>
-          <Toaster position="top-right" />
+          <Toaster position="bottom-right" />
           <Router />
         </>  
       </AuthProvider>
