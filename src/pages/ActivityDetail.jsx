@@ -22,11 +22,10 @@ const ActivityDetail = () => {
   const [hostInfo, setHostInfo] = useState(null);
   const [category, setCategory] = useState(null);
   const [loading, setLoading] = useState(true);
-<<<<<<< HEAD
-=======
   const [hasJoined, setHasJoined] = useState(false);
   const [activitiesHosted, setActivitiesHosted] = useState(0);
->>>>>>> a5cfa3a ( deleted Participation Card, direction card and their styling, added direction button to the TitleCard)
+  const [joinedCount, setJoinedCount] = useState(0);
+  const [waitingList, setWaitingList] = useState(false);
 
   useEffect(() => {
     const fetchActivityAndHost = async () => {
@@ -48,8 +47,6 @@ const ActivityDetail = () => {
     if (id) fetchActivityAndHost();
   }, [id]);
 
-<<<<<<< HEAD
-=======
   useEffect(() => {
     const fetchActivitiesHosted = async () => {
       if (!host) return;
@@ -99,7 +96,75 @@ const ActivityDetail = () => {
     checkJoined();
   }, [activity]);
 
->>>>>>> a5cfa3a ( deleted Participation Card, direction card and their styling, added direction button to the TitleCard)
+  useEffect(() => {
+    const fetchJoinedCount = async () => {
+      if (!activity) return;
+
+      try {
+        const Activity = Parse.Object.extend("Activity");
+        const activityPtr = new Activity();
+        activityPtr.id = activity.objectId;
+
+        const Participation = Parse.Object.extend("Participation");
+        const q = new Parse.Query(Participation);
+        q.equalTo("activity_id", activityPtr);
+
+        const count = await q.count();
+        setJoinedCount(count);
+      } catch (err) {
+        console.error("Error counting participants:", err);
+      }
+    };
+
+    fetchJoinedCount();
+  }, [activity]);
+
+  const maxCapacity = activity?.maxCapacity || 0;
+
+  const handleJoin = async () => {
+    if (!activity) return;
+
+    const currentUser = Parse.User.current();
+    if (!currentUser) return;
+
+    const Activity = Parse.Object.extend("Activity");
+    const activityPtr = new Activity();
+    activityPtr.id = activity.objectId;
+
+    const Participation = Parse.Object.extend("Participation");
+    const baseQuery = new Parse.Query(Participation);
+    baseQuery.equalTo("activity_id", activityPtr);
+    baseQuery.equalTo("UserId", currentUser);
+
+    try {
+      if (hasJoined) {
+        const existing = await baseQuery.first();
+        if (existing) {
+          await existing.destroy();
+          setHasJoined(false);
+          setJoinedCount((prev) => Math.max(0, prev - 1));
+          setWaitingList(false);
+        }
+      } else {
+        if (joinedCount < maxCapacity) {
+          const participation = new Participation();
+          participation.set("activity_id", activityPtr);
+          participation.set("UserId", currentUser);
+          await participation.save();
+
+          setHasJoined(true);
+          setJoinedCount((prev) => prev + 1);
+        } else {
+          setWaitingList(true);
+        }
+      }
+    } catch (err) {
+      console.error("Error joining/leaving activity:", err);
+    }
+  };
+
+  const isFull = joinedCount >= maxCapacity;
+
   if (loading) return <div>Loading...</div>;
   if (!activity) return <div>Activity not found...</div>;
 
@@ -112,7 +177,16 @@ const ActivityDetail = () => {
       <NavBar />
       <MainContainer>
         <ContentWrapper>
-          <HeaderSection activity={activity} category={category} />
+          <HeaderSection
+            activity={activity}
+            category={category}
+            hasJoined={hasJoined}
+            joinedCount={joinedCount}
+            waitingList={waitingList}
+            isFull={isFull}
+            handleJoin={handleJoin}
+          />
+
           <CardContainer>
             <TitleCard activity={activity} location={location} />
 

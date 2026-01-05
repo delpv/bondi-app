@@ -83,7 +83,8 @@ export const HostDescription = styled.p`
 export const HostMemberSince = styled.p`
   width: 255px;
   height: 44px;
-  background-color: rgba(254, 211, 131, 1);
+  background-color: white;
+  border: 2px rgba(254, 211, 131, 1) solid;
   display: flex; /* makes it a flex container */
   justify-content: center; /* horizontal centering */
   align-items: center; /* vertical centering */
@@ -109,7 +110,7 @@ export const DescriptionContainer = styled.div`
 export const ActivitiesHostedLabel = styled.span`
   width: 255px;
   height: 44px;
-  background-color: rgba(254, 211, 131, 1);
+  border: 2px rgba(254, 211, 131, 1) solid;
   display: flex; /* makes it a flex container */
   justify-content: center; /* horizontal centering */
   align-items: center; /* vertical centering */

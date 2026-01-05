@@ -25,7 +25,11 @@ const HostCard = ({ host, hostInfo, activitiesHosted }) => {
   const hostName = host.fullName || "Unknown host";
   const aboutMe = hostInfo?.aboutMe || "No description available.";
 
-  const memberSince = formatMemberSince(host?.createdAt);
+  let memberSince = "Unknown";
+  if (host?.createdAt) {
+    const date = new Date(host.createdAt);
+    memberSince = date.getFullYear();
+  }
 
   return (
     <HostCardContainer>
