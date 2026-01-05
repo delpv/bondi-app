@@ -34,3 +34,18 @@ export const CardDescription = styled.p`
   margin-bottom: 1em; /* space after each paragraph */
   white-space: pre-line; /* respects line breaks (\n) */
 `;
+
+export const DirectionLabel = styled.span`
+  width: 255px;
+  height: 44px;
+  background-color: rgba(254, 211, 131, 1);
+  display: flex; /* makes it a flex container */
+  justify-content: center; /* horizontal centering */
+  align-items: center; /* vertical centering */
+  border-radius: 10px;
+  font-size: 20px;
+  font-family: "Inter", sans-serif;
+  color: black;
+  margin-bottom: 12px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* subtle drop shadow */
+`;
