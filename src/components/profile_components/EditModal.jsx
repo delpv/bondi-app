@@ -12,6 +12,8 @@ import {
   EditModalSuccessButton,
 } from "../styled/profile-style-comp/Cover.styled";
 
+import toast from "react-hot-toast";
+
 const EditModal = ({ 
   isOpen, 
   onClose, 
@@ -108,7 +110,7 @@ const EditModal = ({
       onClose();
     } catch (error) {
       console.error("Failed to update profile:", error);
-      alert(`Failed to update profile: ${error.message}`);
+      toast.error(`Failed to update profile: ${error.message || "Unknown error"}`);
     } finally {
       setIsLoading(false);
     }

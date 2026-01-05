@@ -41,7 +41,6 @@ export default function CreateActivity() {
     time: "",
     endTime: "",
     max: "",
-    isPublic: true,
     priceLabel: "Free",
     categoryId: "",
     imageFile: null,

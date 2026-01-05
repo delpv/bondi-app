@@ -20,6 +20,8 @@ import {
   DynamicProfileCover,
 } from "../styled/profile-style-comp/Cover.styled";
 
+import toast from "react-hot-toast";
+
 const Cover = ({ user }) => {
   const [userData, setUserData] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -73,7 +75,7 @@ const Cover = ({ user }) => {
       console.error("Database error details:", error);
       console.error("Error message:", error.message);
       console.error("Error code:", error.code);
-      alert(`Database Error: ${error.message}. Check console for details.`);
+      toast.error(`Database error: ${error.message || "Unknown error"}`);
     } finally {
       setIsLoading(false);
     }

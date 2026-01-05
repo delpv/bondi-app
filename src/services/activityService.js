@@ -40,7 +40,6 @@ export const createActivity = async (activityData, currentUser) => {
     time,
     endTime,
     max,
-    isPublic,
     price,
     categoryId,
     imageFile,
@@ -71,7 +70,7 @@ export const createActivity = async (activityData, currentUser) => {
     activity.set("dateEnd", endDate);
     activity.set("price", price);
     activity.set("maxCapacity", max);
-    activity.set("isPrivate", !isPublic);
+    activity.set("isPrivate", false);
     activity.set("participantCount", 0);
     activity.set("host_ID", currentUser);
     activity.set("createdBy", currentUser);
