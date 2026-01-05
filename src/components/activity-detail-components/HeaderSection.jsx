@@ -1,3 +1,4 @@
+import Parse from "parse";
 import React, { useState, useEffect } from "react";
 import { getCurrentUser } from "../../utils/getCurrentUser";
 
@@ -18,9 +19,8 @@ import {
   CountNumber,
 } from "../styled/act-detail-style-comp/Common.jsx";
 
-// Icons
 import Calendar from "../../assets/icons_app/calendar.svg?react";
-// import Clock from "../../assets/Icons/clock.svg?react";
+
 import Location from "../../assets/icons_app/location.svg?react";
 
 const HeaderSection = ({ activity, category, host, initialHasJoined }) => {
@@ -33,40 +33,76 @@ const HeaderSection = ({ activity, category, host, initialHasJoined }) => {
 
   const maxCapacity = activity.maxCapacity || 0;
 
+  const activityPointer = React.useMemo(() => {
+    if (!activity) return null;
+
+    if (activity instanceof Parse.Object) return activity;
+
+    const Activity = Parse.Object.extend("Activity");
+    const ptr = new Activity();
+    const id = activity.id || activity.objectId;
+    if (!id) return null;
+    ptr.id = id;
+    return ptr;
+  }, [activity]);
+
+  useEffect(() => {
+    const fetchJoinedCount = async () => {
+      if (!activityPointer) return;
+
+      const Participation = Parse.Object.extend("Participation");
+      const query = new Parse.Query(Participation);
+      query.equalTo("activity_id", activityPointer);
+
+      const count = await query.count();
+      setJoinedCount(count);
+    };
+
+    fetchJoinedCount().catch(console.error);
+  }, [activityPointer]);
+
   useEffect(() => {
     const checkHost = async () => {
       const currentUser = await getCurrentUser();
       if (!currentUser || !host) return;
 
-      const hostId =
-        host.id ||
-        host.objectId ||
-        (typeof host.get === "function" ? host.get("objectId") : undefined);
+      const hostId = host.id || host.objectId || host.get?.("objectId");
+      const currentUserId = currentUser.id || currentUser.get?.("objectId");
 
-      const currentUserId =
-        currentUser.id ||
-        (typeof currentUser.get === "function"
-          ? currentUser.get("objectId")
-          : undefined);
-
-      console.log("hostId =", hostId);
-      console.log("currentUserId =", currentUserId);
-
-      setIsHost(currentUserId && hostId && currentUserId === hostId);
+      setIsHost(Boolean(currentUserId && hostId && currentUserId === hostId));
     };
 
     checkHost();
   }, [host]);
 
-  const handleJoin = () => {
-    if (isHost) return;
+  const handleJoin = async () => {
+    if (isHost || !activityPointer) return;
+
+    const currentUser = await getCurrentUser();
+    if (!currentUser) return;
+
+    const Participation = Parse.Object.extend("Participation");
+    const baseQuery = new Parse.Query(Participation);
+    baseQuery.equalTo("activity_id", activityPointer);
+    baseQuery.equalTo("UserId", currentUser);
 
     if (hasJoined) {
-      setHasJoined(false);
-      setJoinedCount((prev) => prev - 1);
-      setWaitingList(false);
+      // leave
+      const existing = await baseQuery.first();
+      if (existing) {
+        await existing.destroy();
+        setHasJoined(false);
+        setJoinedCount((prev) => Math.max(0, prev - 1));
+        setWaitingList(false);
+      }
     } else {
+      // join
       if (joinedCount < maxCapacity) {
+        const participation = new Participation();
+        participation.set("activity_id", activityPointer);
+        participation.set("UserId", currentUser);
+        await participation.save();
+
         setHasJoined(true);
         setJoinedCount((prev) => prev + 1);
       } else {
@@ -74,10 +110,6 @@ const HeaderSection = ({ activity, category, host, initialHasJoined }) => {
       }
     }
   };
-
-  useEffect(() => {
-    setHasJoined(initialHasJoined || false);
-  }, [initialHasJoined]);
 
   const dateStart = activity.dateStart ? new Date(activity.dateStart) : null;
   const dateEnd = activity.dateEnd ? new Date(activity.dateEnd) : null;
@@ -100,10 +132,6 @@ const HeaderSection = ({ activity, category, host, initialHasJoined }) => {
           <Label type="yellow">
             <Calendar /> {formattedStart} - {formattedEnd}
           </Label>
-
-          {/* <Label type="yellow">
-            <Clock /> Time
-          </Label> */}
           <Label type="yellow">
             <Location /> {location}
           </Label>
