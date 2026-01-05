@@ -23,15 +23,18 @@ import { useActivityJoin } from "../../hooks/useActivityJoin.js";
 import { formatActivityDate } from "../../services/dateService";
 
 const HeaderSection = ({ activity, category }) => {
+  if (!activity) return <div>Loading...</div>;
+
   const maxCapacity = activity.maxCapacity || 0;
 
   const { hasJoined, joinedCount, waitingList, isFull, handleJoin } =
-    useActivityJoin(maxCapacity);
+    useActivityJoin(activity, maxCapacity);
 
-  if (!activity) return <div>Loading...</div>;
+  const dateStart = activity.dateStart ? new Date(activity.dateStart) : null;
+  const dateEnd = activity.dateEnd ? new Date(activity.dateEnd) : null;
 
-  const formattedStart = formatActivityDate(activity.dateStart);
-  const formattedEnd = formatActivityDate(activity.dateEnd);
+  const formattedStart = dateStart ? formatActivityDate(dateStart) : "TBD";
+  const formattedEnd = dateEnd ? formatActivityDate(dateEnd) : "TBD";
 
   const title = activity.Title || "TBD";
   const location = activity.location || "Location to be decided";
