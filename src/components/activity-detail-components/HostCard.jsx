@@ -27,10 +27,6 @@ const HostCard = ({ host, hostInfo, activitiesHosted }) => {
 
   const memberSince = formatMemberSince(host?.createdAt);
 
-  const goToProfile = () => {
-    navigate("/profile");
-  };
-
   return (
     <HostCardContainer>
       <HostTitle>
@@ -52,7 +48,6 @@ const HostCard = ({ host, hostInfo, activitiesHosted }) => {
         <ActivitiesHostedLabel>
           {activitiesHosted} Activities Hosted
         </ActivitiesHostedLabel>
-        <HostButton onClick={goToProfile}>See Profile</HostButton>
       </DescriptionContainer>
     </HostCardContainer>
   );

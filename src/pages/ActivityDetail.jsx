@@ -12,8 +12,6 @@ import {
 import HeaderSection from "../components/activity-detail-components/HeaderSection.jsx";
 import TitleCard from "../components/activity-detail-components/TitleCard.jsx";
 import HostCard from "../components/activity-detail-components/HostCard.jsx";
-import ParticipantsCard from "../components/activity-detail-components/ParticipantCard.jsx";
-import LocationCard from "../components/activity-detail-components/LocationCard.jsx";
 
 import { CardContainer } from "../components/styled/act-detail-style-comp/Common.jsx";
 
@@ -24,6 +22,11 @@ const ActivityDetail = () => {
   const [hostInfo, setHostInfo] = useState(null);
   const [category, setCategory] = useState(null);
   const [loading, setLoading] = useState(true);
+<<<<<<< HEAD
+=======
+  const [hasJoined, setHasJoined] = useState(false);
+  const [activitiesHosted, setActivitiesHosted] = useState(0);
+>>>>>>> a5cfa3a ( deleted Participation Card, direction card and their styling, added direction button to the TitleCard)
 
   useEffect(() => {
     const fetchActivityAndHost = async () => {
@@ -45,6 +48,58 @@ const ActivityDetail = () => {
     if (id) fetchActivityAndHost();
   }, [id]);
 
+<<<<<<< HEAD
+=======
+  useEffect(() => {
+    const fetchActivitiesHosted = async () => {
+      if (!host) return;
+
+      try {
+        const hostId = host.id || host.objectId;
+        if (!hostId) return;
+
+        const User = Parse.Object.extend("_User");
+        const hostPtr = new User();
+        hostPtr.id = hostId;
+
+        const Activity = Parse.Object.extend("Activity");
+        const query = new Parse.Query(Activity);
+        query.equalTo("host_ID", hostPtr);
+
+        const count = await query.count();
+        setActivitiesHosted(count);
+      } catch (err) {
+        console.error("Error counting host activities:", err);
+      }
+    };
+
+    fetchActivitiesHosted();
+  }, [host]);
+
+  useEffect(() => {
+    const checkJoined = async () => {
+      const currentUser = Parse.User.current();
+      if (!currentUser || !activity) return;
+
+      try {
+        const activityQuery = new Parse.Query("Activity");
+        const currentActivity = await activityQuery.get(activity.objectId);
+
+        const participationQuery = new Parse.Query("Participation");
+        participationQuery.equalTo("activity_id", currentActivity);
+        participationQuery.equalTo("UserId", currentUser);
+
+        const existing = await participationQuery.first();
+        setHasJoined(!!existing);
+      } catch (err) {
+        console.error("Error checking joined status:", err);
+      }
+    };
+
+    checkJoined();
+  }, [activity]);
+
+>>>>>>> a5cfa3a ( deleted Participation Card, direction card and their styling, added direction button to the TitleCard)
   if (loading) return <div>Loading...</div>;
   if (!activity) return <div>Activity not found...</div>;
 
@@ -59,26 +114,17 @@ const ActivityDetail = () => {
         <ContentWrapper>
           <HeaderSection activity={activity} category={category} />
           <CardContainer>
-            <TitleCard activity={activity} />
+            <TitleCard activity={activity} location={location} />
 
             {hostValue ? (
               <HostCard
                 host={hostValue}
                 hostInfo={hostInfo}
-                activitiesHosted={8}
+                activitiesHosted={activitiesHosted}
               />
             ) : (
               <p>No host data</p>
             )}
-            <ParticipantsCard
-              activityId={activity.objectId}
-              participantImage="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTnFW7ZDLxu41lI2gB6ExZT7vczi163BrA9WA&s"
-              hostName={host?.fullName || host?.username}
-            />
-            <LocationCard
-              location={location}
-              locationImage="https://upload.wikimedia.org/wikipedia/commons/5/5b/Palm_House%2C_Copenhagen_Botanical_Garden.jpg"
-            />
           </CardContainer>
         </ContentWrapper>
       </MainContainer>
