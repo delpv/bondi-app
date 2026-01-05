@@ -35,6 +35,7 @@ export const TitleSection = styled.div`
   align-items: center;
   padding: 10px;
   box-sizing: border-box;
+   margin: 0 0 0 20px;
 `;
 
 export const SectionTitle = styled.h2`
