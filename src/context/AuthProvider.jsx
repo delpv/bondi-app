@@ -26,25 +26,21 @@ export const AuthProvider = ({ children }) => {
   };
 
   const handleRegister = async (email, fullname, password) => {
-    try {
-      const result = await Parse.Cloud.run("signupUser", {
-        username: email,
-        email: email,
-        password: password
-      });
+    const result = await Parse.Cloud.run("signupUser", {
+      username: email,
+      email: email,
+      password: password,
+    });
 
-      if (result) {
-        await Parse.User.logIn(email, password);
-        
-        const currentUser = Parse.User.current();
-        currentUser.set("fullName", fullname);
-        await currentUser.save();
+    if (result) {
+      await Parse.User.logIn(email, password);
 
-        setIsAuthenticated(true);
-        navigate("/feed");
-      }
-    } catch (e) {
-      throw e.message;
+      const currentUser = Parse.User.current();
+      currentUser.set("fullName", fullname);
+      await currentUser.save();
+
+      setIsAuthenticated(true);
+      navigate("/feed");
     }
   };
 
