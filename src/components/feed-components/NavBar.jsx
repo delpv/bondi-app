@@ -14,7 +14,7 @@ import {
   BrandName,
   BrandLogo,
 } from "../styled/feed-style-comp/NavBar.styled";
-import { AuthContext } from "../../context/AuthContext";
+import { AuthContext } from "../../context/AuthContext.jsx";
 
 function NavBar() {
   const { handleLogout } = useContext(AuthContext);

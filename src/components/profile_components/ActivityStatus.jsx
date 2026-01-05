@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Parse from "parse";
-import { useAuthContext } from "../../context/AuthContext";
+import { useAuthContext } from "../../context/AuthContext.jsx";
 import {
   ActivityStatusContainer,
   HeaderFrame,

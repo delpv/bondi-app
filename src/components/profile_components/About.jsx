@@ -14,6 +14,8 @@ import {
   AboutSaveButton,
 } from "../styled/profile-style-comp/About.styled";
 
+import toast from "react-hot-toast";
+
 const About = ({ user }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [aboutText, setAboutText] = useState("");
