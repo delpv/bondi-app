@@ -31,7 +31,7 @@ const Cover = ({ user }) => {
 
   useEffect(() => {
     loadUserData();
-  }, [currentUserId]); // Re-load when user changes
+  }, [currentUserId]); 
 
   const loadUserData = async () => {
     if (!currentUserId) return;
@@ -41,7 +41,7 @@ const Cover = ({ user }) => {
       const query = new Parse.Query(User);
       const user = await query.get(currentUserId);
 
-      // Get user_Info pointer and fetch it
+      
       const userInfoPtr = user.get("user_Info");
       let profilePicture = null;
       let coverPhoto = null;
@@ -81,7 +81,7 @@ const Cover = ({ user }) => {
     }
   };
   
-  console.log(userData);
+ 
   return (
     <CoverContainer>
       <DynamicProfileCover
@@ -103,17 +103,17 @@ const Cover = ({ user }) => {
           </ProfileAvatarContainer>
 
           <ProfileInfoCard>
-            <ProfileName>{userData?.fullName || "Loading..."}</ProfileName>
+            <ProfileName>{isLoading ? "Loading..." : (userData?.fullName || "No name")}</ProfileName>
             <MemberSince>
               Member since{" "}
-              {userData?.createdAt
+              {isLoading ? "Loading..." : (userData?.createdAt
                 ? new Date(userData.createdAt).toLocaleDateString("en-US", {
                     month: "long",
                     year: "numeric",
                   })
-                : "Loading..."}
+                : "Unknown")}
             </MemberSince>
-          </ProfileInfoCard>
+          </ProfileInfoCard> 
 
           {userData?.address && (
             <ProfileAddressContainer>

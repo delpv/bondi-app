@@ -10,6 +10,9 @@ import {
   EditModalActions,
   EditModalSecondaryButton,
   EditModalSuccessButton,
+  ImagePreviewContainer,
+  ProfilePicturePreview,
+  CoverPhotoPreview,
 } from "../styled/profile-style-comp/Cover.styled";
 
 import toast from "react-hot-toast";
@@ -29,7 +32,7 @@ const EditModal = ({
   const [coverPhotoPreview, setCoverPhotoPreview] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
-  // Initialize edit name and address when modal opens
+  
   useEffect(() => {
     if (isOpen && userData?.fullName) {
       setEditName(userData.fullName);
@@ -59,53 +62,52 @@ const EditModal = ({
     try {
       setIsLoading(true);
 
-      // Get current user for _USER table updates
+      
       const User = Parse.Object.extend("_User");
       const query = new Parse.Query(User);
       const user = await query.get(currentUserId);
       
-      // Save full name to _USER table
+     
       if (editName.trim()) {
         user.set("fullName", editName.trim());
         await user.save();
       }
 
-      // Get user_Info pointer for profile data
+      
       const userInfoPtr = user.get("user_Info");
       if (userInfoPtr) {
         const userInfo = userInfoPtr.fetch ? await userInfoPtr.fetch() : userInfoPtr;
         
-        // Upload and save profile picture if selected
+       
         if (profilePictureFile) {
           const parseFile = new Parse.File(profilePictureFile.name, profilePictureFile);
           await parseFile.save();
           userInfo.set("profilePicture", parseFile);
         }
         
-        // Upload and save cover photo if selected
+       
         if (coverPhotoFile) {
           const parseFile = new Parse.File(coverPhotoFile.name, coverPhotoFile);
           await parseFile.save();
           userInfo.set("coverPhoto", parseFile);
         }
         
-        // Save address if changed
+        
         if (editAddress.trim() !== userData?.address) {
           userInfo.set("address", editAddress.trim());
         }
         
-        // Save user_Info changes
+        
         await userInfo.save();
       }
 
-      // Reset form state
       setEditAddress("");
       setProfilePictureFile(null);
       setProfilePicturePreview("");
       setCoverPhotoFile(null);
       setCoverPhotoPreview("");
 
-      // Notify parent to refresh data and close modal
+
       await onSaveSuccess();
       onClose();
     } catch (error) {
@@ -117,7 +119,7 @@ const EditModal = ({
   };
 
   const handleClose = () => {
-    // Reset form state when closing
+    
     setEditName(userData?.fullName || "");
     setEditAddress(userData?.address || "");
     setProfilePictureFile(null);
@@ -162,18 +164,12 @@ const EditModal = ({
             onChange={handleProfilePictureChange}
           />
           {profilePicturePreview && (
-            <div style={{ marginTop: '8px' }}>
-              <img 
+            <ImagePreviewContainer>
+              <ProfilePicturePreview
                 src={profilePicturePreview} 
-                alt="Profile picture preview" 
-                style={{ 
-                  width: '80px', 
-                  height: '80px', 
-                  objectFit: 'cover', 
-                  borderRadius: '8px' 
-                }}
+                alt="Profile picture preview"
               />
-            </div>
+            </ImagePreviewContainer>
           )}
         </EditModalField>
 
@@ -185,18 +181,12 @@ const EditModal = ({
             onChange={handleCoverPhotoChange}
           />
           {coverPhotoPreview && (
-            <div style={{ marginTop: '8px' }}>
-              <img 
+            <ImagePreviewContainer>
+              <CoverPhotoPreview
                 src={coverPhotoPreview} 
-                alt="Cover photo preview" 
-                style={{ 
-                  width: '120px', 
-                  height: '60px', 
-                  objectFit: 'cover', 
-                  borderRadius: '8px' 
-                }}
+                alt="Cover photo preview"
               />
-            </div>
+            </ImagePreviewContainer>
           )}
         </EditModalField>
 

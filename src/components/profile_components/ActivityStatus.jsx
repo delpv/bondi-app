@@ -20,7 +20,7 @@ const ActivityStatus = () => {
   const [loading, setLoading] = useState(true);
   const { isAuthenticated } = useAuthContext();
 
-  //  fetch joined activities count
+  
   const fetchJoinedActivitiesCount = async () => {
     try {
       const currentUser = Parse.User.current();
@@ -36,7 +36,7 @@ const ActivityStatus = () => {
     }
   };
 
-  // fetch hosted activities count
+  
   const fetchHostedActivitiesCount = async () => {
     try {
       const currentUser = Parse.User.current();
@@ -52,7 +52,7 @@ const ActivityStatus = () => {
     }
   };
 
-  // Fetch activity counts when component mounts
+  
   useEffect(() => {
     const fetchActivityCounts = async () => {
       if (!isAuthenticated) {

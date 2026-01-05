@@ -70,6 +70,8 @@ export const EditModalContainer = styled.div`
   padding: 24px 45px 24px 24px;
   min-width: 400px;
   max-width: 90vw;
+  max-height: 85vh;
+  overflow-y: auto;
 `;
 
 export const EditModalTitle = styled.h3`
