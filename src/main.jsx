@@ -8,6 +8,8 @@ import Router from "./Router.jsx";
 import "./utils/parseConfig.js";
 import { AuthProvider } from "./context/AuthProvider.jsx";
 
+import { Toaster } from "react-hot-toast";
+
 const root = document.getElementById("root");
 
 ReactDOM.createRoot(root).render(
@@ -15,7 +17,10 @@ ReactDOM.createRoot(root).render(
     <BrowserRouter>
       <ScrollToTop />
       <AuthProvider>
-        <Router />
+        <>
+          <Toaster position="top-right" />
+          <Router />
+        </>  
       </AuthProvider>
     </BrowserRouter>
   </React.StrictMode>

@@ -27,6 +27,8 @@ import { createActivity } from "../services/activityService";
 import { useCategories } from "../hooks/useCategories";
 import { parsePrice } from "../services/priceUtility";
 
+import toast from "react-hot-toast";
+
 export default function CreateActivity() {
   const user = Parse.User.current();
   const navigate = useNavigate();
@@ -65,7 +67,13 @@ export default function CreateActivity() {
     e.preventDefault();
 
     if (!user) {
-      alert("You need to be logged in to create an activity.");
+      toast.error("You need to be logged in to create an activity.");
+      return;
+    }
+
+    const maxNumber = Number(data.max);
+    if (!Number.isInteger(maxNumber) || maxNumber < 1) {
+      toast.error("Please enter a maximum number of participants (at least 1).");
       return;
     }
 
@@ -77,15 +85,16 @@ export default function CreateActivity() {
       await createActivity(
         {
           ...data,
+          max: maxNumber,
           price,
         },
         user
       );
 
-      alert("Activity created successfully!");
+      toast.success("Activity created successfully!");
       navigate("/feed");
     } catch (error) {
-      alert(
+      toast.error (
         error.message || "Something went wrong while creating the activity."
       );
       console.error("Create activity error:", error);
@@ -172,11 +181,13 @@ export default function CreateActivity() {
                 id="max"
                 name="max"
                 type="number"
-                min="0"
+                min="1"
+                step="1"
                 label="Maximum participants"
-                placeholder="Leave empty for unlimited"
+                placeholder="e.g. 10"
                 value={data.max}
                 onChange={onChange}
+                required
               />
 
               <TextField

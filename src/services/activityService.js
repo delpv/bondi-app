@@ -70,7 +70,7 @@ export const createActivity = async (activityData, currentUser) => {
     activity.set("dateStart", startDate);
     activity.set("dateEnd", endDate);
     activity.set("price", price);
-    activity.set("maxCapacity", max && max.trim() !== "" ? Number(max) : 0);
+    activity.set("maxCapacity", max);
     activity.set("isPrivate", !isPublic);
     activity.set("participantCount", 0);
     activity.set("host_ID", currentUser);
