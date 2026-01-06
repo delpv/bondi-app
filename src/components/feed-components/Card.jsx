@@ -51,9 +51,7 @@ export default function Card({
   const navigate = useNavigate();
 
   const imHosting =
-    hostObject !== undefined &&
-    hostObject !== undefined &&
-    hostObject?.user_ID.id === user?.id;
+    hostObject !== undefined && hostObject?.user_ID.id === user?.id;
 
   const goToDetail = () => {
     if (!id) return;
