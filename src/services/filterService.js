@@ -17,15 +17,17 @@ export const filterActivities = (activities, filters) => {
   // Filter by search query (title)
   if (filters.query && filters.query.trim() !== "") {
     filtered = filtered.filter((activity) =>
-      activity.Title.toLowerCase().includes(filters.query.toLowerCase())
+      activity.activity.Title.toLowerCase().includes(
+        filters.query.toLowerCase()
+      )
     );
   }
 
   // Filter by category
   if (filters.category && filters.category.trim() !== "") {
     filtered = filtered.filter((activity) => {
-      const categoryName =
-        activity.category?.name || activity.category?.name || "";
+      const categoryName = activity.category?.name || "";
+      console.log("Comparing:", categoryName, "with filter:", filters.category);
       return categoryName.toLowerCase() === filters.category.toLowerCase();
     });
   }

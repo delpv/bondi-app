@@ -38,7 +38,6 @@ export default function Card({
   hostFullName,
   maxParticipants,
   location,
-  userId,
   hostObject,
   onDeleteActivity,
 }) {
@@ -52,9 +51,7 @@ export default function Card({
   const navigate = useNavigate();
 
   const imHosting =
-    hostObject !== undefined &&
-    hostObject !== undefined &&
-    hostObject?.user_ID.id === user?.id;
+    hostObject !== undefined && hostObject?.user_ID.id === user?.id;
 
   const goToDetail = () => {
     if (!id) return;
@@ -75,7 +72,7 @@ export default function Card({
       const participants = allParticipants.map((part) => {
         const partJson = part.toJSON();
 
-        if (partJson.UserId.objectId === userId) {
+        if (partJson.UserId.objectId === user?.id) {
           setJoined(true);
         }
 
