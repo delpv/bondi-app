@@ -15,8 +15,6 @@ import {
   DescriptionContainer,
 } from "../styled/act-detail-style-comp/HostCard.styled.jsx";
 import UserIcon from "../../assets/icons_app/user_icon.svg?react";
-import Divider from "../../assets/icons_app/divider.svg?react";
-import { formatMemberSince } from "../../services/dateService";
 
 const HostCard = ({ host, hostInfo, activitiesHosted }) => {
   const navigate = useNavigate();
@@ -27,11 +25,11 @@ const HostCard = ({ host, hostInfo, activitiesHosted }) => {
   const hostName = host.fullName || "Unknown host";
   const aboutMe = hostInfo?.aboutMe || "No description available.";
 
-  const memberSince = formatMemberSince(host?.createdAt);
-
-  const goToProfile = () => {
-    navigate("/profile");
-  };
+  let memberSince = "Unknown";
+  if (host?.createdAt) {
+    const date = new Date(host.createdAt);
+    memberSince = date.getFullYear();
+  }
 
   return (
     <HostCardContainer>
@@ -48,14 +46,12 @@ const HostCard = ({ host, hostInfo, activitiesHosted }) => {
       </HostInfoContainer>
 
       <HostDescription>{aboutMe}</HostDescription>
-      <Divider />
 
       <DescriptionContainer>
         <HostMemberSince>Member since: {memberSince}</HostMemberSince>
         <ActivitiesHostedLabel>
           {activitiesHosted} Activities Hosted
         </ActivitiesHostedLabel>
-        <HostButton onClick={goToProfile}>See Profile</HostButton>
       </DescriptionContainer>
     </HostCardContainer>
   );
