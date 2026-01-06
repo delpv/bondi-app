@@ -1,5 +1,5 @@
 import styled from "styled-components";
-// Import edit modal 
+
 import {
   EditModalOverlay,
   EditModalContainer,
@@ -10,19 +10,17 @@ import {
   EditModalActions,
   EditProfileButton,
   EditModalSecondaryButton,
-  EditModalSuccessButton
+  EditModalSuccessButton,
 } from "./EditProfile.styled";
 
-// Import profile info 
 import {
   ProfileInfoCard,
   ProfileName,
   MemberSince,
-  StatsContainer,
-  StatBadge
+  ProfileAddressContainer,
+  ProfileAddressText,
 } from "./ProfileInfo.styled";
 
-// Re-export editProfile components
 export {
   EditModalOverlay,
   EditModalContainer,
@@ -33,26 +31,17 @@ export {
   EditModalActions,
   EditProfileButton,
   EditModalSecondaryButton,
-  EditModalSuccessButton
+  EditModalSuccessButton,
 };
 
-// Re-export profile info 
-export {
-  ProfileInfoCard,
-  ProfileName,
-  MemberSince,
-  StatsContainer,
-  StatBadge
-};
+export { ProfileInfoCard, ProfileName, MemberSince, ProfileAddressContainer, ProfileAddressText };
 
-// Color variables for consistency
 const border = "#61646B";
 const shadowColor = "rgba(0, 0, 0, 0.4)";
 
-// Main cover container - entire cover area (cover frame)
 export const CoverContainer = styled.div`
   width: 100%;
-  height: 400px;        /* default height */
+  height: 400px; /* default height */
   padding: 30px 0;
   display: flex;
   flex-direction: column;
@@ -74,8 +63,6 @@ export const CoverContainer = styled.div`
   }
 `;
 
-
-// Profile cover - inner container with the actual cover content
 export const ProfileCover = styled.div`
   display: flex;
   width: 100%;
@@ -124,18 +111,20 @@ export const ProfileCover = styled.div`
   }
 `;
 
-// Overlay 
 export const CoverOverlay = styled.div`
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.02), rgba(0, 0, 0, 0.08));
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.02),
+    rgba(0, 0, 0, 0.08)
+  );
   z-index: 1;
 `;
 
-// Action buttons container (top right)
 export const ActionButtons = styled.div`
   position: absolute;
   top: clamp(12px, 1.5vw, 20px);
@@ -158,7 +147,6 @@ export const ActionButtons = styled.div`
   }
 `;
 
-// Content container that sits above the overlay
 export const CoverContent = styled.div`
   position: relative;
   z-index: 2;
@@ -177,18 +165,16 @@ export const CoverContent = styled.div`
   }
 `;
 
-
 export const ProfileAvatarContainer = styled.div`
   position: relative;
   display: inline-block;
 `;
 
-// Profile avatar styling
 export const ProfileAvatar = styled.img`
   width: clamp(130px, 12vw, 180px);
   height: clamp(130px, 12vw, 180px);
   border-radius: 50%;
-  border: clamp(2px, 0.3vw, 4px) solid #4A90E2;
+  border: clamp(2px, 0.3vw, 4px) solid #4a90e2;
   object-fit: cover;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
   flex-shrink: 0;
@@ -212,7 +198,25 @@ export const ProfileAvatar = styled.img`
   }
 `;
 
-// Dynamic ProfileCover that accepts backgroundImage prop
 export const DynamicProfileCover = styled(ProfileCover)`
-  background-image: url(${props => props.backgroundImage});
+  background-image: url(${(props) => props.$backgroundImage});
+`;
+
+// Image Preview Components for Edit Modal
+export const ImagePreviewContainer = styled.div`
+  margin-top: 8px;
+`;
+
+export const ProfilePicturePreview = styled.img`
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 8px;
+`;
+
+export const CoverPhotoPreview = styled.img`
+  width: 120px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 8px;
 `;

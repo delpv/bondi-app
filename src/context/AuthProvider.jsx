@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Parse from "parse";
 import { useNavigate } from "react-router-dom";
-import { AuthContext } from "./AuthContext";
+import { AuthContext } from "./AuthContext.jsx";
 
 export const AuthProvider = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -26,32 +26,21 @@ export const AuthProvider = ({ children }) => {
   };
 
   const handleRegister = async (email, fullname, password) => {
-    try {
-      const userQuery2 = new Parse.Query("_User");
+    const result = await Parse.Cloud.run("signupUser", {
+      username: email,
+      email: email,
+      password: password,
+    });
 
-      userQuery2.equalTo("username", email);
+    if (result) {
+      await Parse.User.logIn(email, password);
 
-      const userExists = await userQuery2.first();
+      const currentUser = Parse.User.current();
+      currentUser.set("fullName", fullname);
+      await currentUser.save();
 
-      if (userExists) {
-        throw { message: "Email already exists" };
-      }
-
-      const user = new Parse.User();
-
-      user.set("username", email);
-      user.set("password", password);
-      user.set("fullName", fullname);
-      user.set("profilePiture", "defaultAvatar.jpg");
-
-      const result = await user.signUp();
-
-      if (result) {
-        setIsAuthenticated(true);
-        navigate("/feed");
-      }
-    } catch (e) {
-      throw e.message;
+      setIsAuthenticated(true);
+      navigate("/feed");
     }
   };
 
@@ -59,6 +48,7 @@ export const AuthProvider = ({ children }) => {
     try {
       await Parse.User.logOut();
       setIsAuthenticated(false);
+      sessionStorage.removeItem("lastVisitedRoute");
       navigate("/login");
     } catch (e) {
       console.error("Error logging out:", e);
@@ -74,7 +64,12 @@ export const AuthProvider = ({ children }) => {
         const currentUser = await Parse.User.currentAsync();
         if (currentUser) {
           setIsAuthenticated(true);
-          navigate("/feed");
+          const lastVisitedRoute = sessionStorage.getItem("lastVisitedRoute");
+          if (lastVisitedRoute) {
+            navigate(lastVisitedRoute);
+          } else {
+            navigate("/feed");
+          }
         }
       } catch (e) {
         console.log(e.message);

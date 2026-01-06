@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import { AuthContext } from "../../context/AuthContext";
+import { AuthContext } from "../../context/AuthContext.jsx";
 import { Link } from "react-router-dom";
 import EyeIcon from "../../assets/icons_app/eye.svg?react";
 import {

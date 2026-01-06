@@ -1,6 +1,5 @@
 import styled from "styled-components";
 
-// About section parent container
 export const AboutContainer = styled.section`
   width: 100%;
   max-width: 960px;
@@ -8,7 +7,7 @@ export const AboutContainer = styled.section`
   min-height: 139px;
   border-radius: 12px;
   padding: 6px 10px;
-  background: #FFFFFF;
+  background: #ffffff;
   box-shadow:
     0px 1px 3px 0px rgba(0, 0, 0, 0.3),
     0px 4px 8px 3px rgba(0, 0, 0, 0.15);
@@ -16,7 +15,6 @@ export const AboutContainer = styled.section`
   box-sizing: border-box;
 `;
 
-// About frame - header section with title and edit button
 export const AboutFrame = styled.div`
   width: 100%;
   height: 69px;
@@ -27,16 +25,19 @@ export const AboutFrame = styled.div`
   gap: 10px;
 `;
 
-// About title
 export const AboutTitle = styled.h2`
-  font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-family:
+    "Poppins",
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
   font-size: 1.5rem;
   font-weight: 600;
   color: #111318;
-  margin: 0;
+  margin: 0 0 0 22px;
 `;
 
-// Edit button
 export const EditButton = styled.button`
   background: none;
   border: none;
@@ -62,64 +63,70 @@ export const EditButton = styled.button`
   }
 `;
 
-// About text content container
 export const AboutTextContainer = styled.div`
   width: 100%;
   min-height: 58px;
-  padding: 10px;
+  padding: 10px 30px 10px 10px;
   gap: 10px;
 `;
 
-// About text content
 export const AboutText = styled.p`
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-family:
+    "Inter",
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
   font-size: 1rem;
   line-height: 1.5;
   color: #374151;
-  margin: 0;
+  margin: 12px 30px 12px 12px;
 `;
 
-// About textarea for editing
 export const AboutTextarea = styled.textarea`
-  width: 100%;
-  min-height: 80px;
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  width: 95%;
+  min-height: 120px;
+  font-family:
+    "Inter",
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
   font-size: 1rem;
   line-height: 1.5;
   color: #374151;
-  margin: 0 0 12px 0;
+  margin: 8px 12px 12px 12px;
   padding: 8px;
   border: 1px solid #ddd;
   border-radius: 6px;
   outline: none;
-  background: ${props => props.disabled ? '#f5f5f5' : 'white'};
+  background: ${(props) => (props.disabled ? "#f5f5f5" : "white")};
   resize: vertical;
   box-sizing: border-box;
 `;
 
-// About edit actions container
 export const AboutEditActions = styled.div`
   display: flex;
   gap: 8px;
   justify-content: flex-end;
 `;
 
-// Base about edit button styles
 const BaseAboutEditButton = styled.button`
   padding: 6px 12px;
   color: white;
   border: none;
   border-radius: 4px;
   font-size: 14px;
-  cursor: ${props => props.disabled ? 'not-allowed' : 'pointer'};
-  opacity: ${props => props.disabled ? 0.5 : 1};
+  cursor: ${(props) => (props.disabled ? "not-allowed" : "pointer")};
+  opacity: ${(props) => (props.disabled ? 0.5 : 1)};
 `;
 
-// About edit button variants
 export const AboutDiscardButton = styled(BaseAboutEditButton)`
   background-color: #6c757d;
+   margin: 24px 24px 24px -10px;
 `;
 
 export const AboutSaveButton = styled(BaseAboutEditButton)`
   background-color: #28a745;
+   margin: 24px 24px 24px -10px;
 `;

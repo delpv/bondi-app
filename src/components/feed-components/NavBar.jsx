@@ -14,7 +14,7 @@ import {
   BrandName,
   BrandLogo,
 } from "../styled/feed-style-comp/NavBar.styled";
-import { AuthContext } from "../../context/AuthContext";
+import { AuthContext } from "../../context/AuthContext.jsx";
 
 function NavBar() {
   const { handleLogout } = useContext(AuthContext);
@@ -43,10 +43,6 @@ function NavBar() {
           <Link to="/profile" aria-label="Profile">
             <AvatarImg src={Avatar} alt="User avatar" />
           </Link>
-
-          <IconButton title="Settings" onClick={() => alert("Settings soon!")}>
-            <Settings />
-          </IconButton>
 
           <IconButton title="Logout" onClick={handleLogout}>
             <LogoutIcon />

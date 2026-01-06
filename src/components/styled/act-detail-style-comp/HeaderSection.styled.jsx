@@ -2,6 +2,7 @@ import styled from "styled-components";
 
 export const HeaderSectionContainer = styled.div`
   text-align: left;
+  max-width: 1600px;
   margin-bottom: 20px;
   background-color: white;
   border-radius: 12px;
@@ -9,11 +10,13 @@ export const HeaderSectionContainer = styled.div`
 
 export const HeaderImage = styled.img`
   width: 100%;
-  max-height: 500px;
+  aspect-ratio: 16 / 7;
+
   margin-bottom: 0px;
-  height: 300px;
+  object-position: center;
   object-fit: cover;
-  border-radius: 20px;
+  border-radius: 10px;
+  display: block;
 `;
 
 export const HeaderText = styled.h1`
