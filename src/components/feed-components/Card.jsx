@@ -38,7 +38,6 @@ export default function Card({
   hostFullName,
   maxParticipants,
   location,
-  userId,
   hostObject,
   onDeleteActivity,
 }) {
@@ -75,7 +74,7 @@ export default function Card({
       const participants = allParticipants.map((part) => {
         const partJson = part.toJSON();
 
-        if (partJson.UserId.objectId === userId) {
+        if (partJson.UserId.objectId === user?.id) {
           setJoined(true);
         }
 
