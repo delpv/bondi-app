@@ -151,7 +151,9 @@ export const LocationInfo = styled.div`
   align-items: center;
   font-size: 0.95rem;
   color: ${subtle};
-  max-width: ${(p) => (p.isHosting ? "calc(100% - 50%)" : "calc(100% - 24%)")};
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
 `;
 
 export const LocationIcon = styled(LocationIconSvg)`
@@ -164,6 +166,8 @@ export const ContainerButton = styled.div`
   display: flex;
   align-items: center;
   gap: 0.5rem;
+  flex-shrink: 0;
+  min-width: 0;
 `;
 
 export const JoinButton = styled.button`
@@ -173,7 +177,7 @@ export const JoinButton = styled.button`
   padding: 10px 18px;
   border-radius: 18px;
   font-weight: 600;
-  cursor: ${(p) => (p.disabled ? "cursor" : "pointer")};
+  cursor: ${(p) => (p.disabled ? "not-allowed" : "pointer")};
   box-shadow: ${(p) =>
     p.$joined
       ? "0 8px 18px rgba(22,102,56,0.18)"
@@ -182,8 +186,11 @@ export const JoinButton = styled.button`
     transform 120ms ease,
     box-shadow 120ms ease,
     background 120ms ease;
+  opacity: ${(p) => (p.disabled ? "0.6" : "1")};
+  white-space: nowrap;
+  flex-shrink: 0;
 
-  &:hover {
+  &:hover:not(:disabled) {
     transform: translateY(-3px);
     box-shadow: ${(p) =>
       p.$joined
@@ -200,14 +207,17 @@ export const DeleteButton = styled.button`
   padding: 10px 18px;
   border-radius: 18px;
   font-weight: 600;
-  cursor: ${(p) => (p.disabled ? "cursor" : "pointer")};
+  cursor: ${(p) => (p.disabled ? "not-allowed" : "pointer")};
   box-shadow: 0 8px 18px rgba(47, 133, 90, 0.18);
   transition:
     transform 120ms ease,
     box-shadow 120ms ease,
     background 120ms ease;
+  opacity: ${(p) => (p.disabled ? "0.6" : "1")};
+  white-space: nowrap;
+  flex-shrink: 0;
 
-  &:hover {
+  &:hover:not(:disabled) {
     transform: translateY(-3px);
     box-shadow: 0 12px 26px rgba(47, 133, 90, 0.22);
   }
