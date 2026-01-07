@@ -72,7 +72,9 @@ export default function CreateActivity() {
 
     const maxNumber = Number(data.max);
     if (!Number.isInteger(maxNumber) || maxNumber < 1) {
-      toast.error("Please enter a maximum number of participants (at least 1).");
+      toast.error(
+        "Please enter a maximum number of participants (at least 1)."
+      );
       return;
     }
 
@@ -93,7 +95,7 @@ export default function CreateActivity() {
       toast.success("Activity created successfully!");
       navigate("/feed");
     } catch (error) {
-      toast.error (
+      toast.error(
         error.message || "Something went wrong while creating the activity."
       );
       console.error("Create activity error:", error);

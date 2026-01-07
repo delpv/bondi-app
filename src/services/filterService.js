@@ -1,11 +1,6 @@
 import Parse from "parse";
 
-/**
- * Filter activities based on various criteria
- * @param {Array} activities - Array of activities to filter
- * @param {Object} filters - Filter criteria
- * @returns {Array} Filtered activities
- */
+//filter activities based on various criteria
 
 export const filterActivities = (activities, filters) => {
   console.log("Applied Filters:", filters);
@@ -14,7 +9,7 @@ export const filterActivities = (activities, filters) => {
 
   let filtered = [...activities];
 
-  // Filter by search query (title)
+  // filter by search query (title)
   if (filters.query && filters.query.trim() !== "") {
     filtered = filtered.filter((activity) =>
       activity.activity.Title.toLowerCase().includes(
@@ -23,7 +18,7 @@ export const filterActivities = (activities, filters) => {
     );
   }
 
-  // Filter by category
+  // filter by category
   if (filters.category && filters.category.trim() !== "") {
     filtered = filtered.filter((activity) => {
       const categoryName = activity.category?.name || "";
@@ -32,7 +27,7 @@ export const filterActivities = (activities, filters) => {
     });
   }
 
-  // Filter by location
+  // filter by location
   if (filters.location && filters.location.trim() !== "") {
     filtered = filtered.filter((activity) =>
       activity.activity.location
@@ -41,7 +36,7 @@ export const filterActivities = (activities, filters) => {
     );
   }
 
-  // Filter by price
+  // filter by price
   if (filters.priceType) {
     if (filters.priceType === "free") {
       filtered = filtered.filter((activity) => activity.activity.price === 0);
