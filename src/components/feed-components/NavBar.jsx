@@ -3,6 +3,7 @@ import { useNavigate, Link, NavLink } from "react-router-dom";
 import BondiLogo from "../../assets/icons_app/logo-Bondi.svg?react";
 import Settings from "../../assets/icons_app/settings.svg?react";
 import LogoutIcon from "../../assets/icons_app/logout.svg?react";
+import Avatar from "/defaultAvatar.jpg";
 import {
   NavBarContainer,
   Inner,
@@ -19,8 +20,6 @@ import { AuthContext } from "../../context/AuthContext.jsx";
 function NavBar() {
   const { handleLogout } = useContext(AuthContext);
   const navigate = useNavigate();
-
-  const Avatar = "/defaultAvatar.jpg";
   return (
     <NavBarContainer>
       <Inner>
