@@ -4,18 +4,21 @@ export const SectionHeader = styled.header`
   margin-bottom: 24px;
 
   h1 {
+    font-family: "Poppins", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     margin: 0 0 6px 0;
     font-size: 28px;
     line-height: 1.2;
   }
 
   p {
+    font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     margin: 0;
     opacity: 0.8;
   }
 `;
 
 export const FormWrapper = styled.div`
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   background: #fff;
   border-radius: 12px;
   box-shadow: 0 10px 30px rgba(18, 22, 25, 0.08);
