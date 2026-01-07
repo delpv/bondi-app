@@ -161,13 +161,13 @@ export default function Card({
 
     if (isJoining) {
       if (joined) {
-        return "Cancelling...";
+        return "Leaving...";
       } else {
         return "Joining...";
       }
     } else {
       if (joined) {
-        return "Cancel";
+        return "Leave Activity";
       } else if (partNumber === maxParticipants) {
         return "Full";
       }
@@ -234,7 +234,7 @@ export default function Card({
           <ContainerButton>
             {imHosting && (
               <DeleteButton disabled={isLoadingDelete} onClick={handleDelete}>
-                Delete
+                {isLoadingDelete ? "Deleting..." : "Delete"}
               </DeleteButton>
             )}
 

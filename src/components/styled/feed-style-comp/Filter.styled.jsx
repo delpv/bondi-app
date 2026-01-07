@@ -28,6 +28,7 @@ export const FilterHeader = styled.div`
 
 export const FilterTitle = styled.h3`
   margin: 0;
+  font-family: "Poppins";
   font-size: 1rem;
   font-weight: 700;
   color: #111;
@@ -51,6 +52,7 @@ export const Section = styled.div`
 `;
 
 export const Label = styled.label`
+  font-family: "Inter";
   font-size: 0.9rem;
   color: ${subtle};
 `;
@@ -76,6 +78,7 @@ export const TextInput = styled.div`
     border: none;
     outline: none;
     background: transparent;
+    font-family: "Inter";
     font-size: 0.95rem;
     color: #111;
     width: 100%;
@@ -90,6 +93,7 @@ export const Select = styled.select`
   padding: 10px 12px;
   border: 1px solid ${border};
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.06);
+  font-family: "Inter";
   font-size: 0.95rem;
   color: #111;
 `;
@@ -107,6 +111,7 @@ export const ApplyButton = styled.button`
   border: none;
   padding: 8px 10px;
   border-radius: 8px;
+  font-family: "Inter";
   font-weight: 400;
   cursor: pointer;
   box-shadow: 0 8px 18px rgba(234, 108, 91, 0.18);
@@ -127,6 +132,7 @@ export const ResetButton = styled.button`
   border: 1px solid ${border};
   padding: 8px 10px;
   border-radius: 8px;
+  font-family: "Inter";
   font-weight: 400;
   cursor: pointer;
   transition:

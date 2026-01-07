@@ -75,9 +75,11 @@ export default function Feed() {
 
             <GridContainer>
               {isLoading && <p>Loading...</p>}
-              {!isLoading && filteredActivities?.length === 0 && activities && (
-                <p>No activities found matching your filters.</p>
-              )}
+              {!isLoading &&
+                filteredActivities?.length === 0 &&
+                activities?.length > 0 && (
+                  <p>No activities found matching your filters.</p>
+                )}
               {!isLoading &&
                 filteredActivities?.map((activity, index) => {
                   return (

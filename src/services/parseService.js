@@ -1,9 +1,6 @@
 import Parse from "parse";
 
-/**
- * Fetch all activities from Parse
- * @returns {Promise<Array>} - A promise that resolves to an array of activities
- */
+//fetch all activities from Parse
 
 export const fetchActivities = async () => {
   const query = new Parse.Query("Activity");
@@ -18,10 +15,8 @@ export const fetchActivities = async () => {
   }
 };
 
-/**
- * Fetch all categories from Parse
- * @returns {Promise<Array>} Array of categories
- */
+//fetch all categories from Parse
+
 export const fetchCategories = async () => {
   const Category = Parse.Object.extend("Category");
   const query = new Parse.Query(Category);
