@@ -1,8 +1,7 @@
 import Parse from "parse";
 
-/**
- * Fetch participants for a specific activity
- */
+//fetch participants for a specific activity
+
 export const fetchActivityParticipants = async (activityId) => {
   try {
     const Activity = Parse.Object.extend("Activity");
@@ -24,9 +23,8 @@ export const fetchActivityParticipants = async (activityId) => {
   }
 };
 
-/**
- * Create a new activity
- */
+//create a new activity
+
 export const createActivity = async (activityData, currentUser) => {
   if (!currentUser) {
     throw new Error("User must be logged in to create an activity");
@@ -45,12 +43,12 @@ export const createActivity = async (activityData, currentUser) => {
     imageFile,
   } = activityData;
 
-  // Validate required fields
+  // validate required fields
   if (!title || !description || !date || !time || !endTime) {
     throw new Error("Please fill in all required fields");
   }
 
-  // Create dates
+  // create dates
   const startDate = new Date(`${date}T${time}`);
   const endDate = new Date(`${date}T${endTime}`);
 
@@ -75,7 +73,7 @@ export const createActivity = async (activityData, currentUser) => {
     activity.set("host_ID", currentUser);
     activity.set("createdBy", currentUser);
 
-    // Set category if provided
+    // set category if provided
     if (categoryId) {
       const Category = Parse.Object.extend("Category");
       const category = new Category();
@@ -83,7 +81,7 @@ export const createActivity = async (activityData, currentUser) => {
       activity.set("category_id", category);
     }
 
-    // Upload image if provided
+    // upload image if provided
     if (imageFile) {
       const parseFile = new Parse.File(imageFile.name, imageFile);
       await parseFile.save();
@@ -98,9 +96,8 @@ export const createActivity = async (activityData, currentUser) => {
   }
 };
 
-/**
- * Fetch all categories
- */
+//fetch all categories
+
 export const fetchCategories = async () => {
   try {
     const Category = Parse.Object.extend("Category");
