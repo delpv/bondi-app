@@ -2,11 +2,8 @@ import Parse from "parse";
 
 import { useState } from "react";
 
-/**
- * Hook to manage activity join/leave logic
- * @param {number} maxCapacity - Maximum capacity of the activity
- * @returns {object} - Join state and handler
- */
+//hook to manage activity join/leave logic
+
 export const useActivityJoin = (maxCapacity = 0) => {
   const [hasJoined, setHasJoined] = useState(false);
   const [joinedCount, setJoinedCount] = useState(0);
